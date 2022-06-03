@@ -251,5 +251,9 @@ http://mygreengarden.ppdlab.ch
 
 L'interface web est crée en Flask/Bootrap/Javascript & Ajax. 
 
-![](/images/dashboard.png)
+![](/images/actionneurs.png)
+![](/images/capteurs.png)
+![](/images/graphiques.png)
+![](/images/parametres.png)
+![](/images/eventslog.png)
 
