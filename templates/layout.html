@@ -3,8 +3,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!---<meta name="viewport"
-        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />--->
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
@@ -13,22 +13,24 @@
     <link rel="apple-touch-icon" sizes="201x251" href="static/img/greengarden-logo.png">
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="manifest" href="__manifest.json"> 
-  
+      
     <!-- ========= JS Files =========  -->
 
     
-    <!-- Ajax --->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="static/js/lib/bootstrap.bundle.min.js"></script>
-    <!-- Ionicons -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <!-- Splide -->
-    <script src="static/js/plugins/splide/splide.min.js"></script>
-    <!-- Base Js File -->
-    <script src="static/js/base.js"></script>
-    <!-- Apex Charts -->
-    <script src="static/js/plugins/apexcharts/apexcharts.min.js"></script>
+     <!-- Ajax --->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <!-- Bootstrap -->
+     <script src="static/js/lib/bootstrap.bundle.min.js"></script>
+     <!-- Ionicons -->
+     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+     <!-- Splide -->
+     <script src="static/js/plugins/splide/splide.min.js"></script>
+     <!-- Base Js File -->
+     <script src="static/js/base.js"></script>
+     <!-- Apex Charts -->
+     <script src="static/js/plugins/apexcharts/apexcharts.min.js"></script>
+    <!-- jQuery 
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>-->
     
   
 </head>
@@ -38,7 +40,7 @@
     <!-- App Header -->
     <div class="appHeader bg-primary text-light">
         <div class="left">
-            <a href="/main" class="headerButton" data-bs-toggle="modal" data-bs-target="#sidebarPanel">
+            <a href="/actionneurs" class="headerButton" data-bs-toggle="modal" data-bs-target="#sidebarPanel">
                 <ion-icon name="menu-outline"></ion-icon>
             </a>
         </div>
@@ -46,9 +48,8 @@
             <strong>MyGreenGarden</strong>
         </div>
         <div class="right">
-            <a href="/events" class="headerButton">
-                <ion-icon class="icon" name="notifications-outline"></ion-icon>
-                <span id="lenght" class="badge badge-danger">{{ {{ eventlog|length }} }}</span>
+            <a href="#APropos" class="headerButton" style="color:rgb(252, 249, 249)" data-bs-toggle="modal" data-bs-target="#APropos">
+              <ion-icon name="information-circle"></ion-icon>
             </a>
             
         </div>
@@ -86,13 +87,7 @@
                 <strong>Paramètres</strong>
             </div>
         </a>
-        <!---
-        <a href="/events" class="item">
-          <div class="col">
-            <ion-icon name="list-outline"></ion-icon>
-              <strong>Evénements</strong>
-          </div>
-          --->
+        
       </a>
     </div>
     <!-- * App Bottom Menu -->
@@ -217,10 +212,13 @@
                     Elle est pilotable en mode automatique sur base de paramètres de configuration ou manuellement au travers de l'interface web.
                   </p>
                   <p>
+                  <div class="text-center">
                     <img src="static/img/laserre.jpg" class="img-fluid" alt="Responsive image">
+                  </div>
                   </p>
                   <p>
-                    V4  Patrick Pinard  © 2022
+                    <label id="Name">  </label><label id="Release">  </label><label id="Author">  </label>
+                    V3  Patrick Pinard  © 2022
                   </p>
               </div>
           </div>
@@ -288,26 +286,26 @@
 
     <script>
 
-            // fonction appelée lors d'un refraichissement des paramètres de configuration
+    // fonction appelée lors d'un refraichissement des paramètres de configuration
 
-            function refreshConfigParameters() {
-                $.ajax({
-                url: "/getparameters",
-                type: "get",
-                dataType: 'json',
-                contentType: 'application/json',
-                data: {},
-                success: function(response) {
-                    var obj = JSON.parse(JSON.stringify(response));
-                    document.getElementById('HumidityLevelZone1').value = obj.HumidityLevelZone1;
-                    document.getElementById('HumidityLevelZone2').value = obj.HumidityLevelZone2;
-                    document.getElementById('TempMinThreshold').value = obj.TempMinThreshold;
-                    document.getElementById('TempMaxThreshold').value = obj.TempMaxThreshold;
-                    document.getElementById('WateringTimeZone1').value = obj.WateringTimeZone1;
-                    document.getElementById('WateringTimeZone2').value = obj.WateringTimeZone2;
-                }
-                })
+    function refreshConfigParameters() {
+        $.ajax({
+          url: "/getparameters",
+          type: "get",
+          dataType: 'json',
+          contentType: 'application/json',
+          data: {},
+          success: function(response) {
+            var obj = JSON.parse(JSON.stringify(response));
+            document.getElementById('HumidityLevelZone1').value = obj.HumidityLevelZone1;
+            document.getElementById('HumidityLevelZone2').value = obj.HumidityLevelZone2;
+            document.getElementById('TempMinThreshold').value = obj.TempMinThreshold;
+            document.getElementById('TempMaxThreshold').value = obj.TempMaxThreshold;
+            document.getElementById('WateringTimeZone1').value = obj.WateringTimeZone1;
+            document.getElementById('WateringTimeZone2').value = obj.WateringTimeZone2;
             }
+          });
+      }
     </script>
 
     <script>
@@ -323,6 +321,9 @@
            data: {},
            success: function(response) {
             var obj = JSON.parse(JSON.stringify(response));
+            document.getElementById('Name').innerHTML = obj.Name;
+            document.getElementById('Release').innerHTML = obj.Release;
+            document.getElementById('Author').innerHTML = obj.Author;
             document.getElementById('Tin').innerHTML = obj.Tin;
             document.getElementById('Tout').innerHTML = obj.Tout;
             document.getElementById('H1').innerHTML = obj.H1;
@@ -335,7 +336,6 @@
             document.getElementById('eventloglenght').innerHTML = obj.eventloglenght;
            }
         });
-      
       }
   </script>
       
@@ -469,5 +469,11 @@
        
       }
   </script>
+
+  <script>
+    // Add to Home with 2 seconds delay.
+    AddtoHome("2000", "once");
+  </script>
+
 </body>
 </html>
