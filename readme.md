@@ -256,4 +256,5 @@ L'interface web est crée en Flask/Bootrap/Javascript & Ajax.
 ![](/images/graphiques.png)
 ![](/images/parametres.png)
 ![](/images/eventslog.png)
+![](/images/reboot.png)
 
