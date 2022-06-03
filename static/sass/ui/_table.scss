@@ -1,0 +1,67 @@
+.table-responsive{
+  border-radius: $borderRadius;
+}
+.table {
+  color: $colorText;
+  margin: 0;
+  font-size: $fontSizeSub;
+  line-height: 1.4em;
+  border-radius: $borderRadius;
+  tr {
+    border-color: $colorLine;
+  }
+  thead {
+    th {
+      border-top: 0;
+      border-bottom: 0;
+      color: $colorHeading;
+      font-weight: $medium;
+    }
+  }
+  td,
+  th {
+    border-top: 1px solid $colorLine;
+    padding: 12px;
+  }
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background: rgba($colorLine, 0.1);
+  color: $colorText;
+}
+
+.table-bordered {
+  border-radius: 0px;
+  td,
+  th {
+    border-color: $colorLine;
+  }
+}
+
+.table.bg-primary,
+.table.bg-secondary,
+.table.bg-success,
+.table.bg-danger,
+.table.bg-warning,
+.table.bg-info {
+  color: rgba(255, 255, 255, 0.8) !important;
+  tr,
+  td,
+  th {
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+  }
+  td,
+  th {
+    border-top-color: rgba(255, 255, 255, 0.2);
+  }
+  thead {
+    tr {
+      th {
+        color: #fff;
+        font-weight: $medium;
+      }
+    }
+  }
+}
+
+
+

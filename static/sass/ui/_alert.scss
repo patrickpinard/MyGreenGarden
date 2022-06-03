@@ -1,0 +1,165 @@
+.alert {
+  margin: 0;
+  padding: 8px 14px;
+  border: 0;
+  font-size: $fontSizeSub;
+  border-radius: $borderRadius;
+  .btn-close {
+    text-shadow: none !important;
+    width: 40px;
+    padding: 0;
+    opacity: 1;
+    margin-top: 3px;
+    line-height: 1em;
+    height: 36px !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background: none;
+    &:hover,
+    &:active,
+    &:focus{
+      outline: 0 !important;
+    }
+    &:hover{
+      opacity: .7;
+    }
+    &:before,
+    &:after{
+      position: absolute;
+      width: 16px;
+      height: 2px;
+      left: 12px;
+      top: 16px;
+      content: '';
+      display: block;
+      background: #FFF;
+      border-radius: 20px;
+    }
+    &:before{
+      transform: rotate(45deg);
+    }
+    &:after{
+      transform: rotate(-45deg);
+    }
+  }
+  .alert-title{
+    margin: 4px 0;
+    font-size: $fontSize;
+    font-weight: $medium;
+  }
+  &.alert-dismissible{
+      padding-right: 56px;
+  }
+}
+
+.alert-imaged{
+  display: flex;
+  .img-wrap{
+    margin-right: 10px;
+    .imaged{
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .icon-wrap{
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+    i.icon,
+    ion-icon{
+      font-size: 24px;
+      margin: 0;
+    }
+  }
+}
+
+@mixin alertStyle($color) {
+  background: $color;
+  color: #fff;
+  border: 1px solid $color;
+  a{
+      color: #fff !important;
+      text-decoration: underline;
+  }
+  .alert-title{
+    color: #FFF;
+  }
+  .close{
+      color: #FFF;
+  }
+}
+@mixin alertOutlineStyle($color) {
+  background: transparent;
+  color: $color;
+  border: 2px solid $color;
+  a{
+      color: $color !important;
+      text-decoration: underline !important;
+  }
+  .alert-title{
+    color: $color;
+  }
+  .btn-close {
+    color: $color;
+    opacity: 1;
+    &:before,
+    &:after{
+      background: $color;
+    }
+  }
+}
+
+.alert-primary {
+  @include alertStyle($colorPrimary);
+}
+.alert-outline-primary {
+  @include alertOutlineStyle($colorPrimary);
+}
+.alert-secondary {
+  @include alertStyle($colorSecondary);
+}
+.alert-outline-secondary {
+  @include alertOutlineStyle($colorSecondary);
+}
+.alert-success {
+  @include alertStyle($colorSuccess);
+}
+.alert-outline-success {
+  @include alertOutlineStyle($colorSuccess);
+}
+.alert-danger {
+  @include alertStyle($colorDanger);
+}
+.alert-outline-danger {
+  @include alertOutlineStyle($colorDanger);
+}
+.alert-warning {
+  @include alertStyle($colorWarning);
+}
+.alert-outline-warning {
+  @include alertOutlineStyle($colorWarning);
+}
+.alert-info {
+  @include alertStyle($colorInfo);
+}
+.alert-outline-info {
+  @include alertOutlineStyle($colorInfo);
+}
+.alert-light {
+  background: #FFF;
+  color: $colorHeading;
+}
+.alert-dark {
+  background: #333;
+  color: #FFF;
+  a{
+      color: #FFF !important;
+      text-decoration: underline !important;
+  }
+}
+.alert-outline-dark {
+    background: transparent;
+    color: #333;
+    border: 2px solid #333;
+  }
+

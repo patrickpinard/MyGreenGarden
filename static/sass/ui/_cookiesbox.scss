@@ -1,0 +1,34 @@
+.cookies-box {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 1px 14px 3px rgba(0, 0, 0, 0.12);
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    padding: 20px 16px;
+    border-radius: $borderRadius;
+    border: 0;
+    &.offcanvas-bottom,
+    &.offcanvas-top {
+        height: auto !important;
+    }
+    &.show{
+        transform: translateY(-72px)
+    }
+    .offcanvas-header {
+        padding: 0;
+        margin-bottom: 12px;
+        .offcanvas-title {
+            margin: 0;
+            font-size: $fontSize;
+        }
+    }
+    .offcanvas-body {
+        padding: 0;
+        height: auto;
+        font-size: $fontSizeSub;
+        line-height: 1.6em;
+    }
+    .buttons{
+        margin-top: 16px;
+    }
+}

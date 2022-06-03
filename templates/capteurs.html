@@ -1,0 +1,156 @@
+{% extends "layout.html" %}
+{% set active_page = "capteurs" %}
+{% block body %}
+
+   
+    <!-- App Capsule -->
+    <div id="appCapsule" class="full-height">
+        <div class="section mt-1 mb-1">
+           
+            <div class="section-title">Humidité du sol</div>
+            <div class="card">
+                <ul class="listview flush transparent no-line image-listview detailed-list mt-1 mb-1">
+                    <!-- item -->
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-success">
+                                <ion-icon name="water-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>
+                                    <strong>Humidité sol zone 1</strong>
+                                    <div class="text-secondary"> [%Humidité Relative] </div>
+                                </div>
+                                <div class="text-end">
+                                    <label id="H1" style="font-size:20px; margin-left: 10px;"> </label>
+                                    <div>
+                                        <label id="H1TEXT" style="font-size:15px; margin-left: 10px;"> </label>
+                                    </div> 
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-success">
+                                <ion-icon name="water-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>
+                                    <strong>Humidité sol zone 2</strong>
+                                    <div class="text-secondary"> [%Humidité Relative] </div>
+                                </div>
+                                <div class="text-end">
+                                    <label id="H2" style="font-size:20px; margin-left: 10px;"> </label>
+                                    <div>
+                                        <label id="H2TEXT" style="font-size:15px; margin-left: 10px;"> </label>
+                                    </div> 
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- * item -->
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section mt-2">
+            <div class="section-title">Températures</div>
+            <div class="card">
+                <ul class="listview flush transparent no-line image-listview detailed-list mt-1 mb-1">
+                    <!-- item -->-
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="thermometer-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>
+                                    <strong>Intérieure</strong>
+                                    <div class="text-secondary"> [°Celsius] </div>
+                                </div>
+                                <div class="text-end">
+                                    <label id="Tin" style="font-size:20px; margin-left: 10px;"> </label>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="thermometer-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>
+                                    <strong>Extérieure</strong>
+                                    <div class="text-secondary"> [°Celsius] </div>
+                                </div>
+                                <div class="text-end">
+                                    <label id="Tout" style="font-size:20px; margin-left: 10px;"> </label>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- * item -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="section mt-2">
+            <div class="section-title">Raspberry</div>
+            <div class="card">
+                <ul class="listview flush transparent no-line image-listview detailed-list mt-1 mb-1">
+                    <!-- item -->
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-danger">
+                                <ion-icon name="hardware-chip-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>
+                                    <strong>Température CPU</strong>
+                                    <div class="text-secondary"> [°Celsius] </div>
+                                </div>
+                                <div class="text-end">
+                                    <label id="TCPU" style="font-size:20px; margin-left: 10px;"> </label>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- * item -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="section mt-2">
+            <div class="section-title">Mesure</div>
+            <div class="card">
+                <ul class="listview flush transparent no-line image-listview detailed-list mt-1 mb-1">
+                    <!-- item -->
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-danger">
+                                <ion-icon name="time-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>
+                                    <strong>Effectuée le </strong>
+                                    <!--- <div class="text-secondary"> [date et heure] </div> --->
+                                </div>
+                                <div class="text-end">
+                                    <label id="LastRefreshTime" style="font-size:15px; margin-left: 10px;"> </label>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- * item -->
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <!-- * App Capsule -->
+
+
+    
+{% endblock %}

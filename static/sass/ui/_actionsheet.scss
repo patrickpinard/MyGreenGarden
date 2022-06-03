@@ -1,0 +1,183 @@
+.modal.action-sheet {
+    z-index: 200000;
+    .modal-dialog {
+        padding: 0;
+        margin: 0;
+        bottom: 0;
+        position: fixed;
+        width: 100%;
+        min-width: 100%;
+        z-index: 12000;
+        transform: translate(0, 100%);
+    }
+    &.show .modal-dialog {
+        transform: translate(0, 0);
+    }
+    .close-button {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        position: absolute;
+        right: 10px;
+        top: 3px;
+        color: $colorLight;
+        &:hover,
+        &:active {
+            color: $colorText;
+        }
+    }
+    .modal-content {
+        box-shadow: none;
+        border: 0;
+        border-radius: 0;
+        padding-bottom: $safeBottom;
+        .action-sheet-content {
+            padding: 20px 16px;
+            max-height: 460px;
+            overflow: auto;
+            .iconbox {
+                font-size: 64px;
+                margin: 10px 0 5px 0;
+                text-align: center;
+            }
+        }
+        .modal-header {
+            display: block;
+            padding: 2px 20px;
+            .modal-title {
+                padding: 0;
+                margin: 0;
+                text-align: center;
+                display: block;
+                font-size: $fontSize;
+                padding: 10px 0;
+                color: $colorHeading;
+                font-weight: $medium;
+            }
+        }
+        .modal-body {
+            padding: 0;
+        }
+    }
+}
+
+.action-button-list {
+    padding: 0;
+    margin: 0;
+    > li {
+        display: block;
+        .btn {
+            padding: 0;
+            display: flex;
+            width: 100%;
+            min-height: 50px;
+            font-size: $fontSize;
+            color: $colorHeading;
+            line-height: 1.1em;
+            justify-content: space-between;
+            font-weight: $regular;
+            border-radius: 0 !important;
+            padding: 10px 16px;
+            &:active,
+            &.active {
+                background: rgba($colorLine, 0.3);
+            }
+            &.text-primary {
+                color: $colorPrimary !important;
+            }
+            &.text-secondary {
+                color: $colorSecondary !important;
+            }
+            &.text-danger {
+                color: $colorDanger !important;
+            }
+            &.text-success {
+                color: $colorSuccess !important;
+            }
+            &.text-warning {
+                color: $colorWarning !important;
+            }
+            &.text-info {
+                color: $colorInfo !important;
+            }
+            &.text-light {
+                color: #fff !important;
+            }
+            &.text-dark {
+                color: $colorHeading !important;
+            }
+            > span {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+            }
+            .icon,
+            ion-icon {
+                width: 24px !important;
+                height: 24px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 10px;
+                margin-left: -5px;
+                font-size: 24px;
+                line-height: 1em;
+            }
+        }
+        &.action-divider {
+            height: 1px;
+            background: $colorLine;
+        }
+    }
+}
+
+.action-sheet.inset {
+    .modal-dialog {
+        padding: 16px;
+        .modal-content {
+            border-radius: 16px;
+            padding-bottom: 0;
+            margin-bottom: $safeBottom;
+        }
+    }
+    .action-button-list {
+        > li:last-child {
+            .btn {
+                border-radius: 0 0 16px 16px !important;
+            }
+        }
+    }
+}
+
+.action-sheet.action-icon {
+    .modal-content {
+        border-radius: 48px 48px 0 0;
+        .modal-header {
+            border-bottom: 0;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            .modal-title {
+                font-size: $fontSizeHeading;
+                margin: 0;
+                padding: 0;
+            }
+            .modal-icon {
+                font-size: 32px;
+                width: 64px;
+                height: 64px;
+                background: $colorPrimary;
+                color: #fff;
+                display: inline-flex;
+                border-radius: 200px;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 0 10px #FFF;
+                margin: -32px 0 14px 0 !important;
+            }
+        }
+    }
+}

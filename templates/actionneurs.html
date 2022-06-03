@@ -1,0 +1,284 @@
+{% extends "layout.html" %}
+{% set active_page = "actionneurs" %}
+{% block body %}
+
+   
+    <!-- App Capsule -->
+    <div id="appCapsule" class="full-height">
+        
+        <!--  actionneurs -->
+
+        <div class="section mt-1 mb-1">
+            <div class="section-title">Lumière</div>
+            <div class="card">
+
+                <ul class="listview image-listview transparent flush">
+                    
+                    <li>
+                        <div class="item">
+                            <div class="icon-box bg-success">
+                                <ion-icon name="flashlight-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <strong>Lampe LED</strong>
+                                <div class="form-check form-switch">
+                                    {% if Light == true %} 
+                                    <input class="form-check-input" type="checkbox" id="light" checked onchange="light(this.checked)"/>
+                                    <label class="form-check-label" for="light"></label>
+                                    {% else %}
+                                    <input class="form-check-input" type="checkbox" id="light" unchecked onchange="light(this.checked)"/>
+                                    <label class="form-check-label" for="light"></label>
+                                    {% endif %} 
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="section mt-1 mb-1">
+            <div class="section-title">Mode automatique</div>
+            <div class="card">
+
+                <ul class="listview image-listview transparent flush">
+                    <li>
+                        <div class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="color-fill-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <strong>Arrosage automatique</strong>
+                                {% if Watering_auto_mode == true %} 
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="Watering_auto" checked   onchange="watering_auto_mode(this.checked)">
+                                    <label class="form-check-label" for="Watering_auto"></label>
+                                </div>
+                                {% else %} 
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="Watering_auto" unchecked   onchange="watering_auto_mode(this.checked)">
+                                    <label class="form-check-label" for="Watering_auto"></label>
+                                </div>
+                                {% endif %} 
+                                <!---
+                                <script>
+                                    $(function() {
+                                      $('#Watering_auto').change(function() {
+                                        if (this.checked) {
+                                          $('#1').bootstrapToggle('disable');
+                                          $('#2').bootstrapToggle('disable');
+                                          location.reload(); 
+                                        }
+                                        else {
+                                          $('#1').bootstrapToggle('enable');
+                                          $('#2').bootstrapToggle('enable');
+                                          location.reload();
+                                        };
+                                      })
+                                    })
+                                  </script>
+                                -->
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item">
+                            <div class="icon-box bg-warning">
+                                <ion-icon name="snow-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <strong>Ventilation automatique</strong>
+                                {% if  Fan_auto_mode == true %}  
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="Fan_auto_mode" checked onchange="fan_auto_mode(this.checked)"/>
+                                        <label class="form-check-label" for="Fan_auto_mode"></label>
+                                    </div>
+                                {% else %} 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="Fan_auto_mode" unchecked onchange="fan_auto_mode(this.checked)"/>
+                                        <label class="form-check-label" for="Fan_auto_mode"></label>
+                                    </div>
+                                {% endif %} 
+                                <!---
+                                    <script>
+                                    $(function() {
+                                      $('#Fan_auto_mode').change(function() {
+                                        if (this.checked) {
+                                        $('#Fan').bootstrapToggle('disable');
+                                        location.reload();
+                                        }
+                                        else {
+                                        $('#Fan').bootstrapToggle('enable');
+                                        location.reload();
+                                        }
+                                      })
+                                    })
+                                    </script>
+                                  --->
+                            </div>
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+
+        <div class="section mt-1 mb-1">
+            <div class="section-title">Arrosage manuel</div>
+                <div class="card">
+
+                    <ul class="listview image-listview transparent flush">
+                        <li>
+                            <div class="item">
+                                <div class="icon-box bg-primary">
+                                    <ion-icon name="color-fill-outline"></ion-icon>
+                                </div>
+                                <div class="in">
+                                    <div>
+                                        <strong>Arrosage zone 1</strong>
+                                    </div>
+                                    {% if Watering_auto_mode == true %} 
+                                        {% if Watering_zone1 == true %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="1" checked  disabled>
+                                            <label class="form-check-label" for="1"></label>
+                                        </div>
+                                        {% else %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="1" unchecked  disabled>
+                                            <label class="form-check-label" for="1"></label>
+                                        </div>
+                                        {% endif %}
+                                    {% else %} 
+                                        {% if Watering_zone1 == true %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="1" checked  onchange="watering(this.id,this.checked)">
+                                            <label class="form-check-label" for="1"></label>
+                                        </div>
+                                        {% else %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="1" unchecked  onchange="watering(this.id,this.checked)">
+                                            <label class="form-check-label" for="1"></label>
+                                        </div>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item">
+                                <div class="icon-box bg-primary">
+                                    <ion-icon name="color-fill-outline"></ion-icon>
+                                </div>
+                                <div class="in">
+                                    <strong>Arrosage zone 2</strong>
+                                    {% if Watering_auto_mode == true %} 
+                                        {% if Watering_zone2 == true %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="2" checked disabled/>
+                                            <label class="form-check-label" for="2"></label>
+                                        </div>
+                                        {% else %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="2" unchecked disabled/>
+                                            <label class="form-check-label" for="2"></label>
+                                        </div>
+                                        {% endif %} 
+                                    {% else %} 
+                                        {% if Watering_zone2 == true %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="2" checked onchange="watering(this.id,this.checked)"/>
+                                            <label class="form-check-label" for="2"></label>
+                                        </div>
+                                        {% else %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="2" unchecked onchange="watering(this.id,this.checked)"/>
+                                            <label class="form-check-label" for="2"></label>
+                                        </div>
+                                        {% endif %} 
+                                    {% endif %} 
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+        </div>
+        <div class="section mt-1 mb-1">
+            <div class="section-title">Aération </div>
+                <div class="card">
+
+                    <ul class="listview image-listview transparent flush">
+                        <li>
+                            <div class="item">
+                                <div class="icon-box bg-warning">
+                                    <ion-icon name="snow-outline"></ion-icon>
+                                </div>
+                                <div class="in">
+                                    <div>
+                                        <strong>Ventilateurs</strong>
+                                    </div>
+                                    {% if  Fan_auto_mode == true %}  
+                                    {% if Fan_state == true %}   
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="Fan" checked disabled/>
+                                        <label class="form-check-label" for="Fan"></label>
+                                    </div>
+                                    {% else %} 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="Fan" unchecked disabled/>
+                                        <label class="form-check-label" for="Fan"></label>
+                                    </div>
+                                    {% endif %} 
+                                {% else %} 
+                                    {% if Fan_state == true %}   
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="Fan" checked onchange="set_fan(this.checked)"/>
+                                        <label class="form-check-label" for="Fan"></label>
+                                    </div>
+                                    {% else %} 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="Fan" unchecked onchange="set_fan(this.checked)"/>
+                                        <label class="form-check-label" for="Fan"></label>
+                                    </div>
+                                    {% endif %} 
+                                {% endif %} 
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+
+        <div class="section mt-1 mb-1">
+            <div class="section-title">Chauffage </div>
+                <div class="card">
+
+                    <ul class="listview image-listview transparent flush">
+                        <li>
+                            <div class="item">
+                                <div class="icon-box bg-danger">
+                                    <ion-icon name="flame-outline"></ion-icon>
+                                </div>
+                                <div class="in">
+                                    <div>
+                                        <strong>Radiateur (pas disponible)</strong>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="SwitchCheckDefault41" disabled>
+                                        <label class="form-check-label" for="SwitchCheckDefault41"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+        <!-- * actionneurs -->
+    </div>
+    <!-- * App Capsule -->
+
+
+    
+{% endblock %}

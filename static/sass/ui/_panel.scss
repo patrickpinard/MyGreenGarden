@@ -1,0 +1,46 @@
+.panelbox {
+  .modal-dialog {
+    margin: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    .modal-content {
+      border: 0;
+      border-radius: 0;
+      width: 300px;
+      height: 100vh;
+      overflow: auto;
+      padding-top: $safeTop;
+      .modal-header {
+        border-bottom: 0;
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 56px;
+        .modal-title {
+            color: $colorHeading
+        }
+      }
+      .modal-body {
+          padding: 10px 16px;
+      }
+    }
+  }
+  &.show .modal-dialog {
+    transform: translate(0, 0) !important;
+  }
+}
+
+.panelbox-left {
+  .modal-dialog {
+    transform: translate(-100%, 0) !important;
+  }
+}
+.panelbox-right {
+  .modal-dialog {
+    transform: translate(100%, 0) !important;
+    left: auto;
+    right: 0;
+  }
+}

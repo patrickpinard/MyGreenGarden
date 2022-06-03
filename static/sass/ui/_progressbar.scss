@@ -1,0 +1,15 @@
+.progress{
+    height: 14px;
+    border-radius: $borderRadius;
+}
+.progress-bar{
+    background: $colorPrimary;
+    height: 14px;
+    line-height: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: $medium;
+    letter-spacing: 0;
+}

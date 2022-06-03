@@ -1,0 +1,89 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $colorHeading;
+    margin: 0 0 10px 0;
+    small {
+        color: rgba($colorHeading, 0.6);
+    }
+    .badge {
+        line-height: 1em;
+    }
+}
+.text-muted {
+    font-size: $fontSizeSub;
+    color: $colorText !important;
+}
+h1 {
+    font-size: $fontSizeHeadingXLarge;
+    font-weight: $bold;
+}
+h2 {
+    font-size: $fontSizeHeadingLarge;
+    font-weight: $bold;
+}
+h3 {
+    font-size: $fontSizeHeading;
+    font-weight: $bold;
+}
+h4 {
+    font-size: $fontSize;
+    font-weight: $medium;
+}
+h5 {
+    font-size: $fontSizeSub;
+    font-weight: $medium;
+}
+h6 {
+    font-size: $fontSizeCaption;
+    font-weight: $medium;
+}
+.lead {
+    font-weight: $regular;
+    font-size: $fontSizeHeading;
+    color: $colorText;
+}
+mark {
+    border-radius: $borderRadius;
+}
+.text-large {
+    font-size: $fontSizeHeadingXLarge;
+}
+
+strong,
+b {
+    font-weight: $medium;
+}
+blockquote.blockquote {
+    padding: 16px;
+    background: rgba($colorLine, 0.5);
+    border-radius: $borderRadius;
+    font-size: $fontSizeHeading;
+    color: $colorHeading;
+    .blockquote-footer {
+        color: $colorText;
+        margin-top: 10px;
+    }
+}
+
+.fontsize-normal {
+    font-size: $fontSize !important;
+}
+.fontsize-sub {
+    font-size: $fontSizeSub !important;
+}
+.fontsize-caption {
+    font-size: $fontSizeCaption !important;
+}
+.fontsize-heading {
+    font-size: $fontSizeHeading !important;
+}
+.fontsize-headingLarge {
+    font-size: $fontSizeHeadingLarge !important;
+}
+.fontsize-headingXLarge {
+    font-size: $fontSizeHeadingXLarge !important;
+}

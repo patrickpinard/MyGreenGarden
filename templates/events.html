@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% set active_page = "events" %}
+{% block body %}
+
+    <!-- App Capsule -->
+    <div id="appCapsule" class="full-height">
+    
+
+      <div class="section mt- mb-2">
+        <div class="section-title">Evénements (100 derniers événements uniquement).
+        <label id="lenght" style="color:rgb(7, 0, 0)" style="font-size:15px; margin-left: 10px;">  Nombre actuel : {{ eventlog|length }}</label></div>
+        <div class="card">
+
+            <!-- timeline -->
+            
+            <div class="timeline timed ms-1 me-2">
+              {% for e in eventlog %}
+              
+                <div class="item">
+                    <span class="time">{{e["date"]}} {{e["time"]}}</span>
+                    <div class="dot bg-primary"></div>
+                    <div class="content">
+                        <h4 class="title">{{e["event"]}}</h4>
+                        <!--- <div class="text">{{e["id"]}}</div>  --->
+                    </div>
+                </div>
+
+              {% endfor %}
+                
+            </div>
+            
+            <!-- * timeline -->
+
+        </div>
+      </div>
+    </div>
+    <!-- * App Capsule -->
+
+  
+{% endblock %}

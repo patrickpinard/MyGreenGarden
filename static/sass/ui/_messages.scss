@@ -1,0 +1,80 @@
+.message-divider{
+    font-size: 12px;
+    text-align: center;
+    padding: 5px 0;
+    color: $colorLight;
+}
+.message-item{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 6px 16px;
+    margin-right: 60px;
+    .bubble{
+        padding: 12px 12px;
+        background: $colorLine;
+        border-radius: 24px 24px 24px 0;
+        color: $colorHeading;
+        display: inline-block;
+        margin-top: 4px;
+        line-height: 1.4em;
+    }
+    .title{
+        font-size: 12px;
+        font-weight: $medium;
+        color: $colorText;
+        line-height: 1.2em;
+        padding: 0 0 0 10px;
+    }
+    .footer{
+        font-size: 12px;
+        padding: 0 10px;
+        text-align: right;
+        line-height: 1em;
+        margin-top: 5px;
+        color: $colorHeading;
+        opacity: .4;
+        height: 14px;
+    }
+    .avatar{
+        margin-right: 10px;
+        width: 32px;
+        height: auto;
+        border-radius: 100%;
+        margin-bottom: 18px;
+    }
+    &.user{
+        justify-content: flex-end;
+        margin-right: 0;
+        margin-left: 60px;
+        .bubble{
+            background: $colorPrimary !important;
+            color: #FFF;
+            border-radius: 16px 16px 0 16px;
+        }
+    }
+}
+.chatFooter{
+    min-height: 56px;
+    background: #FFF;
+    border-top: 1px solid $colorLine;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    padding-bottom: env(safe-area-inset-bottom);
+    .form-group{
+        width: calc(100% - 100px);
+    }
+    form{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
