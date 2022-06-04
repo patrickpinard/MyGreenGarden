@@ -6,7 +6,7 @@
 # Date    : 3.6.2022
 # Objet   : Programme simple de gestion automatisée d'une serre avec deux zones d'arrosages
 # Source  : app.py
-# Version : 4.0  (interface mobile avec template bootstrap 5)
+# Version : 3.0  (interface mobile avec template bootstrap 5)
 
 #   Clavier MAC :      
 #  {} = "alt/option" + "(" ou ")"
@@ -34,9 +34,9 @@ from gpiozero import CPUTemperature
 
 
 NAME                           = "MyGreenGarden "
-RELEASE                        = "V4 "
+RELEASE                        = "V3 "
 AUTHOR                         = "Patrick Pinard © 2022"
-DATAFILE                       = '/home/pi/MyGreenGardenV4/mesures.dta'
+DATAFILE                       = '/home/pi/MyGreenGardenV3/mesures.dta'
 DEBUG                          = False
 
 now = datetime.datetime.now()
@@ -115,7 +115,7 @@ WINDOW_OPEN_VALUE              = 0              # valeur fictive pour visualisat
 WINDOW_CLOSE_VALUE             = -10            # valeur fictive pour visualisation lucarne fermée sur graph temp.
 
 CAMERA_STATE                   = False          # état du streaming camera (enclenché : True; arrêté : False)
-CONFIG_FILENAME                = "/home/pi/MyGreenGardenV4/config.json"  # fichier de sauvegarde des paramètres de configuration
+CONFIG_FILENAME                = "/home/pi/MyGreenGardenV3/config.json"  # fichier de sauvegarde des paramètres de configuration
 
 TemplateData                   = {}
 bootTime                       = ""
@@ -596,10 +596,10 @@ def saveparameters():
         WATERING_TIME_ZONE_1        = int(request.form.get("WateringTimeZone1"))
         WATERING_TIME_ZONE_2        = int(request.form.get("WateringTimeZone2"))
         
-        data = {'TempMaxThreshold'   : TEMP_MAX_THRESHOLD,
-                'TempMinThreshold'   : TEMP_MIN_THRESHOLD, 
-                'HumidityLevelZone1' : MOISTURE_THRESHOLD_ZONE_1, 
+        data = {'HumidityLevelZone1' : MOISTURE_THRESHOLD_ZONE_1, 
                 'HumidityLevelZone2' : MOISTURE_THRESHOLD_ZONE_2,
+                'TempMaxThreshold'   : TEMP_MAX_THRESHOLD,
+                'TempMinThreshold'   : TEMP_MIN_THRESHOLD, 
                 'WateringTimeZone1'  : WATERING_TIME_ZONE_1,
                 'WateringTimeZone2'  : WATERING_TIME_ZONE_2,
                 }
@@ -608,9 +608,8 @@ def saveparameters():
 
         if DEBUG : 
             LogEvent("DEBUG - Sauvegarde des paramètres de configurations : " + str(data))
-            print("DEBUG - Sauvegarde des paramètres de configurations : "+ str(data))
 
-    return ('', 204) 
+    return render_template('parameters.html') 
 
 
 @app.route("/getparameters", methods=['GET'])
@@ -625,10 +624,10 @@ def getparameters():
     global WATERING_TIME_ZONE_1,WATERING_TIME_ZONE_2     
 
     if request.method == "GET": 
-        data = {'TempMaxThreshold'   : int(TEMP_MAX_THRESHOLD),
-                'TempMinThreshold'   : int(TEMP_MIN_THRESHOLD), 
-                'HumidityLevelZone1' : int(MOISTURE_THRESHOLD_ZONE_1), 
+        data = {'HumidityLevelZone1' : int(MOISTURE_THRESHOLD_ZONE_1), 
                 'HumidityLevelZone2' : int(MOISTURE_THRESHOLD_ZONE_2),
+                'TempMinThreshold'   : int(TEMP_MIN_THRESHOLD),
+                'TempMaxThreshold'   : int(TEMP_MAX_THRESHOLD), 
                 'WateringTimeZone1'  : int(WATERING_TIME_ZONE_1),
                 'WateringTimeZone2'  : int(WATERING_TIME_ZONE_2)
                 }
@@ -1030,6 +1029,7 @@ if __name__ == '__main__':
     thread1.start()
     thread2.join()
     thread1.join()
+   
     
     
     
