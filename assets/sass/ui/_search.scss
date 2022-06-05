@@ -1,0 +1,58 @@
+#search {
+  display: block;
+  padding: 10px 16px 0 16px;
+  top: -100px;
+  transition: .2s all ease-in-out;
+  margin-top: $safeTop;
+  &.show{
+    display: block;
+    top: 0;
+  }
+}
+.search-form{
+    display: block;
+    width: 100%;
+}
+.searchbox {
+  width: 100%;
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .form-control{
+    box-shadow: none;
+    border-radius: $borderRadius;
+    border: 1px solid darken($colorLine, 10%);
+    height: 36px;
+    padding: 0 16px 0 36px;
+    &:focus{
+        border-color: darken($colorLine, 15%);
+        & ~ .input-icon{
+            color: $colorHeading;
+        }
+    }
+  }
+  .icon{
+      font-size: 26px;
+      line-height: 1em;
+      margin: 0;
+  }
+  .close{
+      opacity: 1;
+      color: $colorLight;
+  }
+  .input-icon{
+      font-size: 26px;
+      position: absolute;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $colorLight;
+      top: 0;
+  }
+}
+

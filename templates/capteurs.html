@@ -125,9 +125,30 @@ Patrick Pinard
                             </div>
                         </a>
                     </li>
+
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-danger">
+                                <ion-icon name="hardware-chip-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>
+                                    <strong>Usage du CPU</strong>
+                                    <div class="text-secondary"> [%] </div>
+                                </div>
+                                <div class="text-end">
+                                    <label id="CPU_usage" style="font-size:20px; margin-left: 10px;"> </label>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
                     
                 </ul>
             </div>
+        </div>
+
+        <div class="text-end">
+            <label id="LastRefreshTime" style="font-size:15px; margin-left: 10px;"> </label>
         </div>
 
         <!--- <div class="section mt-2">
@@ -158,6 +179,9 @@ Patrick Pinard
     </div>
     <!-- * App Capsule -->
 
-
+    <script>
+        // Add to Home with 2 seconds delay.
+        AddtoHome("2000", "once");
+    </script>
     
 {% endblock %}

@@ -3,10 +3,10 @@
 # -*- coding: utf-8 -*- 
 
 # Auteur  : Patrick Pinard 
-# Date    : 3.6.2022
+# Date    : 4.6.2022
 # Objet   : Programme simple de gestion automatisée d'une serre avec deux zones d'arrosages
 # Source  : app.py
-# Version : 3.0  (interface mobile avec template bootstrap 5)
+# Version : 3.1  (interface mobile avec template bootstrap 5)
 
 #   Clavier MAC :      
 #  {} = "alt/option" + "(" ou ")"
@@ -18,6 +18,7 @@ import sys, os
 sys.path.extend([f'./{name}' for name in os.listdir(".") if os.path.isdir(name)])
 
 from logging import DEBUG
+import psutil
 from myLOGLib import LogEvent, eventlog
 from myJSONLib import writeJSONtoFile, readJSONfromFile
 from time import sleep
@@ -54,7 +55,7 @@ else:
 
 # paramètres de configuration de la serre, des capteurs et actionneurs
 
-INTERVAL                        = 900            # 15mn, temps (sec) entre deux mesures complètes pour arosage et aération
+INTERVAL                        = 900            # 15mn, temps en sec entre deux mesures complètes pour arosage et aération
 MAX_RECORD_SIZE                 = 250            # Nombre de mesure gardée en mémoire
 LIGHT_RELAY_ID                  = 6     
 LIGHT_STATE                     = False   
@@ -167,8 +168,7 @@ def LoadTemplateData():
                     'Moisture_zone2_text'       : MOISTURE_ZONE_2_TEXT,
                     'Humidity'                  : HUMIDITY,
                     'WINDSPEEDLIMIT'            : WINDSPEEDLIMIT,
-                    'EventLog'                  : eventlog,
-                    'eventloglength'            : len(eventlog),
+                    'eventlog'                  : eventlog,
                     'bootTime'                  : bootTime,
                     }
 
@@ -208,7 +208,7 @@ def shutdown():
         os.system('sudo halt')
     return ('', 204)   
    
-@app.route("/reboot", methods=['POST'])
+@app.route("/reboot", methods=['POST','GET'])
 def reboot():
 
     '''
@@ -505,7 +505,7 @@ def refresh():
     http://mygreengarden.ppdlab.ch/refresh
 
     '''
-    global HUMIDITY, MOISTURE_ZONE_1, MOISTURE_ZONE_2, TEMPERATURE_OUTSIDE, TEMPERATURE_INSIDE, WINDSPEED, TCPU, eventlog
+    global HUMIDITY, MOISTURE_ZONE_1, MOISTURE_ZONE_2, TEMPERATURE_OUTSIDE, TEMPERATURE_INSIDE, WINDSPEED, eventlog
 
     if request.method == "GET":
 
@@ -516,6 +516,8 @@ def refresh():
         dateandtime = date + "  " + time 
         CPU = CPUTemperature()
         TCPU = round(CPU.temperature,2)
+        CPU_usage = psutil.cpu_percent()
+
        
         data = {'Name'      : NAME, 
                 'Release'   : RELEASE,
@@ -528,11 +530,12 @@ def refresh():
                 "H1TEXT"    : MOISTURE_SENSOR_ZONE_1.text, 
                 "H2TEXT"    : MOISTURE_SENSOR_ZONE_2.text, 
                 "TCPU"      : TCPU,
+                "CPU_usage" : CPU_usage,
                 "WINDSPEED" : WINDSPEED,
                 "LastRefreshTime" : dateandtime,
-                "eventloglenght" : len(eventlog)} 
+                "eventlog" : eventlog} 
         
-        if DEBUG : LogEvent("DEBUG - Rafraichissement des données pour affichage principal : " + str(data))
+        if DEBUG : LogEvent("DEBUG - Rafraichissement des données pour affichage principal ")
 
         SaveState()
 
@@ -558,7 +561,6 @@ def capteurs():
     Requête API sous forme : http://mygreengarden.ppdlab.ch/capteurs
 
     '''
-   
 
     if request.method == "GET":
         templateData = LoadTemplateData()
@@ -572,9 +574,9 @@ def events():
 
     '''
     global eventlog
-    lenght = len(eventlog)
+    
     if request.method == "GET":               
-        return render_template("events.html", eventlog=eventlog, eventloglenght=lenght)
+        return render_template("events.html", eventlog=eventlog)
 
 @app.route("/saveparameters", methods=['POST'])
 def saveparameters():
@@ -636,18 +638,23 @@ def getparameters():
 
         return jsonify(data)
 
-@app.route("/force", methods=['GET'])
+@app.route("/force", methods=['GET','POST'])
 def force():
     '''
     Force le lancement des mesures et actions manuellement
     '''
-    
-    if request.method == "GET": 
-        LogEvent("Mesures et actions demandées par administrateur manuellement.")
+
+    if request.method == "POST": 
+       
+        LogEvent("Lancement des mesures requis par admin web.")
         WateringAndAerate()
         SaveState()
 
-    return ('', 204) 
+        return ('', 204) 
+
+    if request.method == "GET":
+        return ('', 204)
+    
 
 
 ####################   fin API   ###############################################
@@ -710,7 +717,7 @@ def LoadParametersFromFile():
         WATERING_TIME_ZONE_1        = (data['WATERING_TIME_ZONE_1'])
         WATERING_TIME_ZONE_2        = (data['WATERING_TIME_ZONE_2'])
         WINDSPEEDLIMIT              = (data['WINDSPEEDLIMIT'])
-        HUMIDITYLIMIT               =  (data['HUMIDITYLIMIT'])
+        HUMIDITYLIMIT               = (data['HUMIDITYLIMIT'])
     else: 
         LogEvent("Fichier inexistant, chargement des paramètres de configuration par défaut.")
 
@@ -722,7 +729,7 @@ def ReadHumidityWindSpeedAndTemperatures():
         Le capteur d'humidité au sol n'est pas encore connecté.
     """
 
-    global HUMIDITY, MOISTURE_ZONE_1, MOISTURE_ZONE_2, TEMPERATURE_INSIDE, TEMPERATURE_OUTSIDE, WINDSPEED, TCPU
+    global HUMIDITY, MOISTURE_ZONE_1, MOISTURE_ZONE_2, TEMPERATURE_INSIDE, TEMPERATURE_OUTSIDE, WINDSPEED
 
     
     MOISTURE_ZONE_1 = MOISTURE_SENSOR_ZONE_1.read()  
@@ -731,10 +738,7 @@ def ReadHumidityWindSpeedAndTemperatures():
     TEMPERATURE_INSIDE = t[0]  # température interieure en °C
     TEMPERATURE_OUTSIDE = t[1]  # température extérieure en °C 
     #HUMIDITY = HUMIDITY_SENSOR.read(TEMPERATURE_INSIDE)
-    WINDSPEED = ANEMOMETER.read()
-    CPU = CPUTemperature()
-    TCPU = round(CPU.temperature,2)
-     
+    WINDSPEED = ANEMOMETER.read() 
 
     if DEBUG : LogEvent("DEBUG - Lecture des capteurs effectuée.")
     
@@ -755,7 +759,7 @@ def SaveState():
     dateandtime = date + " " + time 
     
     LABELS.append(dateandtime)
-
+ 
     H0.append(HUMIDITY)
     H1.append(MOISTURE_ZONE_1)
     H2.append(MOISTURE_ZONE_2)
@@ -887,9 +891,10 @@ def WateringAndAerate():
     global FAN_STATE, FAN_AUTO_MODE
     global WINDSPEED, WINDSPEEDLIMIT, count
     global HUMIDITY, HUMIDITYLIMIT
-    global TCPU
+    global TCPU, CPU_usage
    
-
+    if DEBUG : LogEvent("DEBUG - Lecture des capteurs en cours...")
+    
     ReadHumidityWindSpeedAndTemperatures()
 
     LogEvent("Mesure de l'humidité dans la zone 1 : " + str(MOISTURE_ZONE_1) + " [% HR]")
@@ -899,6 +904,7 @@ def WateringAndAerate():
     LogEvent("Mesure de la vitesse du vent        : " + str(WINDSPEED) + " [km/h]") 
     #LogEvent("Mesure de l'humidité de l'air      : " + str(HUMIDITY) + " [% HR]")   
     LogEvent("Température CPU du Raspberry Pi 4   : " + str(TCPU)+ " [°C]")
+    LogEvent("Utilisation CPU du Raspberry Pi 4   : " + str(CPU_usage)+ " [%]")
 
     if FAN_AUTO_MODE : 
         if (TEMPERATURE_INSIDE > TEMP_MAX_THRESHOLD) :
@@ -1001,12 +1007,16 @@ class Loop (Thread):
 
     def run(self):
         LogEvent("Loop Thread started") 
+        id = 0
         while True : 
             try:
                 while True: 
+                    LogEvent("Mesures automatique (Thread Loop) id = " + str(id) )
+                    id = id + 1
                     WateringAndAerate()
                     SaveData()
                     sleep(INTERVAL)  # 15 mn entre chaque mesure
+
             except OSError as err:
                 LogEvent("ERREUR : thread Loop ! Message : " + str(err))
 
@@ -1023,8 +1033,8 @@ if __name__ == '__main__':
     LoadParametersFromFile() 
     LogEvent("Mesure automatique des capteurs toutes les " + str(INTERVAL) + " secondes.")
     LoadData()
-    thread2 = Loop(2, "Loop")
     thread1 = FlaskApp(1, "FlaskApp")
+    thread2 = Loop(2, "Loop")
     thread2.start()
     thread1.start()
     thread2.join()

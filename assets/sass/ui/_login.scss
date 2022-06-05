@@ -1,0 +1,23 @@
+.form-button-group{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 0 16px;
+    background: #FFF;
+    min-height: 84px;
+    padding-bottom: env(safe-area-inset-bottom);
+    &.transparent{
+        background: transparent !important;
+    }
+}
+.form-links{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: 14px;
+}

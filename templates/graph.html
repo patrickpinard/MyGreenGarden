@@ -1,10 +1,24 @@
+<!--- 
+  
+MyGreenGarden V3.1
+4 juin 2022
+Patrick Pinard
+
+--->
+
 {% extends "layout.html" %}
 {% set active_page = "graph" %}
 {% block body %}
 
+<script>
+  window.onlaod= function () {
+      refreshAllValues()
+      console.log("chargement des valeurs mesurées")
+  }; 
+  </script>
   
     <!-- App Capsule -->
-    <div id="appCapsule">
+    <div id="appCapsule" class="full-height">
       
          <!-- Chart 1-->
         
@@ -291,5 +305,13 @@
       
 
 </script>
+
+
+<script>
+  // Add to Home with 2 seconds delay.
+  AddtoHome("2000", "once");
+</script>
+
+
 {% endblock %}
 

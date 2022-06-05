@@ -16,7 +16,7 @@ Patrick Pinard
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
-    <title>MyGreenGarden V4</title>
+    <title>MyGreenGarden</title>
     <link rel="icon" type="image/png" href="static/img/favicon.png" sizes="32x32"> 
     <link rel="apple-touch-icon" sizes="201x251" href="static/img/greengarden-logo.png">
     <link rel="stylesheet" href="static/css/style.css">
@@ -49,7 +49,7 @@ Patrick Pinard
     <div class="appHeader bg-primary text-light">
 
         <div class="left">
-            <a href="/actionneurs" class="headerButton" data-bs-toggle="modal" data-bs-target="#sidebarPanel">
+            <a href="#" class="headerButton" data-bs-toggle="modal" data-bs-target="#sidebarPanel">
                 <ion-icon name="menu-outline"></ion-icon>
             </a>
         </div>
@@ -65,7 +65,7 @@ Patrick Pinard
             
         </div>
     </div>
-    <!-- * App Header -->
+    
 
     {% block body %}{% endblock %}
 
@@ -99,6 +99,13 @@ Patrick Pinard
             </div>
         </a>
         
+        <a href="/events" class="item">
+          <div class="col">
+            <ion-icon name="list-outline"></ion-icon>
+              <strong>Evénements</strong>
+          </div>
+      </a>
+
       </a>
     </div>
     <!-- * App Bottom Menu -->
@@ -115,8 +122,8 @@ Patrick Pinard
                             <img src="static/img/profile.png" alt="image" class="imaged  w36">
                         </div>
                         <div class="in">
-                            <strong>for Admin only</strong>
-                            <div class="text-muted">Patrick Pinard</div>
+                            <strong>Admin</strong>
+                            <div class="text-muted">attention !</div>
                         </div>
                         <a href="#" class="btn btn-link btn-icon sidebar-close" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
@@ -130,41 +137,29 @@ Patrick Pinard
                   
                     <ul class="listview flush transparent no-line image-listview">
                         
-                      <li>
-                        <a href="#APropos" class="item" data-bs-toggle="modal" data-bs-target="#APropos">
-                            <div class="icon-box bg-primary">
-                              <ion-icon name="list-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                A propos de 
-                            </div>
-                        </a>
+                      <!---<li>
+                          <a href="#APropos" class="item" data-bs-toggle="modal" data-bs-target="#APropos">
+                              <div class="icon-box bg-primary">
+                                <ion-icon name="document-text-outline"></ion-icon>
+                              </div>
+                              <div class="in">
+                                  A propos 
+                              </div>
+                          </a>
                         </li>
-
+                      --->
                         <li>
-                            <a href="/events" class="item">
-                                <div class="icon-box bg-primary">
-                                  <ion-icon name="list-outline"></ion-icon>
-                                </div>
-                                <div class="in">
-                                    Evénements
-                                </div>
-                            </a>
-                        </li>
-
-                        <li>
-                          <a href="/force" class="item">
+                          <a href="#confirm_force" class="item" data-bs-toggle="modal" data-bs-target="#confirm_force">
                               <div class="icon-box bg-primary">
                                 <ion-icon name="download-outline"></ion-icon>
                               </div>
                               <div class="in">
-                                  Lancer les mesures ...
+                                  Lancer les mesures
                               </div>
                           </a>
                         </li>
 
-                        <div class="dropdown-divider"></div>
-
+                       
                         <li>
                           <a href="#confirm_reboot" class="item" data-bs-toggle="modal" data-bs-target="#confirm_reboot">
                               <div class="icon-box bg-primary">
@@ -182,12 +177,14 @@ Patrick Pinard
                                 <ion-icon name="power"></ion-icon>
                               </div>
                               <div class="in">
-                                  Eteindre (power off)
+                                  Eteindre (shutdown)
                               </div>
                           </a>
                         </li>
 
-                        <div class="dropdown-divider"></div>
+                        <!---
+                          
+                          <div class="dropdown-divider"></div>
 
                         
                         <li>
@@ -200,6 +197,8 @@ Patrick Pinard
                                 </div>
                             </a>
                         </li>
+
+                        --->
 
 
                     </ul>
@@ -215,27 +214,29 @@ Patrick Pinard
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title">A propos de : <label id="Name"> <a>   </a> </label> <label id="Release">  </label> </h5>
+                  <h3 class="modal-title">A propos de  <label id="Name"> <a>   </a> </label> <label id="Release">  </label> </h3>
                   <a href="#" data-bs-dismiss="modal">Close</a>
               </div>
               <div class="modal-body">
-                  <p>
-                      MyGreenGarden  est un projet de serre connectée et automatisée via une APP web.
+                
+                    <p>
+                          MyGreenGarden  est un projet de serre connectée et automatisée via une APP web. 
+                          La serre est équipée 
+                          d'un Raspberry Pi 4 qui pilote deux vannes d'eau & deux ventilateurs en fonction de la température 
+                          et de l'humidité du sol pour un arrosage optimal. 
+                          Pilotable en mode automatique sur la base de paramètres de configuration ou manuellement au travers 
+                          d'une interface web.
+                    </p>
                     </br>
-                      La serre est équipée d'un Raspberry Pi 4 qui pilote deux vannes d'eau & deux ventilateurs en fonction 
-                      de la température et de l'humidité du sol pour un arrosage optimal. 
-                    </br>
-                      Pilotable en mode automatique sur la base de paramètres de configuration ou manuellement au travers 
-                      d'une interface web.
-                    </br>
-                    <img src="static/img/laserre.jpg" class="img-fluid" alt="Responsive image">
-                    </br>
-                  </p>
-                  <div class="modal-footer">
-                    </br>
-                    <label id="Author">  </label>
-                    </br>
-                  </div>
+                      <img src="static/img/laserre.jpg" class="class="rounded float-center img-responsive" alt="Responsive image">
+                    </br></br>
+                      
+                    <div class="modal-footer">
+                      </br>
+                      <p><label id="Author">  </label></p>
+                      </br>
+                    </div>
+                  
               </div>
             </div>
           </div>
@@ -243,18 +244,41 @@ Patrick Pinard
   </div>
   <!-- * Modal A Propos -->
 
+  <!-- Modal (force mesure) -->
 
-  <!-- Modal (confirm reboot) -->
-  <div class="modal" id="confirm_reboot" tabindex="-5" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade dialogbox" id="confirm_force" data-bs-backdrop="static" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Reboot </h5>
+          <h5 class="modal-title">Lancer les mesures</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Confirmez-vous le reboot ? </p>
-          <p>Pour abandonner, cliquez sur la croix en haut à droite.</p>
+          <p>Êtes-vous sûr ? </p>
+        </div>
+        <div class="modal-footer">
+          <form method="POST" role="form" action="/force" class="center-block">
+            <button type="submit" class="btn btn-danger"  name="shutdown" value="refresh">Confirmer</button> 
+          </form> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- * Modal (force mesure) -->
+
+
+  <!-- Modal (confirm reboot) -->
+
+  <div class="modal fade dialogbox" id="confirm_reboot" data-bs-backdrop="static" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Redémarrer (reboot)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Êtes-vous sûr ? </p>
         </div>
         <div class="modal-footer">
           <form method="POST" role="form" action="/reboot" class="center-block">
@@ -265,20 +289,19 @@ Patrick Pinard
     </div>
   </div>
 
-  <!-- fin Modal (reboot) -->
+  <!-- * Modal (reboot) -->
 
-  <!-- Modal (confirm shutdown) -->
+  <!-- Modal (confirm shutdown) --->
 
-  <div class="modal" id="confirm_shutdown" tabindex="-5" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade dialogbox" id="confirm_shutdown" data-bs-backdrop="static" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Shutdown </h5>
+          <h5 class="modal-title">Eteindre (shutdown)</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Confirmez-vous le shutdown  ?</p>
-          <p>Pour abandonner, cliquez sur la croix en haut à droite.</p>
+          <p>Êtes-vous sûr ? </p>
         </div>
         <div class="modal-footer">
           <form method="POST" role="form" action="/shutdown" class="center-block">
@@ -289,7 +312,8 @@ Patrick Pinard
     </div>
   </div>
 
-  <!-- fin Modal (shutdown) -->
+
+  <!-- * Modal (shutdown) -->
 
 
     <script>
@@ -351,9 +375,10 @@ Patrick Pinard
             document.getElementById('H1TEXT').innerHTML = obj.H1TEXT;
             document.getElementById('H2TEXT').innerHTML = obj.H2TEXT;
             document.getElementById('TCPU').innerHTML = obj.TCPU;
+            document.getElementById('CPU_usage').innerHTML = obj.CPU_usage;
             document.getElementById('WINDSPEED').innerHTML = obj.WINDSPEED;
             document.getElementById('LastRefreshTime').innerHTML = obj.LastRefreshTime;
-            document.getElementById('eventloglenght').innerHTML = obj.eventloglenght;
+            document.getElementById('eventlog').innerHTML = obj.eventlog;
            }
         });
       }

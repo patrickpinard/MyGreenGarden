@@ -1,97 +1,159 @@
+<!--- 
+  
+MyGreenGarden V3.1
+4 juin 2022
+Patrick Pinard
+
+--->
+
 {% extends "layout.html" %}
 {% set active_page = "parameters" %}
 {% block body %}
 
+<script>
+window.onlaod= function () {
+    refreshAllValues();
+    console.log("chargement des paramètres")
+}; 
+</script>
 
     <!-- App Capsule -->
-    <div id="appCapsule">
-        
+    <div id="appCapsule" class="full-height"> 
+         
         <form method="POST" role="form" action="/saveparameters" class="center-block">  
-            <div class="section mt-2">
+            <div class="section mt-1 mb-1">
                 <div class="section-title">Températures dans la serre [°C]</div>
-                <div class="card">
-                    <div class="card-body">
-
-                            <div class="form-group basic">
-                                <div class="input-wrapper">
-                                    <label class="label" for="TempMaxThreshold">Maximum</label>
-                                    <input type="number" class="form-control" id="TempMaxThreshold" name="TempMaxThreshold" min="0" max="50" placeholder="T. max">
-                                    
-                                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                   <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                            <label class="label" for="TempMaxThreshold">Maximale</label>
+                                            <input type="number" class="form-control" id="TempMaxThreshold" name="TempMaxThreshold" min="0" max="50" >
+                                            
+                                        </div>
+                                    </div>
                             </div>
-
-                            <div class="form-group basic">
-                                <div class="input-wrapper">
-                                    <label class="label" for="TempMinThreshold">Minimum</label>
-                                    <input type="number" class="form-control" id="TempMinThreshold" name="TempMinThreshold" min="0" max="50" placeholder="T. min">
-                                    
-                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                    <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                            <label class="label" for="TempMinThreshold">Minimale</label>
+                                            <input type="number" class="form-control" id="TempMinThreshold" name="TempMinThreshold" min="0" max="50" >
+                                            
+                                        </div>
+                                    </div>        
                             </div>
-   
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="section mt-2">
-                <div class="section-title">Humidités minimale du sol [%] </div>
-                <div class="card">
-                    <div class="card-body">
-
-                      
-
-                            <div class="form-group basic">
-                                <div class="input-wrapper">
-                                    <label class="label" for="HumidityLevelZone1">Zone 1</label>
-                                    <input type="number" class="form-control" id="HumidityLevelZone1" name="HumidityLevelZone1" min="0" max="100" placeholder="">
-                                    
-                                </div>
+                <div class="section-title">Humidités minimale du sol [%]</div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                    <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                            <label class="label" for="HumidityLevelZone1">Zone 1</label>
+                                            <input type="number" class="form-control" id="HumidityLevelZone1" name="HumidityLevelZone1" min="0" max="100" >
+                                        </div>
+                                    </div>
                             </div>
-
-                            <div class="form-group basic">
-                                <div class="input-wrapper">
-                                    <label class="label" for="HumidityLevelZone2">Zone 2</label>
-                                    <input type="number" class="form-control" id="HumidityLevelZone2" name="HumidityLevelZone2" min="0" max="100" placeholder="">
-                                    
-                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                    <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                            <label class="label" for="HumidityLevelZone2">Zone 2</label>
+                                            <input type="number" class="form-control" id="HumidityLevelZone2" name="HumidityLevelZone2" min="0" max="100" >
+                                            
+                                        </div>
+                                    </div>       
                             </div>
-                       
-                        
+                        </div>
                     </div>
                 </div>
             </div>
-
 
             <div class="section mt-2">
-                <div class="section-title">Durée de l'arrosage [min]</div>
-                <div class="card">
-                    <div class="card-body">
-
-                   
-
-                            <div class="form-group basic">
-                                <div class="input-wrapper">
-                                    <label class="label" for="WateringTimeZone1">Zone 1</label>
-                                    <input type="number" class="form-control" id="WateringTimeZone1" name="WateringTimeZone1" min="0" max="1800" placeholder="">
-                                    
-                                </div>
+                <div class="section-title">Durée de l'arrosage [sec]</div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                    <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                            <label class="label" for="WateringTimeZone1">Zone 1</label>
+                                    <input type="number" class="form-control" id="WateringTimeZone1" name="WateringTimeZone1" min="0" max="1800" >
+                                        </div>
+                                    </div>
                             </div>
-
-                            <div class="form-group basic">
-                                <div class="input-wrapper">
-                                    <label class="label" for="WateringTimeZone2">Zone 2</label>
-                                    <input type="number" class="form-control" id="WateringTimeZone2" name="WateringTimeZone2" min="0" max="1800" placeholder="">
-                                  
-                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                    <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                            <label class="label" for="WateringTimeZone2">Zone 2</label>
+                                            <input type="number" class="form-control" id="WateringTimeZone2" name="WateringTimeZone2" min="0" max="1800" >
+                                            
+                                        </div>
+                                    </div>       
                             </div>
-                      
-                        
+                        </div>
                     </div>
                 </div>
             </div>
+            <!---
+            <div class="section mt-2">
+                <div class="section-title">Ventilations [sec]</div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+
+                                    <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                            <label class="label" for="fans">Serre</label>
+                                    <input type="number" class="form-control" id="fans" name="fans" min="0" max="1800" placeholder="durée de ventilation de la serre">
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+
+                                    <div class="form-group basic">
+                                        <div class="input-wrapper">
+                                            <label class="label" for="raspberry">Raspberry</label>
+                                            <input type="number" class="form-control" id="raspberry" name="raspberry" min="0" max="1800" placeholder="durée de ventilation du CPU">
+                                        </div>
+                                    </div>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            --->
+            
             <div class="section mt-2">
                 <div>
-                    <button type="submit" class="btn btn-outline-primary me-1 mb-1" onclick="Inform()">Sauvegarder</button>
-                    <label id="info" style="color:red" style="font-size:15px; margin-left: 10px;"> </label>
+                    <button type="submit" class="btn btn-primary me-1" onclick="Inform()">Sauvegarder</button>
+                    <label id="info" style="color:rgb(255, 0, 0)" style="font-size:15px; margin-left: 10px;"> </label>
                 </div> 
             </div>
         </form>
@@ -104,8 +166,13 @@
         function Inform() {
             console.log("sauvegarde des paramètres de configurations effectuée");
             document.getElementById('info').innerHTML = "sauvegarde sur disque en cours ...";
-            setTimeout(() => {  document.getElementById('info').innerHTML = ""; }, 2000);
+            setTimeout(() => {  document.getElementById('info').innerHTML = ""; }, 3000);
         }
+    </script>
+
+    <script>
+        // Add to Home with 2 seconds delay.
+        AddtoHome("2000", "once");
     </script>
 
 {% endblock %}

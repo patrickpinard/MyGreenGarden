@@ -1,0 +1,90 @@
+.card {
+  background: #ffffff;
+  border-radius: $borderRadius;
+  border: 0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.09);
+  .card-body {
+    padding: 16px;
+  }
+  .card-title {
+    color: $colorHeading;
+    font-size: $fontSizeHeading;
+    font-weight: $medium;
+  }
+  .card-subtitle {
+    color: $colorHeading;
+    font-weight: $regular;
+    font-size: $fontSizeSub;
+  }
+  .listview {
+    > li:first-child {
+      .item {
+        border-radius: $borderRadius $borderRadius 0 0;
+      }
+    }
+    > li:last-child {
+      .item {
+        border-radius: 0 0 $borderRadius $borderRadius;
+      }
+    }
+  }
+  .card-header {
+    background: transparent;
+    color: $colorHeading;
+    font-weight: $medium;
+    font-size: $fontSizeHeading;
+    padding: 12px 16px;
+    border-bottom: 1px solid $colorLine;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .button{
+      font-size: 24px;
+      color: $colorLight;
+    }
+  }
+  .card-footer {
+    background: transparent;
+    border-top: 1px solid $colorLine;
+    color: $colorText;
+    padding: 12px 16px;
+  }
+  .card-img-top{
+    border-radius: $borderRadius $borderRadius 0 0;
+  }
+  .overlay-img{
+    border-radius: $borderRadius;
+  }
+  .card-img-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: $borderRadius;
+    .card-title {
+      color: #fff;
+    }
+    .card-text {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+  &.bg-primary,
+  &.bg-secondary,
+  &.bg-danger,
+  &.bg-success,
+  &.bg-warning,
+  &.bg-info,
+  &.bg-dark {
+    border: 0;
+    .card-title {
+      color: #fff;
+    }
+    .card-text {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .card-header {
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+  }
+  &.bg-light {
+    background: #fff;
+  }
+}

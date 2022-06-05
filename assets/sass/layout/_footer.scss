@@ -1,0 +1,13 @@
+.appFooter{
+    border-top: 1px solid $colorLine;
+    padding: 16px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.2em;
+    background: #FFF;
+    .footer-title{
+        font-weight: $medium;
+        color: $colorHeading;
+        margin-bottom: 8px;
+    }
+}

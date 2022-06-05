@@ -1,0 +1,117 @@
+
+.profileBox {
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  .image-wrapper {
+    margin-right: 16px;
+  }
+  .in {
+    line-height: 1.4em;
+    padding-right: 25px;
+    strong {
+      display: block;
+      font-weight: $medium;
+      color: $colorHeading;
+    }
+    .text-muted {
+      font-size: 14px;
+      color: $colorLight !important;
+    }
+  }
+}
+
+.sidebar-balance{
+  padding: 6px 16px;
+  background: $colorPrimary;
+  .listview-title{
+    padding-right: 0;
+    padding-left: 0;
+    color: #FFF;
+    opacity: .6;
+  }
+  .amount{
+    font-weight: $bold;
+    letter-spacing: -0.01em;
+    line-height: 1em;
+    font-weight: $fontSizeHeadingXLarge;
+    color: #FFF;
+    margin-bottom: 6px;
+  }
+}
+.action-group{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0px 16px 10px 16px;
+  background: $colorPrimary;
+  .action-button{
+    padding: 10px 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: $fontSizeCaption;
+    line-height: 1em;
+    color: rgba(255,255,255,.7);
+    .iconbox{
+      background: rgba(#000, .3);
+      width: 38px;
+      height: 38px;
+      margin: 0 auto 8px auto;
+      border-radius: 100%;
+      font-size: 18px;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &:last-child{
+      border-right: 0;
+    }
+  }
+}
+#sidebarPanel{
+  .modal-dialog{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+  .modal-body{
+    margin-bottom: 34px;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    width: 300px;
+  }
+}
+.panelbox-left,
+.panelbox-right{
+  .listview{
+    > li{
+      padding: 10px 16px;
+    }
+  }
+  .link-listview{
+    > li{
+      padding: 0;
+      a{
+        padding: 10px 36px 10px 16px;
+      }
+    }
+  }
+  .image-listview{
+    > li{
+      padding: 0;
+      .item{
+        padding: 10px 16px;
+      }
+      a.item{
+        padding-right: 36px;
+      }
+    }
+  }
+}
+.sidebar-close{
+  position: absolute;
+  right: 10px;
+}

@@ -1,0 +1,67 @@
+#loader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    background: $colorPrimary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    .loading-icon {
+        width: 42px;
+        height: auto;
+        animation: loadingAnimation 0.5s ease-in-out infinite;
+    }
+    &.hidden {
+        display: none;
+    }
+}
+
+@keyframes loadingAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+
+
+body.animationGoBack {
+    overflow: hidden;
+    .appHeader,
+    .appBottomMenu,
+    .extraHeader,
+    #appCapsule {
+        transform: translate(100%, 0);
+        transition: all .24s linear;
+    }
+    &:after {
+        content: "";
+        display: block;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: $colorPrimary;
+        background-image: url("../img/loading-icon.png");
+        background-repeat: no-repeat;
+        background-size: 42px auto;
+        background-position: center center;
+        z-index: 9999;
+        animation: animationGoBack .24s linear;
+    }
+}
+@keyframes animationGoBack {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 0;
+    }
+}

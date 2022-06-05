@@ -1,0 +1,915 @@
+body.dark-mode {
+    background: $darkmode_bodyBackground;
+    color: $darkmode_colorText;
+    &.bg-white {
+        background: $darkmode_contentBackground !important;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $darkmode_colorHeading;
+        small {
+            color: rgba($darkmode_colorHeading, 0.6);
+        }
+    }
+    .text-muted {
+        color: $darkmode_colorText !important;
+    }
+    .lead {
+        color: $darkmode_colorText;
+    }
+
+    blockquote.blockquote {
+        background: rgba($darkmode_colorLine, 0.5);
+        color: $darkmode_colorHeading;
+        .blockquote-footer {
+            color: $darkmode_colorText;
+        }
+    }
+
+    .appHeader {
+        background: $darkmode_contentBackground;
+        color: $darkmode_colorHeading;
+        border-bottom-color: $darkmode_colorLine;
+        &:before {
+            background: $darkmode_contentBackground;
+        }
+        &.bg-light {
+            color: $darkmode_contentBackground;
+        }
+        &.transparent {
+            background: transparent;
+            &:before {
+                background: $darkmode_bodyBackground;
+            }
+        }
+    }
+    .extraHeader {
+        background: $darkmode_contentBackground;
+        border-bottom-color: $darkmode_colorLine;
+    }
+    .content-hero {
+        background: $darkmode_contentBackground;
+        border-bottom-color: $darkmode_colorLine;
+    }
+    .wide-block {
+        background: $darkmode_contentBackground;
+        border-top-color: $darkmode_colorLine;
+        border-bottom-color: $darkmode_colorLine;
+    }
+    .section-title {
+        color: $darkmode_colorHeading;
+    }
+    .content-header,
+    .content-footer {
+        color: $darkmode_colorLight;
+    }
+
+    .appBottomMenu {
+        background: $darkmode_contentBackground;
+        border-top-color: $darkmode_colorLine;
+        .item {
+            .icon,
+            ion-icon,
+            strong {
+                color: $darkmode_colorHeading;
+            }
+            &:hover {
+                .icon,
+                ion-icon,
+                strong {
+                    color: $darkmode_colorHeading;
+                }
+            }
+        }
+        &.bg-light {
+            background: #fff !important;
+            .item {
+                .icon,
+                ion-icon,
+                strong {
+                    color: $colorHeading;
+                }
+            }
+        }
+    }
+
+    .appFooter {
+        border-top-color: $darkmode_colorLine;
+        background: $darkmode_contentBackground !important;
+        .footer-title {
+            color: $darkmode_colorHeading;
+        }
+    }
+    .section-heading {
+        .link {
+            color: rgba($colorText, 0.8) !important;
+        }
+    }
+
+    #sidebarPanel .modal-dialog {
+        .modal-content {
+            background: transparent !important;
+        }
+        background: $darkmode_contentBackground;
+        .sidebar-close {
+            color: $darkmode_colorLight !important;
+        }
+    }
+    .sidebar-balance {
+        .listview-title {
+            color: $darkmode_colorHeading;
+        }
+    }
+    .profileBox {
+        .in {
+            strong {
+                color: $darkmode_colorHeading;
+            }
+            .text-muted {
+                color: $darkmode_colorLight !important;
+            }
+        }
+    }
+
+    .listview-title {
+        color: $darkmode_colorText;
+    }
+    .listview {
+        color: $darkmode_colorHeading;
+        background: $darkmode_contentBackground;
+        border-top-color: $darkmode_colorLine;
+        border-bottom-color: $darkmode_colorLine;
+        .text-muted {
+            color: $darkmode_colorLight !important;
+        }
+        .text-small {
+            color: $darkmode_colorText;
+        }
+        .text-xsmall {
+            color: $darkmode_colorLight;
+        }
+        > li {
+            &:after {
+                background: $darkmode_colorLine;
+            }
+            footer {
+                color: $darkmode_colorText;
+            }
+        }
+        > li.divider-title {
+            background: rgba($darkmode_colorLine, 0.5);
+            border-top-color: $darkmode_colorLine;
+            border-bottom-color: $darkmode_colorLine;
+            color: $darkmode_colorText;
+        }
+    }
+    .link-listview {
+        > li {
+            a {
+                color: $darkmode_colorHeading !important;
+                &:after {
+                    color: $darkmode_colorLight;
+                }
+                &:active {
+                    background: rgba($darkmode_colorLine, 0.3);
+                }
+            }
+            &.active a {
+                background: rgba($darkmode_colorLine, 0.3) !important;
+            }
+        }
+    }
+    .image-listview {
+        > li {
+            a.item {
+                color: $darkmode_colorHeading !important;
+                &:active {
+                    background: rgba($darkmode_colorLine, 0.3);
+                }
+                &:after {
+                    color: $darkmode_colorLight;
+                }
+            }
+            &.active .item {
+                background: rgba($darkmode_colorLine, 0.3) !important;
+            }
+        }
+        &.media {
+            > li {
+                border-bottom-color: $darkmode_colorLine;
+            }
+        }
+    }
+
+    .accordion {
+        border-top-color: $darkmode_colorLine;
+        border-bottom-color: $darkmode_colorLine;
+        background: $darkmode_contentBackground;
+        .accordion-body {
+            background: $darkmode_contentBackground;
+        }
+        .accordion-header {
+            .btn,
+            .accordion-button {
+                background: $darkmode_contentBackground !important;
+                color: $darkmode_colorHeading;
+                &:active {
+                    background: $darkmode_contentBackground !important;
+                }
+                &:after {
+                    background: url("data:image/svg+xml,%0A%3Csvg width='10px' height='16px' viewBox='0 0 10 16' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='Listview' transform='translate(-112.000000, -120.000000)' stroke='#{svg-bg-color(#FFF)}' stroke-width='2.178'%3E%3Cpolyline id='Path' points='114 122 120 128 114 134'%3E%3C/polyline%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+                        no-repeat center center !important;
+                    color: $darkmode_colorLight;
+                }
+                &.collapsed {
+                    &:before {
+                        background: $darkmode_colorLine;
+                    }
+                }
+            }
+            &.bg-primary .accordion-button {
+                background: $colorPrimary !important;
+            }
+            &.bg-secondary .accordion-button {
+                background: $colorSecondary !important;
+            }
+            &.bg-success .accordion-button {
+                background: $colorSuccess !important;
+            }
+            &.bg-warning .accordion-button {
+                background: $colorWarning !important;
+            }
+            &.bg-danger .accordion-button {
+                background: $colorDanger !important;
+            }
+            &.bg-info .accordion-button {
+                background: $colorInfo !important;
+            }
+            &.bg-dark .accordion-button {
+                background: #222 !important;
+            }
+        }
+    }
+    .inset {
+        .accordion {
+            border-color: $darkmode_colorLine;
+        }
+    }
+
+    .modal {
+        .modal-content {
+            background: $darkmode_contentBackground;
+        }
+    }
+    .modalbox {
+        .modal-dialog {
+            .modal-content {
+                .modal-header {
+                    border-bottom-color: $darkmode_colorLine;
+                    background: $darkmode_contentBackground;
+                    .modal-title {
+                        color: $darkmode_colorHeading;
+                    }
+                }
+            }
+        }
+    }
+
+    .panelbox {
+        .modal-dialog {
+            .modal-content {
+                .modal-header {
+                    .modal-title {
+                        color: $darkmode_colorHeading;
+                    }
+                }
+            }
+        }
+    }
+    .modal.action-sheet {
+        .modal-content {
+            .modal-header {
+                border-bottom-color: $darkmode_colorLine;
+                .modal-title {
+                    color: $darkmode_colorHeading;
+                }
+            }
+        }
+    }
+    .action-button-list {
+        > li {
+            .btn {
+                color: $darkmode_colorHeading;
+                &:active,
+                &.active {
+                    background: rgba($darkmode_colorLine, 0.3);
+                }
+                &.text-dark {
+                    color: $darkmode_colorHeading !important;
+                }
+            }
+            &.action-divider {
+                background: $darkmode_colorLine;
+            }
+        }
+    }
+    .card {
+        background: $darkmode_contentBackground;
+        .card-subtitle,
+        .card-title {
+            color: $darkmode_colorHeading;
+        }
+        .listview {
+            border-radius: $borderRadius;
+        }
+        .card-header {
+            color: $darkmode_colorHeading;
+            border-bottom-color: $darkmode_colorLine;
+        }
+        .card-footer {
+            border-top-color: $darkmode_colorLine;
+            color: $darkmode_colorText;
+        }
+        &.bg-primary,
+        &.bg-secondary,
+        &.bg-danger,
+        &.bg-success,
+        &.bg-warning,
+        &.bg-info,
+        &.bg-dark {
+            .card-header {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            }
+        }
+        &.bg-light {
+            background: #fff !important;
+            .card-header {
+                border-bottom-color: $colorLine;
+                color: $colorHeading;
+            }
+            .card-title {
+                color: $colorHeading;
+            }
+            color: $colorText;
+        }
+    }
+
+    .form-check {
+        .form-check-label {
+            color: $darkmode_colorHeading;
+            &:after {
+                border-color: lighten($darkmode_colorLine, 7%);
+            }
+        }
+    }
+
+    .input-list {
+        .form-check {
+            &:after {
+                background: $darkmode_colorLine;
+            }
+            .form-check-label {
+                &:active {
+                    background: rgba($darkmode_colorLine, 0.3);
+                }
+            }
+        }
+    }
+    .form-switch {
+        .form-check-label {
+            &:after {
+                background: $darkmode_colorLine;
+            }
+            &:before {
+                background: #ffffff;
+            }
+        }
+        .form-check-input:checked ~ .form-check-label {
+            &:after {
+                background: $colorPrimary !important;
+            }
+        }
+    }
+
+    .chip {
+        background: lighten($darkmode_colorLine, 4%);
+        color: $darkmode_colorHeading;
+        &.chip-outline {
+            box-shadow: inset 0 0 0 1px lighten($darkmode_colorLine, 4%);
+        }
+        .chip-icon {
+            background: $darkmode_colorText;
+        }
+        .chip-delete {
+            color: $darkmode_colorHeading;
+        }
+    }
+
+    .dialogbox {
+        .modal-dialog {
+            .modal-content {
+                .btn-list {
+                    .btn {
+                        border-bottom-color: $darkmode_colorLine !important;
+
+                        &:hover,
+                        &:focus,
+                        &:active,
+                        &.active {
+                            background: rgba($darkmode_colorLine, 0.3) !important;
+                        }
+                    }
+                }
+                .btn-inline {
+                    background: $darkmode_colorLine;
+                    .btn {
+                        background: $darkmode_contentBackground;
+                        color: $darkmode_colorText;
+                        border-right-color: $darkmode_colorLine !important;
+                        &:hover,
+                        &:focus,
+                        &:active,
+                        &.active {
+                            background: rgba($darkmode_contentBackground, 0.7) !important;
+                        }
+                    }
+                }
+                .modal-header {
+                    .modal-title {
+                        color: $darkmode_colorHeading;
+                    }
+                }
+                .modal-footer {
+                    border-top-color: $darkmode_colorLine;
+                }
+            }
+        }
+    }
+
+    .dropdown,
+    .dropup {
+        .dropdown-menu {
+            background: $darkmode_contentBackground;
+            border-color: $darkmode_colorLine;
+            .dropdown-item {
+                color: $darkmode_colorHeading;
+                &:hover,
+                &:active {
+                    background: rgba($darkmode_colorLine, 0.5);
+                    color: $darkmode_colorHeading;
+                }
+                .dropdown-divider {
+                    border-top-color: $darkmode_colorLine;
+                }
+            }
+            .dropdown-header {
+                color: $darkmode_colorText;
+            }
+            .text {
+                color: $darkmode_colorText;
+            }
+            .icon,
+            ion-icon {
+                color: $darkmode_colorHeading;
+            }
+        }
+    }
+
+    .exampleBox {
+        border-color: $darkmode_colorLine;
+        background: rgba($darkmode_colorLine, 0.2);
+    }
+    .iconExample {
+        color: $darkmode_colorHeading;
+    }
+
+    .form-group {
+        .label {
+            color: $darkmode_colorHeading;
+        }
+        .input-info {
+            color: $darkmode_colorLight;
+        }
+        .clear-input {
+            color: $darkmode_colorText;
+        }
+    }
+    .form-group.basic {
+        .form-control,
+        .custom-select {
+            border-bottom-color: lighten($darkmode_colorLine, 4%);
+            color: $darkmode_colorHeading;
+        }
+    }
+    .verification-input {
+        border-color: lighten($darkmode_colorLine, 4%) !important;
+        color: $darkmode_colorHeading !important;
+        background: $darkmode_contentBackground !important;
+        &:focus {
+            border-color: $colorPrimary !important;
+        }
+    }
+    .input-group {
+        .input-group-text {
+            border-bottom-color: lighten($darkmode_colorLine, 4%);
+            color: $darkmode_colorHeading;
+        }
+    }
+    .custom-file-upload {
+        label {
+            background-color: rgba($darkmode_colorLine, 0.2);
+            border-color: lighten($darkmode_colorLine, 4%);
+            margin: 0;
+            span {
+                color: $darkmode_colorLight;
+                .icon,
+                ion-icon {
+                    color: $darkmode_colorLight;
+                }
+            }
+            &.file-uploaded {
+                span {
+                    color: $darkmode_colorText;
+                    background-color: $darkmode_colorLine;
+                }
+            }
+        }
+    }
+    .form-group.boxed {
+        .form-control {
+            color: $darkmode_colorHeading;
+            border-color: lighten($darkmode_colorLine, 4%);
+            background: darken($darkmode_contentBackground, 1%);
+            &:focus {
+                border-color: $colorPrimary;
+            }
+        }
+    }
+    .message-divider {
+        color: $darkmode_colorLight;
+    }
+    .message-item {
+        .bubble {
+            background: $darkmode_colorLine;
+            color: $darkmode_colorHeading;
+        }
+        .title {
+            color: $darkmode_colorText;
+        }
+        .footer {
+            color: $darkmode_colorHeading;
+        }
+        &.user {
+        }
+    }
+    .chatFooter {
+        background: $darkmode_bodyBackground;
+        border-top-color: $darkmode_colorLine;
+    }
+
+    .notification-dialog.android-style {
+        background: lighten($darkmode_contentBackground, 1%);
+        .notification-header {
+            .in {
+                strong {
+                    color: $darkmode_colorHeading;
+                }
+            }
+            .close-button {
+                color: $darkmode_colorLight;
+                &:hover,
+                &:active {
+                    color: $darkmode_colorText;
+                }
+            }
+        }
+        .icon-box {
+            color: $darkmode_colorLight;
+        }
+        .notification-footer {
+            border-top: 1px solid $darkmode_colorLine;
+            .notification-button {
+                border-right: 1px solid $darkmode_colorLine;
+                &:hover,
+                &:active {
+                    background: rgba($darkmode_colorLine, 0.3);
+                }
+            }
+        }
+    }
+    .notification-dialog.ios-style {
+        background: lighten($darkmode_contentBackground, 5%);
+        .icon-box {
+            color: $darkmode_colorLight;
+        }
+    }
+    .progress {
+        background: lighten($darkmode_colorLine, 4%);
+    }
+
+    .searchbox {
+        input {
+            color: $darkmode_colorText;
+        }
+        .form-control {
+            background: $darkmode_colorLine;
+            border-color: $darkmode_colorLine !important;
+            &:focus {
+                border-color: darken($darkmode_colorLine, 15%);
+                color: $darkmode_colorHeading;
+                & ~ .input-icon {
+                    color: $darkmode_colorHeading;
+                }
+            }
+        }
+        .close {
+            color: $darkmode_colorLight;
+        }
+        .input-icon {
+            color: $darkmode_colorLight;
+        }
+    }
+
+    .table {
+        color: $darkmode_colorText;
+        tr {
+            border-color: $darkmode_colorLine;
+        }
+        thead {
+            th {
+                color: $darkmode_colorHeading;
+            }
+        }
+        td,
+        th {
+            border-top: 1px solid $darkmode_colorLine;
+        }
+    }
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background: rgba($darkmode_colorLine, 0.1);
+        color: $darkmode_colorText;
+    }
+
+    .table-bordered {
+        td,
+        th {
+            border-color: $darkmode_colorLine;
+        }
+    }
+    .table.bg-primary,
+    .table.bg-secondary,
+    .table.bg-success,
+    .table.bg-danger,
+    .table.bg-warning,
+    .table.bg-info {
+        tbody {
+            td,
+            th {
+                border-top-color: rgba(255, 255, 255, 0.2);
+            }
+        }
+        tr,
+        td,
+        th {
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+        tbody {
+            tr:last-child {
+                td,
+                th {
+                    border-bottom-color: transparent !important;
+                }
+            }
+        }
+    }
+    .nav-tabs.capsuled {
+        background: rgba($darkmode_colorLine, 0.4);
+        .nav-item {
+            .nav-link {
+                color: $darkmode_colorText;
+                &.active {
+                    color: $darkmode_colorHeading;
+                    background: lighten($darkmode_colorLine, 5%);
+                    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.22), 0 2px 1px 0 rgba(0, 0, 0, 0.04);
+                }
+            }
+        }
+    }
+    .nav-tabs.lined {
+        .nav-item {
+            .nav-link {
+                color: $darkmode_colorText;
+                &.active {
+                    color: $colorPrimary;
+                }
+            }
+        }
+    }
+
+    .timeline {
+        &:before {
+            background: $darkmode_colorLine;
+        }
+        .dot {
+            background: $darkmode_colorLight;
+        }
+    }
+
+    .wallet-card {
+        background: $darkmode_contentBackground;
+        z-index: 1;
+        .balance {
+            .right {
+                .button {
+                    color: rgba($darkmode_colorHeading, 0.7);
+                    background: rgba($colorPrimary, 0.15);
+                }
+            }
+            .title {
+                color: $darkmode_colorHeading;
+            }
+        }
+        .wallet-footer {
+            border-top-color: $darkmode_colorLine;
+            .item {
+                strong {
+                    color: $darkmode_colorHeading;
+                }
+            }
+        }
+    }
+    .stat-box {
+        background: $darkmode_contentBackground;
+        .title {
+            color: $darkmode_colorText;
+        }
+        .value {
+            color: $darkmode_colorHeading;
+        }
+    }
+
+    .transactions {
+        .item {
+            background: $darkmode_contentBackground;
+            p {
+                color: $darkmode_colorText;
+            }
+            .detail {
+                strong {
+                    color: $darkmode_colorHeading;
+                }
+            }
+            .right {
+                .price {
+                    color: $darkmode_colorHeading;
+                }
+            }
+        }
+    }
+    .bill-box {
+        background: $darkmode_contentBackground;
+        .price {
+            color: $darkmode_colorHeading;
+        }
+    }
+    .goals {
+        .item {
+            background: $darkmode_contentBackground;
+            .price {
+                color: $darkmode_colorHeading;
+            }
+        }
+    }
+    .user-card {
+        background: $darkmode_contentBackground;
+        strong {
+            color: $darkmode_colorHeading;
+        }
+    }
+    .blog-card {
+        background: $darkmode_contentBackground;
+        small {
+            color: $darkmode_colorLight;
+        }
+    }
+    .fixed-bar {
+        background: $darkmode_contentBackground;
+    }
+    .transfer-verification {
+        .from-to-block {
+            .item {
+                strong {
+                    color: $darkmode_colorText;
+                }
+            }
+            .arrow {
+                background: $darkmode_colorLine;
+                &:after {
+                    border-color: $darkmode_colorLine;
+                }
+            }
+        }
+        .transfer-amount {
+            .caption {
+                color: $darkmode_colorHeading;
+            }
+        }
+    }
+
+    .ios-add-to-home {
+        .modal-content {
+            &:before {
+                border-top-color: $darkmode_contentBackground;
+            }
+            .action-sheet-content {
+                color: $darkmode_colorHeading;
+            }
+        }
+    }
+
+    .android-add-to-home {
+        .modal-content {
+            &:before {
+                border-top-color: $darkmode_contentBackground;
+            }
+            .action-sheet-content {
+                color: $darkmode_colorHeading;
+            }
+        }
+    }
+
+    .coinbox {
+        h4 {
+            color: $darkmode_colorLight;
+        }
+        .text {
+            color: $darkmode_colorHeading;
+        }
+        .fixed-button {
+            color: $darkmode_colorLight;
+            &:hover {
+                color: $darkmode_colorText;
+            }
+        }
+    }
+
+    .widget-card {
+        .widget-title {
+        }
+        .widget-subtitle {
+            color: $darkmode_colorLight;
+        }
+        .card-header {
+            strong {
+                color: $darkmode_colorLight;
+            }
+        }
+        .stats {
+            strong {
+                color: $darkmode_colorHeading;
+            }
+        }
+    }
+    .exchange-group {
+        .form-select {
+            color: $darkmode_colorHeading;
+        }
+    }
+    .exchange-heading {
+        .group-label {
+            color: $darkmode_colorHeading;
+        }
+        .exchange-wallet-info {
+            color: $darkmode_colorLight;
+        }
+    }
+
+    .exchange-line {
+        &:after {
+            background: darken($darkmode_colorLine, 5%);
+        }
+    }
+    .exchange-icon {
+        color: #fff;
+        background: darken($darkmode_colorLine, 5%);
+    }
+
+    &.rtl-mode {
+        .notification-dialog.android-style {
+            .notification-footer {
+                .notification-button {
+                    border-right: 0;
+                    border-left-color: $darkmode_colorLine;
+                }
+            }
+        }
+    }
+
+    .cookies-box {
+        background: lighten($darkmode_contentBackground, 5%);
+    }
+}

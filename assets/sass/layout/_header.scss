@@ -1,0 +1,142 @@
+.appHeader {
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: $safeTop;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: #FFFFFF;
+  color: $colorHeading;
+  border-bottom: 1px solid $colorLine;
+  &:before{
+    content: '';
+    height: $safeTop;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 99999;
+    background: #FFF;
+  }
+  &.no-border{
+    border: 0;
+    box-shadow: none;
+  }
+  &.transparent{
+    background: transparent;
+    &:before{
+      background: $bodyBackground;
+    }
+  }
+  .left,
+  .right{
+    height: 56px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    .icon,
+    ion-icon{
+      font-size: 26px;
+    }
+    .headerButton{
+      min-width: 36px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      color: $colorPrimary;
+      position: relative;
+      .btn{
+        font-size: 16px;
+        height: 32px;
+        padding: 0px 14px;
+      }
+      &:active{
+        opacity: .6;
+      }
+    }
+  }
+  .left{
+    left: 10px;
+    top: 0;
+  }
+  .right{
+    right: 10px;
+    top: 0;
+  }
+  .pageTitle{
+    font-size: $fontSizeHeading;
+    font-weight: $medium;
+    padding: 0 10px;
+    .logo{
+      max-height: 24px;
+    }
+  }
+  &.text-light{
+    color: #FFF;
+    .headerButton{
+      color: #FFF;
+    }
+  }
+  &.bg-primary,
+  &.bg-secondary,
+  &.bg-success,
+  &.bg-warning,
+  &.bg-danger,
+  &.bg-info,
+  &.bg-light,
+  &.bg-dark{
+    border: 0;
+  }
+  &.bg-primary:before{
+    background: $colorPrimary !important;
+  }
+  &.bg-secondary:before{
+    background: $colorSecondary !important;
+  }
+  &.bg-success:before{
+    background: $colorSuccess !important;
+  }
+  &.bg-warning:before{
+    background: $colorWarning !important;
+  }
+  &.bg-danger:before{
+    background: $colorDanger !important;
+  }
+  &.bg-info:before{
+    background: $colorInfo !important;
+  }
+  &.bg-dark:before{
+    background: #222 !important;
+  }
+}
+
+
+.extraHeader{
+  position: fixed;
+  left: 0;
+  top: 50px;
+  height: 50px;
+  right: 0;
+  width: 100%;
+  padding: 5px 16px;
+  display: flex;
+  margin-top: $safeTop;
+  align-items: center;
+  background: #FFF;
+  z-index: 1000;
+  border-bottom: 1px solid $colorLine;
+}
+
+.testPreview{
+  .appHeader{
+    position: relative;
+    top: 0;
+    z-index: 0;
+  }
+}

@@ -1,0 +1,67 @@
+.bg-main{
+    background: $colorPrimary;
+}
+.bg-primary{
+    background: $colorPrimary !important;
+    color: #FFF;
+}
+.bg-secondary{
+    background: $colorSecondary !important;
+    color: #FFF;
+}
+.bg-success{
+    background: $colorSuccess !important;
+    color: #FFF;
+}
+.bg-danger{
+    background: $colorDanger !important;
+    color: #FFF;
+}
+.bg-warning{
+    background: $colorWarning !important;
+    color: #FFF;
+}
+.bg-info{
+    background: $colorInfo !important;
+    color: #FFF;
+}
+.bg-light{
+    background: rgba(255,255,255,.5) !important;
+}
+.bg-dark{
+    background: #222 !important;
+    color: #FFF;
+}
+
+.text-primary,
+a.text-primary{
+    color: $colorPrimary !important;
+}
+.text-secondary,
+a.text-secondary{
+    color: $colorSecondary !important;
+}
+.text-success,
+a.text-success{
+    color: $colorSuccess !important;
+}
+.text-danger,
+a.text-danger{
+    color: $colorDanger !important;
+}
+.text-warning,
+a.text-warning{
+    color: $colorWarning !important;
+}
+.text-info,
+a.text-info{
+    color: $colorInfo !important;
+}
+.text-light,
+a.text-light{
+    color: #FFF !important;
+}
+.text-dark,
+a.text-dark{
+    color: $colorHeading !important;
+}

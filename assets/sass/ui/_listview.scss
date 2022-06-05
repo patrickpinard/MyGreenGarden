@@ -1,0 +1,235 @@
+.listview-title {
+  color: $colorText;
+  padding: 7px 16px;
+  font-size: $fontSizeSub;
+  font-weight: $medium;
+}
+.listview {
+  display: block;
+  padding: 0;
+  margin: 0;
+  color: $colorHeading;
+  background: #fff;
+  border-top: 1px solid $colorLine;
+  border-bottom: 1px solid $colorLine;
+  line-height: 1.3em;
+  .text-muted {
+    font-size: $fontSizeSub;
+    color: $colorLight !important;
+  }
+  .text-small{
+    font-size: $fontSizeSub;
+    color: $colorText;
+  }
+  .text-xsmall{
+    font-size: $fontSizeCaption;
+    color: $colorLight;
+  }
+  > li {
+    padding: 11px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    min-height: 50px;
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: $colorLine;
+    }
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+    footer,
+    header {
+      font-size: 12px;
+      margin: 0;
+      line-height: 1.2em;
+    }
+    footer {
+      color: $colorText;
+      margin-top: 3px;
+    }
+    header{
+      margin-bottom: 3px;
+    }
+  }
+  > li.divider-title {
+    background: rgba($colorLine, 0.5);
+    margin-top: -1px;
+    border-top: 1px solid $colorLine;
+    border-bottom: 1px solid $colorLine;
+    padding: 12px 16px;
+    font-size: $fontSizeSub;
+    min-height: auto;
+    color: $colorText;
+    &:after {
+      display: none;
+    }
+  }
+  &.flush{
+    border-top: 0;
+    border-bottom: 0;
+  }
+  &.transparent{
+    background: transparent;
+  }
+}
+.simple-listview {
+}
+.link-listview {
+  > li {
+    padding: 0;
+    min-height: auto;
+    a {
+      padding: 11px 36px 11px 16px;
+      min-height: 50px;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      color: $colorHeading !important;
+      &:after {
+        content: "\f3d1";
+        font-family: "Ionicons";
+        font-size: 18px;
+        position: absolute;
+        right: 16px;
+        height: 18px;
+        top: 50%;
+        margin-top: -9px;
+        line-height: 1em;
+        color: $colorLight;
+        opacity: 0.6;
+      }
+      &:active{
+        background: rgba($colorLine, 0.3);
+      }
+    }
+    &.active a{
+      background: rgba($colorLine, 0.3) !important;
+    }
+  }
+}
+.image-listview {
+  > li {
+    padding: 0;
+    min-height: auto;
+    &:after {
+      left: 68px;
+    }
+    .item {
+      padding: 11px 16px;
+      width: 100%;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      .image {
+        width: 36px;
+        height: 36px;
+        border-radius: 400px;
+        margin-right: 16px;
+      }
+      .icon-box {
+        min-width: 36px;
+        max-width: 36px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1em;
+        font-size: 22px;
+        border-radius: 400px;
+        margin-right: 16px;
+        &.transparent{
+          font-size: 28px;
+          color: $colorPrimary;
+        }
+      }
+      .in {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+    a.item {
+      color: $colorHeading !important;
+      padding-right: 36px;
+      &:active {
+        background: rgba($colorLine, 0.3);
+      }
+      &:after {
+        content: "\f3d1";
+        font-family: "Ionicons";
+        font-size: 18px;
+        position: absolute;
+        right: 16px;
+        color: $colorLight;
+        opacity: 0.6;
+        line-height: 1em;
+        height: 18px;
+        top: 50%;
+        margin-top: -9px;
+      }
+    }
+    &.active .item{
+      background: rgba($colorLine, 0.3) !important;
+    }
+  }
+  &.text {
+    > li {
+      &:after {
+        left: 16px;
+      }
+    }
+  }
+  &.media {
+    > li {
+      border-bottom: 1px solid $colorLine;
+      &:last-child{
+        border-bottom: 0;
+      }
+      .imageWrapper {
+        margin-right: 16px;
+      }
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
+
+.listview.no-line{
+  > li,
+  .item {
+    &:after{
+      display: none;
+    }
+  }
+}
+.listview.no-space{
+  > li .item{
+    padding: 0;
+  }
+  > li{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+.listview.inset{
+  margin-left: 16px;
+  margin-right: 16px;
+  overflow: hidden;
+  border: 0;
+  border-radius: $borderRadius;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.09);
+}

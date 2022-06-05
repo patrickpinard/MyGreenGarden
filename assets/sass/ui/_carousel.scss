@@ -1,0 +1,72 @@
+.splide {
+    margin-bottom: -20px !important;
+    &:active{
+        cursor: grab;
+    }
+    .splide__list {
+        padding-bottom: 20px !important;
+    }
+}
+.carousel-single {
+    .splide__slide {
+        margin-left: -16px !important;
+        padding-right: 16px !important;
+    }
+}
+.carousel-multiple{
+    .splide__slide {
+        margin-left: -8px !important;
+        padding-right: 8px !important;
+    }
+}
+.carousel-small {
+    .splide__slide {
+        margin-left: -8px !important;
+        padding-right: 0px !important;
+        &:first-child{
+            margin-left: 24px !important;
+        }
+    }
+}
+.carousel-slider {
+    text-align: center;
+    .splide__list {
+        padding-bottom: 100px !important;
+    }
+    .imaged.w-100 {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .splide__pagination {
+        position: fixed;
+        width: 100%;
+        bottom: 120px;
+        button {
+            background: $colorLine;
+            margin: 0 5px !important;
+            &.is-active {
+                background: $colorLight;
+                transform: scale(1);
+            }
+        }
+    }
+}
+.carousel-button-footer {
+    min-height: 84px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: $safeBottom;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 990;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    > div {
+        width: 100%;
+    }
+}
