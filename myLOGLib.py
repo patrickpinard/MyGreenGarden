@@ -19,7 +19,7 @@ import datetime
 
 DEBUG       = True         # sauvegarde tous les événements dans fichier de log
 VERBOSE     = False         # print tous les événements sur la console
-LOGFILENAME = "/home/pi/MyGreenGardenV3/mygreengarden.log"   # fichier de LOG par defaut
+LOGFILENAME = "/home/pi/MyGreenGarden/mygreengarden.log"   # fichier de LOG par defaut
 LOGLEVEL    = DEBUG 
 FILEMODE    = 'w'
 RELEASE     = "V1.1"

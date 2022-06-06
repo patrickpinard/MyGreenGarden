@@ -83,7 +83,7 @@ window.onlaod= function () {
                     </div>
                 </div>
             </div>
-
+            
             <div class="section mt-2">
                 <div class="section-title">Durée de l'arrosage [sec]</div>
                 <div class="row">
@@ -93,7 +93,7 @@ window.onlaod= function () {
                                     <div class="form-group basic">
                                         <div class="input-wrapper">
                                             <label class="label" for="WateringTimeZone1">Zone 1</label>
-                                    <input type="number" class="form-control" id="WateringTimeZone1" name="WateringTimeZone1" min="0" max="1800" >
+                                            <input type="number" class="form-control" id="WateringTimeZone1" name="WateringTimeZone1" min="0" max="1800" >
                                         </div>
                                     </div>
                             </div>
@@ -113,42 +113,7 @@ window.onlaod= function () {
                         </div>
                     </div>
                 </div>
-            </div>
-            <!---
-            <div class="section mt-2">
-                <div class="section-title">Ventilations [sec]</div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-
-                                    <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                            <label class="label" for="fans">Serre</label>
-                                    <input type="number" class="form-control" id="fans" name="fans" min="0" max="1800" placeholder="durée de ventilation de la serre">
-                                        </div>
-                                    </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-
-                                    <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                            <label class="label" for="raspberry">Raspberry</label>
-                                            <input type="number" class="form-control" id="raspberry" name="raspberry" min="0" max="1800" placeholder="durée de ventilation du CPU">
-                                        </div>
-                                    </div>
-        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            --->
+            </div>          
             
             <div class="section mt-2">
                 <div>
@@ -170,10 +135,6 @@ window.onlaod= function () {
         }
     </script>
 
-    <script>
-        // Add to Home with 2 seconds delay.
-        AddtoHome("2000", "once");
-    </script>
 
 {% endblock %}
 
