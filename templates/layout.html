@@ -121,8 +121,8 @@ Patrick Pinard
                             <img src="static/img/profile.png" alt="image" class="imaged  w36">
                         </div>
                         <div class="in">
-                            <strong>Admin</strong>
-                            <div class="text-muted">.................</div>
+                            <strong>Administrateur</strong>
+                            <div class="text-muted"># ATTENTION #</div>
                         </div>
                         <a href="#" class="btn btn-link btn-icon sidebar-close" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
@@ -133,9 +133,9 @@ Patrick Pinard
 
                     <!-- menu -->
                     <div class="listview-title mt-1">Menu</div>
-                  
+                    
                     <ul class="listview flush transparent no-line image-listview">
-                        
+                      <!---    
                         <li>
                           <div class="item">
                               <div class="icon-box bg-primary">
@@ -150,8 +150,8 @@ Patrick Pinard
                               </div>
                           </div>
                         </li>
-                        
-                        <li>
+                        --->
+                        <!--- <li>
                           <a href="#confirm_force" class="item" data-bs-toggle="modal" data-bs-target="#confirm_force">
                               <div class="icon-box bg-primary">
                                 <ion-icon name="download-outline"></ion-icon>
@@ -160,7 +160,7 @@ Patrick Pinard
                                   Lancer les mesures
                               </div>
                           </a>
-                        </li>
+                        </li>  -->
 
                        
                         <li>
@@ -194,31 +194,32 @@ Patrick Pinard
     <!-- * App Sidebar -->
     
         <!-- Modal A Propos --->
-    <div class="modal" id="APropos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal  fade dialogbox" id="APropos" tabindex="-1" data-bs-backdrop="static" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
-                  <h3 class="modal-title"><label id="Name"> <a>   </a> </label> <label id="Release">  </label> </h3>
-                 
+                  <h3 class="modal-title"><a> </a><label id="Name"></label><a> </a><label id="Release"></label> </h3>
               </div>
               <div class="modal-body">
                 
                     <p>
-                          MyGreenGarden  est un projet de serre connectée et automatisée via une APP web. 
-                          La serre est équipée 
-                          d'un Raspberry Pi 4 qui pilote deux vannes d'eau & deux ventilateurs en fonction de la température 
+                          MyGreenGarden est un projet de serre connectée et automatisée via une APP web. 
+                          
+                          La serre est équipée d'un Raspberry Pi 4 qui pilote deux vannes d'eau & deux ventilateurs en fonction de la température 
                           et de l'humidité du sol pour un arrosage optimal. 
+
                           Pilotable en mode automatique sur la base de paramètres de configuration ou manuellement au travers 
-                          d'une interface web.
+                          d'une interface web PWA (Progressive Web App).
+
                     </p>
+                    
                     </br>
                       <img src="static/img/laserre.jpg" class="class="rounded float-center img-responsive" alt="Responsive image">
                     </br></br>
-                      
+                   
                     <div class="modal-footer">
                       </br>
-                      <p><label id="Author" style="border-right: 10px;">  </label></p>
-                      <a href="#" style="border-left: 10px;" data-bs-dismiss="modal">Close</a>
+                      <label id="Author"> </label><a href="#" style="border-left: 10px;" data-bs-dismiss="modal">Close</a>
                       </br>
                     </div>
                   

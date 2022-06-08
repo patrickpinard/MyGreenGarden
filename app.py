@@ -41,7 +41,6 @@ RELEASE                        = "V3.2 PWA"
 AUTHOR                         = "Patrick Pinard © 2022"
 DATAFILE                       = '/home/pi/MyGreenGarden/mesures.dta'
 DEBUG                          = False
-ALERT_EMAIL                    = 'ppinard@bluewin.ch'
 
 now = datetime.datetime.now()
 date = now.strftime("%-d.%-m")  
@@ -179,6 +178,20 @@ def LoadTemplateData():
     return TemplateData
 
 
+###### PWA files  ######################################
+
+@app.route("/service-worker.js", methods=['GET'])
+def sw():
+        
+    return app.send_static_file('service-worker.js') 
+
+@app.route("/manifest.json", methods=['GET'])
+def man():
+        
+    return app.send_static_file('manifest.json') 
+
+#########################################################
+
 
 ####################   API   ###############################################
 
@@ -200,22 +213,6 @@ def parameters():
     
     return render_template('parameters.html') 
 
-
-
-
-###### PWA files  ######
-
-@app.route("/service-worker.js", methods=['GET'])
-def sw():
-        
-    return app.send_static_file('service-worker.js') 
-
-@app.route("/manifest.json", methods=['GET'])
-def man():
-        
-    return app.send_static_file('manifest.json') 
-
-##########
 
 @app.route("/shutdown", methods=['POST'])
 def shutdown():
@@ -673,14 +670,10 @@ def force():
         LogEvent("*** Lancement des mesures par administrateur  ***")
         WateringAndAerate()
         SaveState()
+        templateData = LoadTemplateData()
+        return render_template("capteurs.html", **templateData)
 
-        return ('', 204) 
-
-    if request.method == "GET":
-        return ('', 204)
     
-
-
 ####################   fin API   ###############################################
 
 def SaveParametersToFile():
