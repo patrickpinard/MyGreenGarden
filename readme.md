@@ -6,6 +6,8 @@ MyGreenGarden est un projet qui consiste à mettre en œuvre une serre pour la c
 
 ![](/images/greengarden.png)
 
+Démonstration de l'APP en mode PWA : 
+
 https://vimeo.com/718454502
 
 
