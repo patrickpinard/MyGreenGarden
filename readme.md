@@ -1,10 +1,13 @@
-# MyGreenGarden V3.0
-Dernière mise à jour le 4 juin 2022. 
-APP pour mobile en BootStrap 5.
+# MyGreenGarden V3.2
+Dernière mise à jour le 8 juin 2022. 
+APP PWA pour mobile en BootStrap 5.
 
 MyGreenGarden est un projet qui consiste à mettre en œuvre une serre pour la culture de légumes. La serre est pilotée par un ensemble de capteurs et actionneurs connectés à un Raspberry PI 4. Une interface WEB permet de gérer et contrôler la serre à distance depuis n’importe où via un VPN privé.
 
 ![](/images/greengarden.png)
+
+https://vimeo.com/718454502
+
 
 ## Objectifs
 
