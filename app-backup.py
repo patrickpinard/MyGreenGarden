@@ -3,10 +3,10 @@
 # -*- coding: utf-8 -*- 
 
 # Auteur  : Patrick Pinard 
-# Date    : 8.6.2022
+# Date    : 4.6.2022
 # Objet   : Programme simple de gestion automatisée d'une serre avec deux zones d'arrosages
 # Source  : app.py
-# Version : 3.2  (interface mobile avec template bootstrap 5 et PWA fonctionnel)
+# Version : 3.1  (interface mobile avec template bootstrap 5)
 
 #   Clavier MAC :      
 #  {} = "alt/option" + "(" ou ")"
@@ -27,7 +27,6 @@ from mySensorsLib import Temperatures, Moisture, Anemometer, Humidity
 from myActuatorsLib import WaterValve, SkyLight, Relay, Fan
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
-from flask_pwa import PWA
 import os
 from threading import Thread
 import SequentLib8relay
@@ -37,7 +36,7 @@ from gpiozero import CPUTemperature
 
 
 NAME                           = "MyGreenGarden "
-RELEASE                        = "V3.2 PWA"
+RELEASE                        = "V3.1 "
 AUTHOR                         = "Patrick Pinard © 2022"
 DATAFILE                       = '/home/pi/MyGreenGarden/mesures.dta'
 DEBUG                          = False
@@ -140,8 +139,7 @@ F                              = []
 
 # Création de l'APPLICATION FLASK:
 app = Flask(__name__)
-#CORS(app)
-PWA(app)
+CORS(app)
 
 
 def LoadTemplateData():
@@ -149,7 +147,7 @@ def LoadTemplateData():
     chargement de l'ensemble des données dans un template pour envoi au front-end   
     '''
 
-    global TemplateData, eventlog, INTERVAL
+    global TemplateData, eventlog
 
     TemplateData = {'Name'                      : NAME, 
                     'Release'                   : RELEASE,
@@ -172,8 +170,7 @@ def LoadTemplateData():
                     'Moisture_zone2_text'       : MOISTURE_ZONE_2_TEXT,
                     'Humidity'                  : HUMIDITY,
                     'WINDSPEEDLIMIT'            : WINDSPEEDLIMIT,
-                    'eventlog'                  : eventlog,
-                    'INTERVAL'                  : INTERVAL,
+                    'eventlog'                  : eventlog
                     }
 
     return TemplateData
@@ -187,7 +184,7 @@ def LoadTemplateData():
 @app.route("/actionneurs", methods=['GET'])
 def main():
     '''
-    chargement de la page principale html avec données dans un template. 
+    chargement de la page principale capteurs.html avec données dans template. 
     '''
     templateData = LoadTemplateData()
     return render_template('actionneurs.html', **templateData) 
@@ -199,23 +196,6 @@ def parameters():
     '''
     
     return render_template('parameters.html') 
-
-
-
-
-###### PWA files  ######
-
-@app.route("/service-worker.js", methods=['GET'])
-def sw():
-        
-    return app.send_static_file('service-worker.js') 
-
-@app.route("/manifest.json", methods=['GET'])
-def man():
-        
-    return app.send_static_file('manifest.json') 
-
-##########
 
 @app.route("/shutdown", methods=['POST'])
 def shutdown():
@@ -516,15 +496,15 @@ def watering():
         return jsonify(data) 
 
 @app.route("/refresh", methods=['GET'])
-@app.route("/values", methods=['GET'])
-def values():
+def refresh():
     '''
-    Retourne les valeurs des mesure des capteurs d'humidité & températures 
+    Permet de rafraichir la mesure des capteurs d'humidité & températures 
+    sur page principale (requete js depuis main.html).
     Requête API sous forme : 
-    http://mygreengarden.ppdlab.ch/values
+    http://mygreengarden.ppdlab.ch/refresh
 
     '''
-    global HUMIDITY, MOISTURE_ZONE_1, MOISTURE_ZONE_2, TEMPERATURE_OUTSIDE, TEMPERATURE_INSIDE, WINDSPEED, eventlog, INTERVAL
+    global HUMIDITY, MOISTURE_ZONE_1, MOISTURE_ZONE_2, TEMPERATURE_OUTSIDE, TEMPERATURE_INSIDE, WINDSPEED, eventlog
 
     if request.method == "GET":
 
@@ -543,6 +523,7 @@ def values():
                 'Author'    : AUTHOR,
                 "Tin"       : TEMPERATURE_INSIDE, 
                 "Tout"      : TEMPERATURE_OUTSIDE, 
+                "H0"        : HUMIDITY,
                 "H1"        : MOISTURE_ZONE_1, 
                 "H2"        : MOISTURE_ZONE_2, 
                 "H1TEXT"    : MOISTURE_SENSOR_ZONE_1.text, 
@@ -551,8 +532,7 @@ def values():
                 "CPU_usage" : CPU_usage,
                 "WINDSPEED" : WINDSPEED,
                 "LastRefreshTime" : dateandtime,
-                "eventlog"  : eventlog,
-                } 
+                "eventlog" : eventlog} 
         
         if DEBUG : LogEvent("DEBUG - Rafraichissement des données pour affichage principal ")
 
@@ -617,7 +597,12 @@ def saveparameters():
         MOISTURE_THRESHOLD_ZONE_2   = int(request.form.get("HumidityLevelZone2"))
         WATERING_TIME_ZONE_1        = int(request.form.get("WateringTimeZone1"))
         WATERING_TIME_ZONE_2        = int(request.form.get("WateringTimeZone2"))
-        
+        #INTERVAL                    = int(request.form.get("INTERVAL"))
+        #ALERT_EMAIL                 = request.form.get("ALERT_EMAIL")
+
+        #LogEvent("INTERVAL    : " + str(INTERVAL) + " sec.")
+        #LogEvent("ALERT_EMAIL : " + (ALERT_EMAIL))
+
 
         data = {'HumidityLevelZone1' : MOISTURE_THRESHOLD_ZONE_1, 
                 'HumidityLevelZone2' : MOISTURE_THRESHOLD_ZONE_2,
@@ -625,7 +610,6 @@ def saveparameters():
                 'TempMinThreshold'   : TEMP_MIN_THRESHOLD, 
                 'WateringTimeZone1'  : WATERING_TIME_ZONE_1,
                 'WateringTimeZone2'  : WATERING_TIME_ZONE_2,
-                
                 }
 
         SaveParametersToFile()
@@ -646,7 +630,7 @@ def getparameters():
     global MOISTURE_THRESHOLD_ZONE_1, MOISTURE_THRESHOLD_ZONE_2
     global TEMP_MAX_THRESHOLD, TEMP_MIN_THRESHOLD
     global WATERING_TIME_ZONE_1,WATERING_TIME_ZONE_2     
-   
+    global INTERVAL, ALERT_EMAIL
 
     if request.method == "GET": 
         data = {'HumidityLevelZone1' : int(MOISTURE_THRESHOLD_ZONE_1), 
@@ -655,7 +639,8 @@ def getparameters():
                 'TempMaxThreshold'   : int(TEMP_MAX_THRESHOLD), 
                 'WateringTimeZone1'  : int(WATERING_TIME_ZONE_1),
                 'WateringTimeZone2'  : int(WATERING_TIME_ZONE_2),
-                
+                #'INTERVAL'           : int(request.form.get("INTERVAL")),
+                #'ALERT_EMAIL'        : request.form.get("ALERT_EMAIL")
                 }
         
         if DEBUG : LogEvent("DEBUG - Envoi des paramètres de configurations : " + str(data))
@@ -670,7 +655,7 @@ def force():
 
     if request.method == "POST": 
        
-        LogEvent("*** Lancement des mesures par administrateur  ***")
+        LogEvent("Lancement des mesures requis par admin web.")
         WateringAndAerate()
         SaveState()
 
@@ -690,7 +675,7 @@ def SaveParametersToFile():
     global MOISTURE_THRESHOLD_ZONE_1, MOISTURE_THRESHOLD_ZONE_2
     global TEMP_MAX_THRESHOLD, TEMP_MIN_THRESHOLD
     global WATERING_TIME_ZONE_1,WATERING_TIME_ZONE_2     
-    global WINDSPEEDLIMIT, HUMIDITYLIMIT, INTERVAL
+    global WINDSPEEDLIMIT, HUMIDITYLIMIT
     
     data = {'TEMP_MAX_THRESHOLD'        : TEMP_MAX_THRESHOLD,
             'TEMP_MIN_THRESHOLD'        : TEMP_MIN_THRESHOLD, 
@@ -839,7 +824,7 @@ def SaveData():
     global FAN_STATE, F
     global LABELS
     
-    #LogEvent("Sauvegarde sur disque des mesures enregistrées en cours ....")
+    LogEvent("Sauvegarde sur disque des mesures enregistrées en cours ....")
     
     try: 
         with open(DATAFILE , 'wb') as file:
@@ -858,7 +843,7 @@ def SaveData():
     except IOError as e:
         LogEvent("Erreur: {0}".format(e))
 
-    LogEvent("Sauvegarde des mesures enregistrées terminée.")
+    LogEvent("Sauvegarde sur disque des mesures enregistrées terminée.")
     
 def LoadData():
 

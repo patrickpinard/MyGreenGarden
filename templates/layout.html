@@ -1,7 +1,7 @@
 <!--- 
   
-MyGreenGarden V3.1
-4 juin 2022
+MyGreenGarden V3.2  (PWA ok)
+8 juin 2022
 Patrick Pinard
 
 --->
@@ -20,7 +20,7 @@ Patrick Pinard
     <link rel="icon" type="image/png" href="static/img/favicon.png" sizes="32x32"> 
     <link rel="apple-touch-icon" sizes="201x251" href="static/img/greengarden-logo.png">
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="manifest" href="__manifest.json"> 
+    <link rel="manifest" href="manifest.json"> 
       
     <!-- ========= JS Files =========  -->
 
@@ -136,17 +136,21 @@ Patrick Pinard
                   
                     <ul class="listview flush transparent no-line image-listview">
                         
-                      <!---<li>
-                          <a href="#APropos" class="item" data-bs-toggle="modal" data-bs-target="#APropos">
+                        <li>
+                          <div class="item">
                               <div class="icon-box bg-primary">
-                                <ion-icon name="document-text-outline"></ion-icon>
+                                  <ion-icon name="moon-outline"></ion-icon>
                               </div>
                               <div class="in">
-                                  A propos 
+                                  <div>Dark Mode</div>
+                                  <div class="form-check form-switch  ms-2">
+                                      <input class="form-check-input dark-mode-switch" type="checkbox" id="darkmodeSwitch">
+                                      <label class="form-check-label" for="darkmodeSwitch"></label>
+                                  </div>
                               </div>
-                          </a>
+                          </div>
                         </li>
-                      --->
+                        
                         <li>
                           <a href="#confirm_force" class="item" data-bs-toggle="modal" data-bs-target="#confirm_force">
                               <div class="icon-box bg-primary">
@@ -188,14 +192,14 @@ Patrick Pinard
         </div>
     </div>
     <!-- * App Sidebar -->
-
-    <!-- Modal A Propos -->
-    <div class="modal" id="APropos" tabindex="-5" role="dialog" aria-hidden="true">
+    
+        <!-- Modal A Propos --->
+    <div class="modal" id="APropos" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
-                  <h3 class="modal-title">A propos de  <label id="Name"> <a>   </a> </label> <label id="Release">  </label> </h3>
-                  <a href="#" data-bs-dismiss="modal">Close</a>
+                  <h3 class="modal-title"><label id="Name"> <a>   </a> </label> <label id="Release">  </label> </h3>
+                 
               </div>
               <div class="modal-body">
                 
@@ -213,7 +217,8 @@ Patrick Pinard
                       
                     <div class="modal-footer">
                       </br>
-                      <p><label id="Author">  </label></p>
+                      <p><label id="Author" style="border-right: 10px;">  </label></p>
+                      <a href="#" style="border-left: 10px;" data-bs-dismiss="modal">Close</a>
                       </br>
                     </div>
                   
@@ -222,7 +227,7 @@ Patrick Pinard
           </div>
       </div>
   </div>
-  <!-- * Modal A Propos -->
+  <!--- * Modal A Propos -->
 
   <!-- Modal (force mesure) -->
 
