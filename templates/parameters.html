@@ -10,12 +10,13 @@ Patrick Pinard
 {% set active_page = "parameters" %}
 {% block body %}
 
-<script>
+<!--- <script>
 window.onlaod= function () {
     refreshAllValues();
     console.log("chargement des paramètres")
 }; 
 </script>
+--->
 
     <!-- App Capsule -->
     <div id="appCapsule" class="full-height"> 
@@ -124,6 +125,7 @@ window.onlaod= function () {
         </form>
     </div>
 
+
     <script type="text/javascript">
 
         // fonction appelée lors de la sauvegarde des paramètres de configuration
@@ -135,6 +137,7 @@ window.onlaod= function () {
         }
     </script>
 
+    
 
 {% endblock %}
 

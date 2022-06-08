@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>MyGreenGarden</title>
+    <meta name="description" content="Finapp HTML Mobile Template">
+    <meta name="keywords"
+        content="bootstrap, wallet, banking, fintech mobile template, cordova, phonegap, mobile, html, responsive" />
+    <link rel="icon" type="image/png" href="static/img/favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="static/img/icon/192x192.png">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="manifest" href="__manifest.json">
+</head>
+
+<body>
+
+    <!-- loader -->
+    <div id="loader">
+        <img src="static/img/loading-icon.png" alt="icon" class="loading-icon">
+    </div>
+    <!-- * loader -->
+
+    <!-- App Header -->
+    <div class="appHeader bg-primary text-light">
+        <div class="left">
+            <a href="#" class="headerButton" data-bs-toggle="modal" data-bs-target="#sidebarPanel">
+                <ion-icon name="menu-outline"></ion-icon>
+            </a>
+        </div>
+        <div class="pageTitle">
+            <strong>MyGreenGarden</strong>
+        </div>
+        <div class="right">
+            <a href="app-notifications.html" class="headerButton">
+                <ion-icon class="icon" name="notifications-outline"></ion-icon>
+                <span class="badge badge-danger">0</span>
+            </a>
+            
+        </div>
+    </div>
+    <!-- * App Header -->
+
+
+    <!-- App Capsule -->
+    <div id="appCapsule">
+
+         <!-- Charts -->
+        
+        <div class="section mt-2 mb-3">
+            <div class="section-title">Températures</div>
+            <div class="card">
+                <div class="card-body">
+                    <div id="chart-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- * Charts -->
+
+        <!--  Toogle -->
+        <div class="section mt-2 mb-3">
+            <div class="section-title">Actionneurs</div>
+                <div class="row mt-2">
+                    <div class="col-6">
+                            <ul class="listview image-listview text inset">
+                                <li>
+                                    <div class="item">
+                                        <div class="in">
+                                            <div>
+                                                FAN
+                                            </div>
+                                            <div class="form-check form-switch ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="Switch1">
+                                                    <label class="form-check-label" for="Switch1"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                    </div>
+                    <div class="col-6">
+                        <ul class="listview image-listview text inset">
+                            <li>
+                                <div class="item">
+                                    <div class="in">
+                                        <div>
+                                            LED
+                                        </div>
+                                        <div class="form-check form-switch ms-2">
+                                                <input class="form-check-input" type="checkbox" id="Switch2">
+                                                <label class="form-check-label" for="Switch2"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <ul class="listview image-listview text inset">
+                            <li>
+                                <div class="item">
+                                    <div class="in">
+                                        <div>
+                                            zone1
+                                        </div>
+                                        <div class="form-check form-switch ms-2">
+                                                <input class="form-check-input" type="checkbox" id="Switch3">
+                                                <label class="form-check-label" for="Switch3"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <ul class="listview image-listview text inset">
+                            <li>
+                                <div class="item">
+                                    <div class="in">
+                                        <div>
+                                            zone2
+                                        </div>
+                                        <div class="form-check form-switch ms-2">
+                                                <input class="form-check-input" type="checkbox" id="Switch4">
+                                                <label class="form-check-label" for="Switch4"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="section mt-2 mb-3">
+            <div class="section-title">Capteurs</div>
+                <div class="section">
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <div class="title">Humidité 1</div>
+                                <div class="value text-success"> 55</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <div class="title">Humidité 2</div>
+                                <div class="value text-success"> 65</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <div class="title">Temp. int.</div>
+                                <div class="value text-success"> 55</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <div class="title">Temp. ext.</div>
+                                <div class="value text-success"> 65</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- * Stats -->
+    </div>
+    <!-- * App Capsule -->
+
+
+    <!-- App Bottom Menu -->
+    <div class="appBottomMenu">
+        <a href="#" class="item active">
+            <div class="col">
+                <ion-icon name="home-outline"></ion-icon>
+                <strong>Overview</strong>
+            </div>
+        </a>
+        <a href="#" class="item">
+            <div class="col">
+                <ion-icon name="bar-chart-outline"></ion-icon>
+                <strong>Graph</strong>
+            </div>
+        </a>
+        <a href="#" class="item">
+            <div class="col">
+                <ion-icon name="speedometer-outline">"></ion-icon>
+                <strong>Capteurs</strong>
+            </div>
+        </a>
+        <a href="#" class="item">
+            <div class="col">
+                <ion-icon name="videocam-outline"></ion-icon>
+                <strong>Caméra</strong>
+            </div>
+        </a>
+        <a href="#" class="item">
+            <div class="col">
+                <ion-icon name="toggle-outline"></ion-icon>
+                <strong>Actionneurs</strong>
+            </div>
+        </a>
+    </div>
+    <!-- * App Bottom Menu -->
+
+    <!-- App Sidebar -->
+    <div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+
+                    <!-- profile box -->
+                    <div class="profileBox pt-2 pb-2">
+                        <div class="image-wrapper">
+                            <img src="static/img/profile.png" alt="image" class="imaged  w36">
+                        </div>
+                        <div class="in">
+                            <strong>Admin</strong>
+                            <div class="text-muted">Patrick Pinard</div>
+                        </div>
+                        <a href="#" class="btn btn-link btn-icon sidebar-close" data-bs-dismiss="modal">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </a>
+                    </div>
+                    <!-- * profile box -->
+                   
+
+                    <!-- menu -->
+                    <div class="listview-title mt-1">Menu</div>
+                  
+                    <ul class="listview flush transparent no-line image-listview">
+                        <li>
+                            <a href="#" class="item">
+                                <div class="icon-box bg-primary">
+                                    <ion-icon name="settings-outline"></ion-icon>
+                                </div>
+                                <div class="in">
+                                    Settings
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" class="item">
+                                <div class="icon-box bg-primary">
+                                    <ion-icon name="log-out-outline"></ion-icon>
+                                </div>
+                                <div class="in">
+                                    Log out
+                                </div>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                    <!-- * others -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- * App Sidebar -->
+
+    <!-- ========= JS Files =========  -->
+    <!-- Bootstrap -->
+    <script src="static/js/lib/bootstrap.bundle.min.js"></script>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Splide -->
+    <script src="static/js/plugins/splide/splide.min.js"></script>
+    <!-- Base Js File -->
+    <script src="static/js/base.js"></script>
+    <!-- Apex Charts -->
+    <script src="static/js/plugins/apexcharts/apexcharts.min.js"></script>
+</body>
+<script>
+    // Demo Charts
+
+    // Chart Line
+    var optionChartLine = {
+        series: [{
+            data: [555, 1222, 777, 888, 555, 888, 999, 1222]
+        }],
+        chart: {
+            type: 'area',
+            width: '100%',
+            height: 150,
+            sparkline: {
+                enabled: true
+            }
+        },
+        stroke: {
+            width: 4,
+        },
+        colors: ['#6236FF'],
+        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F', 'Team G', 'Team H'],
+    };
+    var chartLine = new ApexCharts(document.querySelector("#chart-line"), optionChartLine);
+    chartLine.render();
+
+
+    // Chart Bar
+    var optionChartBar = {
+        series: [{
+            data: [555, 1222, 777, 888, 555, 888, 999, 1222]
+        }],
+        chart: {
+            type: 'bar',
+            width: '100%',
+            height: 150,
+            sparkline: {
+                enabled: true
+            }
+        },
+        stroke: {
+            width: 2,
+        },
+        colors: ['#6236FF'],
+        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F', 'Team G', 'Team H'],
+    };
+    var chartBar = new ApexCharts(document.querySelector("#chart-bar"), optionChartBar);
+    chartBar.render();
+
+
+</script>
+</html>

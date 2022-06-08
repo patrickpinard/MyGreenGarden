@@ -524,7 +524,6 @@ def refresh():
                 'Author'    : AUTHOR,
                 "Tin"       : TEMPERATURE_INSIDE, 
                 "Tout"      : TEMPERATURE_OUTSIDE, 
-                "H0"        : HUMIDITY,
                 "H1"        : MOISTURE_ZONE_1, 
                 "H2"        : MOISTURE_ZONE_2, 
                 "H1TEXT"    : MOISTURE_SENSOR_ZONE_1.text, 
@@ -652,7 +651,7 @@ def force():
 
     if request.method == "POST": 
        
-        LogEvent("Lancement des mesures requis par admin web.")
+        LogEvent("*** Lancement des mesures par administrateur  ***")
         WateringAndAerate()
         SaveState()
 

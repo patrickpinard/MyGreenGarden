@@ -1,4 +1,12 @@
-<!doctype html>
+<!--- 
+  
+MyGreenGarden V3.1
+4 juin 2022
+Patrick Pinard
+
+--->
+
+  <!doctype html>
 <html lang="en">
 
 <head>
@@ -9,208 +17,292 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
     <title>MyGreenGarden</title>
-    <meta name="description" content="Finapp HTML Mobile Template">
-    <meta name="keywords"
-        content="bootstrap, wallet, banking, fintech mobile template, cordova, phonegap, mobile, html, responsive" />
-    <link rel="icon" type="image/png" href="static/img/favicon.png" sizes="32x32">
-    <link rel="apple-touch-icon" sizes="180x180" href="static/img/icon/192x192.png">
+    <link rel="icon" type="image/png" href="static/img/favicon.png" sizes="32x32"> 
+    <link rel="apple-touch-icon" sizes="201x251" href="static/img/greengarden-logo.png">
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="manifest" href="__manifest.json">
+    <link rel="manifest" href="__manifest.json"> 
+      
+    <!-- ========= JS Files =========  -->
+
+    
+     <!-- Ajax --->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <!-- Bootstrap -->
+     <script src="static/js/lib/bootstrap.bundle.min.js"></script>
+     <!-- Ionicons -->
+     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+     <!-- Splide -->
+     <script src="static/js/plugins/splide/splide.min.js"></script>
+     <!-- Base Js File -->
+     <script src="static/js/base.js"></script>
+     <!-- Apex Charts -->
+     <script src="static/js/plugins/apexcharts/apexcharts.min.js"></script>
+    <!-- jQuery 
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>-->
+    
+  
 </head>
 
-<body>
-
-    <!-- loader -->
-    <div id="loader">
-        <img src="static/img/loading-icon.png" alt="icon" class="loading-icon">
-    </div>
-    <!-- * loader -->
+<body onload="start()">
 
     <!-- App Header -->
     <div class="appHeader bg-primary text-light">
+
         <div class="left">
             <a href="#" class="headerButton" data-bs-toggle="modal" data-bs-target="#sidebarPanel">
                 <ion-icon name="menu-outline"></ion-icon>
             </a>
         </div>
+        
         <div class="pageTitle">
-            <strong>MyGreenGarden</strong>
+          <img src="static/img/favicon.png" style="color:white" type="image/png" sizes="32x32">   <strong> MyGreenGarden </strong>
         </div>
+
         <div class="right">
-            <a href="app-notifications.html" class="headerButton">
-                <ion-icon class="icon" name="notifications-outline"></ion-icon>
-                <span class="badge badge-danger">0</span>
+            <a href="#APropos" class="headerButton" style="color:rgb(252, 249, 249)" data-bs-toggle="modal" data-bs-target="#APropos">
+              <ion-icon name="information-circle"></ion-icon>
             </a>
             
         </div>
     </div>
-    <!-- * App Header -->
-
+    
 
     <!-- App Capsule -->
-    <div id="appCapsule">
-
-         <!-- Charts -->
+    <div id="appCapsule" class="full-height">
         
-        <div class="section mt-2 mb-3">
-            <div class="section-title">Températures</div>
+        <!--  actionneurs -->
+
+        <div class="section mt-1 mb-1">
+            <div class="section-title">Lumière</div>
             <div class="card">
-                <div class="card-body">
-                    <div id="chart-line"></div>
-                </div>
+
+                <ul class="listview image-listview transparent flush">
+                    
+                    <li>
+                        <div class="item">
+                            <div class="icon-box bg-success">
+                                <ion-icon name="flashlight-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <strong>Lampe LED</strong>
+                                <div class="form-check form-switch">
+                                    {% if Light == true %} 
+                                    <input class="form-check-input" type="checkbox" id="light" checked onchange="light(this.checked)"/>
+                                    <label class="form-check-label" for="light"></label>
+                                    {% else %}
+                                    <input class="form-check-input" type="checkbox" id="light" unchecked onchange="light(this.checked)"/>
+                                    <label class="form-check-label" for="light"></label>
+                                    {% endif %} 
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="section mt-1 mb-1">
+            <div class="section-title">Arrosage</div>
+            <div class="card">
+
+                <ul class="listview image-listview transparent flush">
+                    <li>
+                        <div class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="color-fill-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <strong>Arrosage automatique</strong>
+                                {% if Watering_auto_mode == true %} 
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="Watering_auto" checked   onchange="watering_auto_mode(this.checked)">
+                                    <label class="form-check-label" for="Watering_auto"></label>
+                                </div>
+                                {% else %} 
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="Watering_auto" unchecked   onchange="watering_auto_mode(this.checked)">
+                                    <label class="form-check-label" for="Watering_auto"></label>
+                                </div>
+                                {% endif %} 
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="color-fill-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>
+                                    <strong>Arrosage zone 1</strong>
+                                </div>
+
+                                {% if Watering_zone1 == true %} 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="1" checked  onchange="watering(this.id,this.checked)">
+                                        <label class="form-check-label" for="1"></label>
+                                    </div>
+                                {% else %} 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="1" unchecked  onchange="watering(this.id,this.checked)">
+                                        <label class="form-check-label" for="1"></label>
+                                    </div>
+                                {% endif %}
+                            
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="color-fill-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <strong>Arrosage zone 2</strong>
+                          
+                                {% if Watering_zone2 == true %} 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="2" checked onchange="watering(this.id,this.checked)"/>
+                                        <label class="form-check-label" for="2"></label>
+                                    </div>
+                                {% else %} 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="2" unchecked onchange="watering(this.id,this.checked)"/>
+                                        <label class="form-check-label" for="2"></label>
+                                    </div>
+                                {% endif %} 
+
+                            </div>
+                        </div>
+                    </li> 
+                </ul>
             </div>
         </div>
 
-        <!-- * Charts -->
+        <div class="section mt-1 mb-1">
+            <div class="section-title">Ventilation</div>
+                <div class="card">
 
-        <!--  Toogle -->
-        <div class="section mt-2 mb-3">
-            <div class="section-title">Actionneurs</div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                            <ul class="listview image-listview text inset">
-                                <li>
-                                    <div class="item">
-                                        <div class="in">
-                                            <div>
-                                                FAN
-                                            </div>
-                                            <div class="form-check form-switch ms-2">
-                                                    <input class="form-check-input" type="checkbox" id="Switch1">
-                                                    <label class="form-check-label" for="Switch1"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                    </div>
-                    <div class="col-6">
-                        <ul class="listview image-listview text inset">
-                            <li>
-                                <div class="item">
-                                    <div class="in">
-                                        <div>
-                                            LED
-                                        </div>
-                                        <div class="form-check form-switch ms-2">
-                                                <input class="form-check-input" type="checkbox" id="Switch2">
-                                                <label class="form-check-label" for="Switch2"></label>
-                                        </div>
-                                    </div>
+                    <ul class="listview image-listview transparent flush">
+                        
+                        <li>
+                            <div class="item">
+                                <div class="icon-box bg-warning">
+                                    <ion-icon name="snow-outline"></ion-icon>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
+                                <div class="in">
+                                    <strong>Ventilation automatique</strong>
+                                    {% if  Fan_auto_mode == true %}  
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="Fan_auto_mode" checked onchange="fan_auto_mode(this.checked)"/>
+                                            <label class="form-check-label" for="Fan_auto_mode"></label>
+                                        </div>
+                                    {% else %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="Fan_auto_mode" unchecked onchange="fan_auto_mode(this.checked)"/>
+                                            <label class="form-check-label" for="Fan_auto_mode"></label>
+                                        </div>
+                                    {% endif %} 
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="item">
+                                <div class="icon-box bg-warning">
+                                    <ion-icon name="snow-outline"></ion-icon>
+                                </div>
+                                <div class="in">
+                                    <div>
+                                        <strong>Ventilateurs</strong>
+                                    </div>
+                                    {% if Fan_state == true %}   
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="Fan" checked onchange="set_fan(this.checked)"/>
+                                            <label class="form-check-label" for="Fan"></label>
+                                        </div>
+                                    {% else %} 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="Fan" unchecked onchange="set_fan(this.checked)"/>
+                                            <label class="form-check-label" for="Fan"></label>
+                                        </div>
+                                {% endif %} 
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
                 </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <ul class="listview image-listview text inset">
-                            <li>
-                                <div class="item">
-                                    <div class="in">
-                                        <div>
-                                            zone1
-                                        </div>
-                                        <div class="form-check form-switch ms-2">
-                                                <input class="form-check-input" type="checkbox" id="Switch3">
-                                                <label class="form-check-label" for="Switch3"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-6">
-                        <ul class="listview image-listview text inset">
-                            <li>
-                                <div class="item">
-                                    <div class="in">
-                                        <div>
-                                            zone2
-                                        </div>
-                                        <div class="form-check form-switch ms-2">
-                                                <input class="form-check-input" type="checkbox" id="Switch4">
-                                                <label class="form-check-label" for="Switch4"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        </div>
         
-        <div class="section mt-2 mb-3">
-            <div class="section-title">Capteurs</div>
-                <div class="section">
-                    <div class="row mt-2">
-                        <div class="col-6">
-                            <div class="stat-box">
-                                <div class="title">Humidité 1</div>
-                                <div class="value text-success"> 55</div>
+        <div class="section mt-1 mb-1">
+            <div class="section-title">Raspberry </div>
+                <div class="card">
+
+                    <ul class="listview image-listview transparent flush">
+                        <li>
+                            <div class="item">
+                                <div class="icon-box bg-danger">
+                                    <ion-icon name="flame-outline"></ion-icon>
+                                </div>
+                                <div class="in">
+                                    <div>
+                                        <strong>Ventilation tableau électrique</strong>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="SwitchCheckDefault41" >
+                                        <label class="form-check-label" for="SwitchCheckDefault41"></label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-box">
-                                <div class="title">Humidité 2</div>
-                                <div class="value text-success"> 65</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-6">
-                            <div class="stat-box">
-                                <div class="title">Temp. int.</div>
-                                <div class="value text-success"> 55</div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="stat-box">
-                                <div class="title">Temp. ext.</div>
-                                <div class="value text-success"> 65</div>
-                            </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
-            </div>
         </div>
-        <!-- * Stats -->
+       
+        <!-- * actionneurs -->
     </div>
     <!-- * App Capsule -->
 
-
     <!-- App Bottom Menu -->
     <div class="appBottomMenu">
-        <a href="#" class="item active">
+        <a href="/actionneurs" class="item active">
             <div class="col">
-                <ion-icon name="home-outline"></ion-icon>
-                <strong>Overview</strong>
+              <ion-icon name="toggle-outline"></ion-icon>
+                <strong>Actionneurs</strong>
             </div>
         </a>
-        <a href="#" class="item">
-            <div class="col">
-                <ion-icon name="bar-chart-outline"></ion-icon>
-                <strong>Graph</strong>
-            </div>
-        </a>
-        <a href="#" class="item">
+              
+        <a href="/capteurs" class="item">
             <div class="col">
                 <ion-icon name="speedometer-outline">"></ion-icon>
                 <strong>Capteurs</strong>
             </div>
         </a>
-        <a href="#" class="item">
+        
+        <a href="/graph" class="item">
+          <div class="col">
+              <ion-icon name="bar-chart-outline"></ion-icon>
+              <strong>Graphiques</strong>
+          </div>
+        </a>
+
+        <a href="/parameters" class="item">
             <div class="col">
-                <ion-icon name="videocam-outline"></ion-icon>
-                <strong>Caméra</strong>
+              <ion-icon name="construct-outline"></ion-icon>
+                <strong>Paramètres</strong>
             </div>
         </a>
-        <a href="#" class="item">
-            <div class="col">
-                <ion-icon name="toggle-outline"></ion-icon>
-                <strong>Actionneurs</strong>
-            </div>
-        </a>
+        
+        <a href="/events" class="item">
+          <div class="col">
+            <ion-icon name="list-outline"></ion-icon>
+              <strong>Evénements</strong>
+          </div>
+      </a>
+
+      </a>
     </div>
     <!-- * App Bottom Menu -->
 
@@ -227,7 +319,7 @@
                         </div>
                         <div class="in">
                             <strong>Admin</strong>
-                            <div class="text-muted">Patrick Pinard</div>
+                            <div class="text-muted">.................</div>
                         </div>
                         <a href="#" class="btn btn-link btn-icon sidebar-close" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
@@ -240,97 +332,418 @@
                     <div class="listview-title mt-1">Menu</div>
                   
                     <ul class="listview flush transparent no-line image-listview">
-                        <li>
-                            <a href="#" class="item">
-                                <div class="icon-box bg-primary">
-                                    <ion-icon name="settings-outline"></ion-icon>
-                                </div>
-                                <div class="in">
-                                    Settings
-                                </div>
-                            </a>
+                        
+                      <!---<li>
+                          <a href="#APropos" class="item" data-bs-toggle="modal" data-bs-target="#APropos">
+                              <div class="icon-box bg-primary">
+                                <ion-icon name="document-text-outline"></ion-icon>
+                              </div>
+                              <div class="in">
+                                  A propos 
+                              </div>
+                          </a>
                         </li>
+                      --->
+                        <li>
+                          <a href="#confirm_force" class="item" data-bs-toggle="modal" data-bs-target="#confirm_force">
+                              <div class="icon-box bg-primary">
+                                <ion-icon name="download-outline"></ion-icon>
+                              </div>
+                              <div class="in">
+                                  Lancer les mesures
+                              </div>
+                          </a>
+                        </li>
+
+                       
+                        <li>
+                          <a href="#confirm_reboot" class="item" data-bs-toggle="modal" data-bs-target="#confirm_reboot">
+                              <div class="icon-box bg-primary">
+                                <ion-icon name="refresh"></ion-icon>
+                              </div>
+                              <div class="in">
+                                  Redémarrer (reboot)
+                              </div>
+                          </a>
+                        </li>
+
+                        <li>
+                          <a href="#confirm_shutdown" class="item" data-bs-toggle="modal" data-bs-target="#confirm_shutdown">
+                              <div class="icon-box bg-primary">
+                                <ion-icon name="power"></ion-icon>
+                              </div>
+                              <div class="in">
+                                  Eteindre (shutdown)
+                              </div>
+                          </a>
+                        </li>
+
+                        
+                          
+                        <div class="dropdown-divider"></div>
+
                         
                         <li>
-                            <a href="#" class="item">
+                          <a href="#ios-add-to-home-screen" class="item" data-bs-toggle="modal" data-bs-target="#ios-add-to-home-screen">
                                 <div class="icon-box bg-primary">
                                     <ion-icon name="log-out-outline"></ion-icon>
                                 </div>
                                 <div class="in">
-                                    Log out
+                                    Add to Home screen
                                 </div>
                             </a>
                         </li>
 
+                       
+
 
                     </ul>
-                    <!-- * others -->
+                    <!-- * menu -->
                 </div>
             </div>
         </div>
     </div>
     <!-- * App Sidebar -->
 
-    <!-- ========= JS Files =========  -->
-    <!-- Bootstrap -->
-    <script src="static/js/lib/bootstrap.bundle.min.js"></script>
-    <!-- Ionicons -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <!-- Splide -->
-    <script src="static/js/plugins/splide/splide.min.js"></script>
-    <!-- Base Js File -->
-    <script src="static/js/base.js"></script>
-    <!-- Apex Charts -->
-    <script src="static/js/plugins/apexcharts/apexcharts.min.js"></script>
+    <!-- Modal A Propos -->
+    <div class="modal" id="APropos" tabindex="-5" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3 class="modal-title">A propos de  <label id="Name"> <a>   </a> </label> <label id="Release">  </label> </h3>
+                  <a href="#" data-bs-dismiss="modal">Close</a>
+              </div>
+              <div class="modal-body">
+                
+                    <p>
+                          MyGreenGarden  est un projet de serre connectée et automatisée via une APP web. 
+                          La serre est équipée 
+                          d'un Raspberry Pi 4 qui pilote deux vannes d'eau & deux ventilateurs en fonction de la température 
+                          et de l'humidité du sol pour un arrosage optimal. 
+                          Pilotable en mode automatique sur la base de paramètres de configuration ou manuellement au travers 
+                          d'une interface web.
+                    </p>
+                    </br>
+                      <img src="static/img/laserre.jpg" class="class="rounded float-center img-responsive" alt="Responsive image">
+                    </br></br>
+                      
+                    <div class="modal-footer">
+                      </br>
+                      <p><label id="Author">  </label></p>
+                      </br>
+                    </div>
+                  
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+  <!-- * Modal A Propos -->
+
+  <!-- Modal (force mesure) -->
+
+  <div class="modal fade dialogbox" id="confirm_force" data-bs-backdrop="static" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Lancer les mesures</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Êtes-vous sûr ? </p>
+        </div>
+        <div class="modal-footer">
+          <form method="POST" role="form" action="/force" class="center-block">
+            <button type="submit" class="btn btn-danger"  name="shutdown" value="refresh">Confirmer</button> 
+          </form> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- * Modal (force mesure) -->
+
+
+  <!-- Modal (confirm reboot) -->
+
+  <div class="modal fade dialogbox" id="confirm_reboot" data-bs-backdrop="static" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Redémarrer (reboot)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Êtes-vous sûr ? </p>
+        </div>
+        <div class="modal-footer">
+          <form method="POST" role="form" action="/reboot" class="center-block">
+            <button type="submit" class="btn btn-danger"  name="shutdown" value="refresh">Confirmer</button> 
+          </form> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- * Modal (reboot) -->
+
+  <!-- Modal (confirm shutdown) --->
+
+  <div class="modal fade dialogbox" id="confirm_shutdown" data-bs-backdrop="static" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Eteindre (shutdown)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Êtes-vous sûr ? </p>
+        </div>
+        <div class="modal-footer">
+          <form method="POST" role="form" action="/shutdown" class="center-block">
+            <button type="submit" class="btn btn-danger"  name="shutdown" value="refresh">Confirmer</button> 
+          </form> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- * Modal (shutdown) -->
+
+  <!-- iOS Add to Home Action Sheet -->
+    <div class="modal inset fade action-sheet ios-add-to-home" id="ios-add-to-home-screen" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Add to Home Screen</h5>
+                  <a href="#" class="close-button" data-bs-dismiss="modal">
+                      <ion-icon name="close"></ion-icon>
+                  </a>
+              </div>
+              <div class="modal-body">
+                  <div class="action-sheet-content text-center">
+                      <div class="mb-1"><img src="static/img/192x192.png" alt="image" class="imaged w64 mb-2">
+                      </div>
+                      <div>
+                          Install <strong>MyGreenGraden</strong> on your iPhone's home screen.
+                      </div>
+                      <div>
+                          Tap <ion-icon name="share-outline"></ion-icon> and Add to homescreen.
+                      </div>
+                      <div class="mt-2">
+                          <button class="btn btn-primary btn-block" data-bs-dismiss="modal">CLOSE</button>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- * iOS Add to Home Action Sheet -->
+
+    <script>
+
+        // fonction lancée au début de l'affichage de la page principale pour rafraichir les données
+        // appel de cette fonction depuis layout.html
+    
+          function start() 
+          {
+            refreshConfigParameters();
+            refreshAllValues();
+          }
+    </script>
+
+    <script>
+
+    // fonction appelée lors d'un refraichissement des paramètres de configuration
+
+    function refreshConfigParameters() {
+        $.ajax({
+          url: "/getparameters",
+          type: "get",
+          dataType: 'json',
+          contentType: 'application/json',
+          data: {},
+          success: function(response) {
+            var obj = JSON.parse(JSON.stringify(response));
+            document.getElementById('HumidityLevelZone1').value = obj.HumidityLevelZone1;
+            document.getElementById('HumidityLevelZone2').value = obj.HumidityLevelZone2;
+            document.getElementById('TempMinThreshold').value = obj.TempMinThreshold;
+            document.getElementById('TempMaxThreshold').value = obj.TempMaxThreshold;
+            document.getElementById('WateringTimeZone1').value = obj.WateringTimeZone1;
+            document.getElementById('WateringTimeZone2').value = obj.WateringTimeZone2;
+            
+            }
+          });
+      }
+    </script>
+
+    <script>
+
+    // fonction appelée lors d'un refraichissement des mesures de capteurs
+
+    function refreshAllValues() {
+        $.ajax({
+           url: "/refresh",
+           type: "get",
+           dataType: 'json',
+           contentType: 'application/json',
+           data: {},
+           success: function(response) {
+            var obj = JSON.parse(JSON.stringify(response));
+            document.getElementById('Name').innerHTML = obj.Name;
+            document.getElementById('Release').innerHTML = obj.Release;
+            document.getElementById('Author').innerHTML = obj.Author;
+            document.getElementById('Tin').innerHTML = obj.Tin;
+            document.getElementById('Tout').innerHTML = obj.Tout;
+            document.getElementById('H1').innerHTML = obj.H1;
+            document.getElementById('H2').innerHTML = obj.H2;
+            document.getElementById('H1TEXT').innerHTML = obj.H1TEXT;
+            document.getElementById('H2TEXT').innerHTML = obj.H2TEXT;
+            document.getElementById('TCPU').innerHTML = obj.TCPU;
+            document.getElementById('CPU_usage').innerHTML = obj.CPU_usage;
+            document.getElementById('WINDSPEED').innerHTML = obj.WINDSPEED;
+            document.getElementById('LastRefreshTime').innerHTML = obj.LastRefreshTime;
+            document.getElementById('eventlog').innerHTML = obj.eventlog;
+            
+           }
+        });
+      }
+  </script>
+      
+  <script>
+
+    // fonction appelée lors d'un changement d'état du switch de la lucarne 
+    // fonction pas encore implémentée
+    
+    function set_window(state) {
+      $.ajax({
+         url: "/window",
+         type: "post",
+         data: {state:state},
+         success: function(response) {}
+      });
+     
+    }
+  </script>
+  
+  <script>
+
+    // fonction appelée lors d'un changement d'état du switch de la ventilation 
+
+    function set_fan(state) {
+      $.ajax({
+         url: "/fan",
+         type: "post",
+         data: {state:state},
+         success: function(response) {}
+      });
+     
+    }
+  </script>
+
+  <script>
+
+      // fonction appelée lors d'un changement d'état du switch window auto mode
+      // fonction pas encore implémentée
+
+    function window_auto_mode(state) {
+      $.ajax({
+         url: "/window/auto",
+         type: "post",
+         data: {state:state},
+         success: function(response) {
+        }
+      });
+    }
+  </script>
+
+  <script>
+
+    // fonction appelée lors d'un changement d'état du switch fan auto mode
+
+  function fan_auto_mode(state) {
+    $.ajax({
+      url: "/fan/auto",
+      type: "post",
+      data: {state:state},
+      success: function(response) {
+      }
+    });
+  }
+  </script>
+
+  <script>
+
+      // fonction appelée lors d'un changement d'état du switch pour lumière
+
+    function light(state) {
+      $.ajax({
+        url: "/light",
+        type: "post",
+        data: {state:state},
+        success: function(response) {
+        }
+      });
+     
+    }
+  </script>
+
+  <script>
+
+    // fonction appelée lors d'un changement d'état du switch pour arrosage automatique
+
+    function watering_auto_mode(state) {
+      $.ajax({
+        url: "/watering/auto",
+        type: "post",
+        data: {state:state},
+        success: function(response) {
+        }
+      });
+      };
+    
+  </script>
+
+          
+  <script>
+
+    // fonction appelée lors d'un changement d'état du switch pour activer/désactiver l'arrosage dans une zone
+
+    function watering(zone, state) {
+      $.ajax({
+        url: "/watering",
+        type: "post",
+        data: {zone:zone, state:state},
+        success: function(response) {
+        }
+      });
+     
+    }
+  </script>
+
+  <script>
+
+    // fonction appelée lors d'un changement d'état du switch camera pour visualiser le stream vidéo
+    // fonction pas encore implémentée
+
+      function camera(state) {
+        $.ajax({
+           url: "/camera",
+           type: "post",
+           data: {state:state},
+           success: function(response) {
+          }
+        });
+       
+      }
+  </script>
+
+  <script>
+    // Add to Home with 2 seconds delay.
+    AddtoHome("2000", "once");
+  </script>
+
 </body>
-<script>
-    // Demo Charts
-
-    // Chart Line
-    var optionChartLine = {
-        series: [{
-            data: [555, 1222, 777, 888, 555, 888, 999, 1222]
-        }],
-        chart: {
-            type: 'area',
-            width: '100%',
-            height: 150,
-            sparkline: {
-                enabled: true
-            }
-        },
-        stroke: {
-            width: 4,
-        },
-        colors: ['#6236FF'],
-        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F', 'Team G', 'Team H'],
-    };
-    var chartLine = new ApexCharts(document.querySelector("#chart-line"), optionChartLine);
-    chartLine.render();
-
-
-    // Chart Bar
-    var optionChartBar = {
-        series: [{
-            data: [555, 1222, 777, 888, 555, 888, 999, 1222]
-        }],
-        chart: {
-            type: 'bar',
-            width: '100%',
-            height: 150,
-            sparkline: {
-                enabled: true
-            }
-        },
-        stroke: {
-            width: 2,
-        },
-        colors: ['#6236FF'],
-        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E', 'Team F', 'Team G', 'Team H'],
-    };
-    var chartBar = new ApexCharts(document.querySelector("#chart-bar"), optionChartBar);
-    chartBar.render();
-
-
-</script>
 </html>

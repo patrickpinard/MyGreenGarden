@@ -1,16 +1,9 @@
-//-----------------------------------------------------------------------
-// Version:        2.2.1
-// Template name:  Finapp - Wallet & Banking HTML Mobile Template
-// Item URL :      https://themeforest.net/item/finapp-wallet-banking-html-mobile-template/25738217
-// Author:         Bragher
-// Author URL :    https://themeforest.net/user/bragher
-//-----------------------------------------------------------------------
 
 
 //-----------------------------------------------------------------------
 // Template Settings
 //-----------------------------------------------------------------------
-const Finapp = {
+const MyGreenGarden = {
     //-------------------------------------------------------------------
     // PWA Settings
     PWA: {
@@ -57,14 +50,14 @@ const Finapp = {
 //-----------------------------------------------------------------------
 var pageBody = document.querySelector("body");
 var appSidebar = document.getElementById("sidebarPanel")
-var loader = document.getElementById('loader');
+//var loader = document.getElementById('loader');
 //-----------------------------------------------------------------------
 
 
 //-----------------------------------------------------------------------
 // Service Workers
 //-----------------------------------------------------------------------
-if (Finapp.PWA.enable) {
+if (MyGreenGarden.PWA.enable) {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('__service-worker.js')
             .then(reg => console.log('service worker registered'))
@@ -98,7 +91,7 @@ function goBackAnimation() {
 var goBackButton = document.querySelectorAll(".goBack");
 goBackButton.forEach(function (el) {
     el.addEventListener("click", function () {
-        if (Finapp.Animation.goBack) {
+        if (MyGreenGarden.Animation.goBack) {
             goBackAnimation();
         }
         else {
@@ -112,7 +105,7 @@ goBackButton.forEach(function (el) {
 
 //-----------------------------------------------------------------------
 // RTL (Right to Left)
-if (Finapp.RTL.enable) {
+if (MyGreenGarden.RTL.enable) {
     var pageHTML = document.querySelector("html")
     pageHTML.dir = "rtl"
     document.querySelector("body").classList.add("rtl-mode")
@@ -441,12 +434,12 @@ function androidAddtoHome() {
 }
 function AddtoHome(time, once) {
     if (once) {
-        var AddHomeStatus = localStorage.getItem("FinappAddtoHome");
+        var AddHomeStatus = localStorage.getItem("MyGreenGardenAddtoHome");
         if (AddHomeStatus === "1" || AddHomeStatus === 1) {
             // already showed up
         }
         else {
-            localStorage.setItem("FinappAddtoHome", 1)
+            localStorage.setItem("MyGreenGardenAddtoHome", 1)
             window.addEventListener('load', () => {
                 if (navigator.standalone) {
                     // if app installed ios home screen
@@ -500,19 +493,19 @@ function AddtoHome(time, once) {
 
 //-----------------------------------------------------------------------
 // Dark Mode
-var checkDarkModeStatus = localStorage.getItem("FinappDarkmode");
+var checkDarkModeStatus = localStorage.getItem("MyGreenGardenDarkmode");
 var switchDarkMode = document.querySelectorAll(".dark-mode-switch");
 var pageBodyActive = pageBody.classList.contains("dark-mode");
 
 // Check if enable as default
-if (Finapp.Dark_Mode.default) {
+if (MyGreenGarden.Dark_Mode.default) {
     pageBody.classList.add("dark-mode");
 }
 
 // Local Dark Mode
-if (Finapp.Dark_Mode.local_mode.enable) {
-    var nightStart = Finapp.Dark_Mode.local_mode.start_time;
-    var nightEnd = Finapp.Dark_Mode.local_mode.end_time;
+if (MyGreenGarden.Dark_Mode.local_mode.enable) {
+    var nightStart = MyGreenGarden.Dark_Mode.local_mode.start_time;
+    var nightEnd = MyGreenGarden.Dark_Mode.local_mode.end_time;
     var currentDate = new Date();
     var currentHour = currentDate.getHours();
     if (currentHour >= nightStart || currentHour < nightEnd) {
@@ -522,7 +515,7 @@ if (Finapp.Dark_Mode.local_mode.enable) {
 }
 
 // Auto Detect Dark Mode
-if (Finapp.Dark_Mode.auto_detect.enable)
+if (MyGreenGarden.Dark_Mode.auto_detect.enable)
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         pageBody.classList.add("dark-mode");
     }
@@ -547,17 +540,17 @@ else {
 }
 switchDarkMode.forEach(function (el) {
     el.addEventListener("click", function () {
-        var darkmodeCheck = localStorage.getItem("FinappDarkmode");
+        var darkmodeCheck = localStorage.getItem("MyGreenGardenDarkmode");
         var bodyCheck = pageBody.classList.contains('dark-mode');
         if (darkmodeCheck === 1 || darkmodeCheck === "1" || bodyCheck) {
             pageBody.classList.remove("dark-mode");
-            localStorage.setItem("FinappDarkmode", "0");
+            localStorage.setItem("MyGreenGardenDarkmode", "0");
             switchDarkModeCheck(false);
         }
         else {
             pageBody.classList.add("dark-mode")
             switchDarkModeCheck(true);
-            localStorage.setItem("FinappDarkmode", "1");
+            localStorage.setItem("MyGreenGardenDarkmode", "1");
         }
     })
 })
@@ -571,7 +564,7 @@ if (document.querySelector(".offcanvas") === null) {
 }
 else {
     var elCookiesBox = new bootstrap.Offcanvas(document.getElementById('cookiesbox'));
-    var CookiesStatus = localStorage.getItem("FinappCookiesStatus")
+    var CookiesStatus = localStorage.getItem("MyGreenGardenCookiesStatus")
     function CookiesBox(time) {
         if (CookiesStatus === "1" || CookiesStatus === 1) {
             // Cookies already accepted.
@@ -589,7 +582,7 @@ else {
     }
     document.querySelectorAll(".accept-cookies").forEach(function (el) {
         el.addEventListener("click", function () {
-            localStorage.setItem("FinappCookiesStatus", "1")
+            localStorage.setItem("MyGreenGardenCookiesStatus", "1")
         })
     })
 }
@@ -605,7 +598,7 @@ function testMode() {
     var colorSuccess = "color: #1DCC70; font-weight:bold;"
 
     console.clear();
-    console.log("%cFINAPP", "font-size: 1.3em; font-weight: bold; color: #FFF; background-color: #6236FF; padding: 10px 120px; margin-bottom: 16px;")
+    console.log("%cMyGreenGarden", "font-size: 1.3em; font-weight: bold; color: #FFF; background-color: #6236FF; padding: 10px 120px; margin-bottom: 16px;")
     console.log("%c🚀 TEST MODE ACTIVATED ..!", "font-size: 1em; font-weight: bold; margin: 4px 0;");
 
     function testModeMsg(value, msg) {
@@ -624,13 +617,13 @@ function testMode() {
     }
 
     testModeSubtitle("THEME SETTINGS")
-    testModeMsg(Finapp.PWA.enable, "PWA")
-    testModeMsg(Finapp.Dark_Mode.default, "Set dark mode as default theme")
-    testModeMsg(Finapp.Dark_Mode.local_mode.enable, "Local dark mode (between " + Finapp.Dark_Mode.local_mode.start_time + ":00 and " + Finapp.Dark_Mode.local_mode.end_time + ":00)")
-    testModeMsg(Finapp.Dark_Mode.auto_detect.enable, "Auto detect dark mode")
-    testModeMsg(Finapp.RTL.enable, "RTL")
-    testModeMsg(Finapp.Test.enable, "Test mode")
-    testModeMsg(Finapp.Test.alert, "Test mode alert")
+    testModeMsg(MyGreenGarden.PWA.enable, "PWA")
+    testModeMsg(MyGreenGarden.Dark_Mode.default, "Set dark mode as default theme")
+    testModeMsg(MyGreenGarden.Dark_Mode.local_mode.enable, "Local dark mode (between " + MyGreenGarden.Dark_Mode.local_mode.start_time + ":00 and " + MyGreenGarden.Dark_Mode.local_mode.end_time + ":00)")
+    testModeMsg(MyGreenGarden.Dark_Mode.auto_detect.enable, "Auto detect dark mode")
+    testModeMsg(MyGreenGarden.RTL.enable, "RTL")
+    testModeMsg(MyGreenGarden.Test.enable, "Test mode")
+    testModeMsg(MyGreenGarden.Test.alert, "Test mode alert")
 
     testModeSubtitle("PREVIEW INFOS")
     // Resolution
@@ -666,10 +659,10 @@ function testMode() {
     }
 
     testModeSubtitle("ANIMATIONS")
-    testModeMsg(Finapp.Animation.goBack, "Go Back")
+    testModeMsg(MyGreenGarden.Animation.goBack, "Go Back")
 }
 function themeTesting() {
-    var word = Finapp.Test.word;
+    var word = MyGreenGarden.Test.word;
     var value = "";
     window.addEventListener('keypress', function (e) {
         value = value + String.fromCharCode(e.keyCode).toLowerCase();
@@ -678,7 +671,7 @@ function themeTesting() {
         }
         if (value == word || value === word) {
             value = ""
-            if (Finapp.Test.alert) {
+            if (MyGreenGarden.Test.alert) {
                 var content = document.getElementById("appCapsule")
                 content.appendChild(document.createElement("div")).className = "test-alert-wrapper";
                 var alert =
@@ -688,7 +681,7 @@ function themeTesting() {
                     +
                     "<div class='text'><h1 class='text-light mb-05'>🤖</h1><strong>"
                     +
-                    Finapp.Test.alertMessage
+                    MyGreenGarden.Test.alertMessage
                     +
                     "</strong></div></div></div>"
                 var wrapper = document.querySelector(".test-alert-wrapper")
@@ -704,7 +697,7 @@ function themeTesting() {
     })
 }
 
-if (Finapp.Test.enable) {
+if (MyGreenGarden.Test.enable) {
     themeTesting();
 }
 //-----------------------------------------------------------------------

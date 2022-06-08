@@ -6,10 +6,12 @@ Patrick Pinard
 
 --->
 
-{% extends "layout.html" %}
-{% set active_page = "capteurs" %}
-{% block body %}
 
+
+    {% extends "layout.html" %}
+    {% set active_page = "capteurs" %}
+    {% block body %}
+   
    
     <!-- App Capsule -->
     <div id="appCapsule" class="full-height">
@@ -179,9 +181,7 @@ Patrick Pinard
     </div>
     <!-- * App Capsule -->
 
-    <script>
-        // Add to Home with 2 seconds delay.
-        AddtoHome("2000", "once");
-    </script>
+    
     
 {% endblock %}
+ 

@@ -1,4 +1,4 @@
-# MyGreenGarden V3.1
+# MyGreenGarden V3.0
 Dernière mise à jour le 4 juin 2022. 
 APP pour mobile en BootStrap 5.
 
