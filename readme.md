@@ -8,7 +8,9 @@ La serre est pilotée par un ensemble de capteurs et actionneurs connectés à u
 
 ![](/images/greengarden.png)
 
-Démonstration de l'APP en mode PWA : 
+## Vidéo de demo de l'APP
+
+APP en mode PWA : 
 
 https://vimeo.com/718454502
 
