@@ -1,3 +1,9 @@
 
 .DS_Store
 .DS_Store
+__pycache__/adc.cpython-37.pyc
+__pycache__/myActuatorsLib.cpython-37.pyc
+__pycache__/myJSONLib.cpython-37.pyc
+__pycache__/myLOGLib.cpython-37.pyc
+__pycache__/mySensorsLib.cpython-37.pyc
+__pycache__/SequentLib8relay.cpython-37.pyc
