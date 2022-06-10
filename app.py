@@ -224,7 +224,7 @@ def shutdown():
         SaveData() 
         LogEvent("Shutdown ...  bye bye !")
         os.system('sudo halt')
-    return ('', 204)   
+    return jsonify('Shutdown en cours...', 204)   
    
 @app.route("/reboot", methods=['POST','GET'])
 def reboot():
@@ -237,7 +237,7 @@ def reboot():
         SaveData()
         LogEvent("Reboot ... see you soon !")
         os.system('sudo reboot')
-    return ('', 204)
+    return jsonify('Reboot en cours...', 204)
     
 @app.route("/camera", methods=["GET","POST"])
 def camera():
@@ -261,7 +261,7 @@ def camera():
             LogEvent("Caméra désactivée.")
         else: 
             LogEvent('Erreur état de caméra.')
-        return ('', 204)
+        return jsonify('Etat camera = ' + str(CAMERA_STATE), 204)
 
     if request.method == "GET":
         return render_template("camera.html", Camera = CAMERA_STATE)
@@ -282,6 +282,7 @@ def light():
 
     if request.method == "POST":
         state = request.form.get('state')
+        
         if state=="true":
             LIGHT_STATE = True
             LIGHT.close()    #fermeture du relai pour allumer la lampe
@@ -298,7 +299,7 @@ def light():
         data = {'Light':LIGHT_STATE}
         return jsonify(data)
 
-@app.route('/windspeed', methods=['POST','GET'])
+@app.route('/windspeed', methods=['GET'])
 def windspeed():
     '''
     Retourne la vitesse du vent en km/h
@@ -311,8 +312,6 @@ def windspeed():
         LogEvent('Mesure de la vitesse du vent [km/h] : ' + str(WINDSPEED))
         return jsonify(data)  
     
-    if request.method == "POST":
-        return render_template('index.html') 
 
 
 @app.route("/window/auto", methods=['GET','POST'])
@@ -337,7 +336,7 @@ def window_auto_mode():
         else: 
             text= "Erreur : état ventilation automatique indéfini."
         LogEvent(text)
-        return ('', 204) 
+        return jsonify('Etat du mode automatique de la lucarne : ' + str(WINDOW_AUTO_MODE), 204) 
 
     if request.method == "GET":
         data = {'WINDOW_AUTO_MODE': WINDOW_AUTO_MODE}
@@ -365,7 +364,7 @@ def window():
             SaveState()
         else:
             LogEvent("Erreur : état lucarne indéfini.")
-        return ('', 204)
+        return jsonify('Etat de la lucarne : ' + str(WINDOW_STATE), 204)
 
     if request.method == "GET":
         data = {'WINDOW_STATE':WINDOW_STATE}
@@ -394,7 +393,7 @@ def fan():
             SaveState()
         else:
             LogEvent("Erreur : état ventilateurs indéfini.")
-        return ('', 204)
+        return jsonify('Etat des ventilateurs : ' + str(FAN_STATE), 204)
 
     if request.method == "GET":
         data = {'FAN_STATE': FAN_STATE}
@@ -422,7 +421,7 @@ def fan_auto_mode():
         else: 
             text= "Erreur : état du mode des ventilateurs indéfini."
         LogEvent(text)
-        return ('', 204) 
+        return jsonify('Etat du mode automatique des ventilateurs : ' + str(FAN_AUTO_MODE), 204) 
 
     if request.method == "GET":
         data = {'FAN_AUTO_MODE': FAN_AUTO_MODE}
@@ -451,7 +450,7 @@ def watering_auto_mode():
             LogEvent("Arrosage automatique désactivé.")
         else:
             LogEvent("Erreur : état arrosage automatique indéfini.")
-        return ('', 204) 
+        return jsonify("Etat du mode automatique de l'arrosage : " + str(WATERING_AUTO_MODE), 204) 
 
     if request.method == "GET":
         data = {'WATERING_AUTO_MODE': WATERING_AUTO_MODE}
@@ -502,7 +501,7 @@ def watering():
                     
             SaveState()
 
-            return ('', 204) 
+            return jsonify("Etat de l'arrosage dans la " + str(zone) + " : " + str(state), 204) 
     else:
         LogEvent("Arrosage automatique activé ! pas d'actions manuelle possible.")
         return ('', 204)
@@ -512,7 +511,7 @@ def watering():
                 'WATERING_ZONE_2' : WATERING_ZONE_2}
         return jsonify(data) 
 
-@app.route("/refresh", methods=['GET'])
+#@app.route("/refresh", methods=['GET'])
 @app.route("/values", methods=['GET'])
 def values():
     '''
@@ -659,7 +658,7 @@ def getparameters():
 
         return jsonify(data)
 
-@app.route("/force", methods=['GET','POST'])
+@app.route("/force", methods=['POST'])
 def force():
     '''
     Force le lancement des mesures et actions manuellement
