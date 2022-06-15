@@ -1,14 +1,14 @@
-<!--- 
-  
-MyGreenGarden V3.1
-4 juin 2022
-Patrick Pinard
-
---->
 
 {% extends "layout.html" %}
 {% set active_page = "events" %}
 {% block body %}
+
+  <script>
+    window.onload= function () {
+        getGraphValues();
+    }; 
+  </script>
+
 
     <!-- App Capsule -->
     <div id="appCapsule" class="full-height">

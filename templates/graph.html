@@ -1,22 +1,15 @@
-<!--- 
-  
-MyGreenGarden V3.1
-4 juin 2022
-Patrick Pinard
-
---->
 
 {% extends "layout.html" %}
 {% set active_page = "graph" %}
 {% block body %}
 
 <script>
-  window.onlaod= function () {
-      refreshAllValues()
-      console.log("chargement des valeurs mesurées")
+  window.onload= function () {
+      getGraphValues();
   }; 
-  </script>
-  
+</script>
+
+
     <!-- App Capsule -->
     <div id="appCapsule" class="full-height">
       

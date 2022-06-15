@@ -18,8 +18,8 @@
 
     
      <!-- Ajax & jquery
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>--->
      
      <!-- Bootstrap -->
      <script src="static/js/lib/bootstrap.bundle.min.js"></script>
@@ -31,19 +31,14 @@
      <script src="static/js/base.js"></script>
      <!-- Apex Charts -->
      <script src="static/js/plugins/apexcharts/apexcharts.min.js"></script>
+     <!-- jquery -->
+     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+     <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"></script>
    
     
   
 </head>
 
-<!--- <body onload="start()">  --->
-
-<script>
-    window.onload= function () {
-        getAllValues();
-        console.log("chargement des dernières mesures")
-    }; 
-</script>
 
 <body>
 
@@ -124,8 +119,8 @@
                             <img src="static/img/profile.png" alt="image" class="imaged  w36">
                         </div>
                         <div class="in">
-                            <strong>Welcome</strong>
-                            <label id="Username"> </label>
+                            <strong>Bienvenue :   <label id="Username"> </label> </strong>
+                            upsince : <label id="LastRebootTime"> </label>
                         </div>
                         <a href="#" class="btn btn-link btn-icon sidebar-close" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
@@ -293,20 +288,9 @@
 
   <!-- * Modal (shutdown) -->
 
-  
-    <script>
 
-        // fonction lancée au début de l'affichage de la page principale pour rafraichir les données
-        // appel de cette fonction depuis layout.html
-    
-          function start() 
-          {
-            getConfigParameters();
-            getAllValues();
-          }
-    </script>
 
-    <script>
+  <script>
 
     // fonction appelée lors d'un refraichissement des paramètres de configuration
 
@@ -329,40 +313,60 @@
             }
           });
       }
-    </script>
-
-    <script>
-
-    // fonction appelée lors d'un refraichissement des mesures de capteurs
-
-    function getAllValues() {
-        $.ajax({
-           url: "/getallvalues",
-           type: "get",
-           dataType: 'json',
-           contentType: 'application/json',
-           data: {},
-           success: function(response) {
-            var obj = JSON.parse(JSON.stringify(response));
-            document.getElementById('Tin').innerHTML = obj.Tin;
-            document.getElementById('Tout').innerHTML = obj.Tout;
-            document.getElementById('H1').innerHTML = obj.H1;
-            document.getElementById('H2').innerHTML = obj.H2;
-            document.getElementById('H1TEXT').innerHTML = obj.H1TEXT;
-            document.getElementById('H2TEXT').innerHTML = obj.H2TEXT;
-            document.getElementById('TCPU').innerHTML = obj.TCPU;
-            document.getElementById('CPU_usage').innerHTML = obj.CPU_usage;
-            //document.getElementById('WINDSPEED').innerHTML = obj.WINDSPEED;
-            document.getElementById('LastRefreshTime').innerHTML = obj.LastRefreshTime;
-            document.getElementById('eventlog').innerHTML = obj.eventlog;
-            
-           }
-        });
-        console.log(obj)
-      }
   </script>
-      
+
+
   <script>
+
+  // fonction appelée lors d'un refraichissement des mesures de capteurs
+
+  function getCapteursValues() {
+      $.ajax({
+         url: "/getallvalues",
+         type: "get",
+         dataType: 'json',
+         contentType: 'application/json',
+         data: {},
+         success: function(response) {
+          var obj = JSON.parse(JSON.stringify(response));
+          document.getElementById('Tin').innerHTML = obj.Tin;
+          document.getElementById('Tout').innerHTML = obj.Tout;
+          document.getElementById('H1').innerHTML = obj.H1;
+          document.getElementById('H2').innerHTML = obj.H2;
+          document.getElementById('H1TEXT').innerHTML = obj.H1TEXT;
+          document.getElementById('H2TEXT').innerHTML = obj.H2TEXT;
+          document.getElementById('TCPU').innerHTML = obj.TCPU;
+          document.getElementById('CPU_usage').innerHTML = obj.CPU_usage;
+          document.getElementById('LastRefreshTime').innerHTML = obj.LastRefreshTime;
+          document.getElementById('LastRebootTime').innerHTML = obj.LastRebootTime,
+          document.getElementById('Username').innerHTML = obj.Username
+         }
+      });
+    }
+</script>
+
+
+<script>
+
+  // fonction appelée lors d'un refraichissement des mesures de capteurs
+
+  function getGraphValues() {
+      $.ajax({
+         url: "/getallvalues",
+         type: "get",
+         dataType: 'json',
+         contentType: 'application/json',
+         data: {},
+         success: function(response) {
+          var obj = JSON.parse(JSON.stringify(response));
+          document.getElementById('LastRebootTime').innerHTML = obj.LastRebootTime,
+          document.getElementById('Username').innerHTML = obj.Username
+         }
+      });
+    }
+</script>
+
+<script>
 
     // fonction appelée lors d'un changement d'état du switch de la lucarne 
     // fonction pas encore implémentée
@@ -376,9 +380,9 @@
       });
      
     }
-  </script>
+</script>
   
-  <script>
+<script>
 
     // fonction appelée lors d'un changement d'état du switch de la ventilation 
 
@@ -391,9 +395,9 @@
       });
      
     }
-  </script>
+</script>
 
-  <script>
+<script>
 
       // fonction appelée lors d'un changement d'état du switch window auto mode
       // fonction pas encore implémentée
@@ -407,9 +411,9 @@
         }
       });
     }
-  </script>
+</script>
 
-  <script>
+<script>
 
     // fonction appelée lors d'un changement d'état du switch fan auto mode
 
@@ -422,9 +426,9 @@
       }
     });
   }
-  </script>
+</script>
 
-  <script>
+<script>
 
       // fonction appelée lors d'un changement d'état du switch pour lumière
 
@@ -438,9 +442,9 @@
       });
      
     }
-  </script>
+</script>
 
-  <script>
+<script>
 
     // fonction appelée lors d'un changement d'état du switch pour arrosage automatique
 
@@ -454,10 +458,10 @@
       });
       };
     
-  </script>
+</script>
 
           
-  <script>
+ <script>
 
     // fonction appelée lors d'un changement d'état du switch pour activer/désactiver l'arrosage dans une zone
 
@@ -471,9 +475,9 @@
       });
      
     }
-  </script>
+</script>
 
-  <script>
+<script>
 
     // fonction appelée lors d'un changement d'état du switch camera pour visualiser le stream vidéo
     // fonction pas encore implémentée
@@ -488,12 +492,12 @@
         });
        
       }
-  </script>
+</script>
 
-  <script>
+<script>
     // Add to Home with 2 seconds delay.
     AddtoHome("2000", "once");
-  </script>
+</script>
 
 </body>
 </html>

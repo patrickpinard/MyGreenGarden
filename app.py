@@ -57,8 +57,8 @@ now = datetime.datetime.now()
 date = now.strftime("%-d.%-m")  
 time = now.strftime("%H:%M:%S")  
 dateandtime = date + " à " + time 
-bootTime = dateandtime
-LogEvent("Redémarrage le " + str(bootTime))
+LastRebootTime = dateandtime
+LogEvent("Redémarrage le " + str(LastRebootTime))
 LogEvent(NAME + RELEASE + AUTHOR)
 LogEvent("Création des objets...")
 if DEBUG : 
@@ -357,7 +357,7 @@ def parameters():
     '''
     chargement de la page paramètres de configurations. 
     '''
-    
+   
     return render_template('parameters.html') 
 
 
@@ -701,6 +701,8 @@ def getallvalues():
                 "CPU_usage"                 : CPU_usage,
                 #"WINDSPEED"                : WINDSPEED,
                 "LastRefreshTime"           : dateandtime,
+                'LastRebootTime'            : LastRebootTime,
+                'Username'                  : USERNAME,
                 "eventlog"                  : eventlog,
                 } 
         
@@ -847,6 +849,7 @@ def LoadTemplateData():
                     'Username'                  : USERNAME,
                     'AppRelease'                : RELEASE,
                     'AppAuthor'                 : AUTHOR,
+                    'LastRebootTime'            : LastRebootTime,
                     'Window_auto_mode'          : WINDOW_AUTO_MODE,
                     'Window'                    : WINDOW_STATE,
                     'Fan_state'                 : FAN_STATE,

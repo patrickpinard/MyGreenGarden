@@ -10,19 +10,6 @@ const MyGreenGarden = {
         enable: true, // Enable or disable PWA
     },
     //-------------------------------------------------------------------
-    // Dark Mode Settings
-    Dark_Mode: {
-        default: false, // Set dark mode as main theme
-        local_mode: { // Activate dark mode between certain times of the day
-            enable: false, // Enable or disable local dark mode
-            start_time: 20, // Start at 20:00
-            end_time: 7, // End at 07:00
-        },
-        auto_detect: { // Auto detect user's preferences and activate dark mode
-            enable: false,
-        }
-    },
-    //-------------------------------------------------------------------
     // Right to Left (RTL) Settings
     RTL: {
         enable: false, // Enable or disable RTL Mode
@@ -33,14 +20,7 @@ const MyGreenGarden = {
         goBack: false, // Go back page animation
     },
     //-------------------------------------------------------------------
-    // Test Mode
-    Test: {
-        enable: true, // Enable or disable test mode
-        word: "testmode", // The word that needs to be typed to activate test mode
-        alert: true, // Enable or disable alert when test mode is activated
-        alertMessage: "Test mode activated. Look at the developer console!" // Alert message
-    }
-    //-------------------------------------------------------------------
+   
 }
 //-----------------------------------------------------------------------
 
@@ -64,42 +44,6 @@ if (MyGreenGarden.PWA.enable) {
             .catch(err => console.log('service worker not registered - there is an error.', err));
     }
 }
-//-----------------------------------------------------------------------
-
-
-//-----------------------------------------------------------------------
-// Page Loader with preload
-//----------------------------------------------------------------------
-setTimeout(() => {
-    loader.setAttribute("style", "pointer-events: none; opacity: 0; transition: 0.2s ease-in-out;");
-    setTimeout(() => {
-        loader.setAttribute("style", "display: none;")
-    }, 1000);
-}, 450);
-//-----------------------------------------------------------------------
-
-
-//-----------------------------------------------------------------------
-// Go Back Animation
-function goBackAnimation() {
-    pageBody.classList.add("animationGoBack")
-    setTimeout(() => {
-        window.history.go(-1);
-    }, 300);
-}
-// Go Back Button
-var goBackButton = document.querySelectorAll(".goBack");
-goBackButton.forEach(function (el) {
-    el.addEventListener("click", function () {
-        if (MyGreenGarden.Animation.goBack) {
-            goBackAnimation();
-        }
-        else {
-            window.history.go(-1);
-        }
-
-    })
-})
 //-----------------------------------------------------------------------
 
 
@@ -491,70 +435,6 @@ function AddtoHome(time, once) {
 //-----------------------------------------------------------------------
 
 
-//-----------------------------------------------------------------------
-// Dark Mode
-var checkDarkModeStatus = localStorage.getItem("MyGreenGardenDarkmode");
-var switchDarkMode = document.querySelectorAll(".dark-mode-switch");
-var pageBodyActive = pageBody.classList.contains("dark-mode");
-
-// Check if enable as default
-if (MyGreenGarden.Dark_Mode.default) {
-    pageBody.classList.add("dark-mode");
-}
-
-// Local Dark Mode
-if (MyGreenGarden.Dark_Mode.local_mode.enable) {
-    var nightStart = MyGreenGarden.Dark_Mode.local_mode.start_time;
-    var nightEnd = MyGreenGarden.Dark_Mode.local_mode.end_time;
-    var currentDate = new Date();
-    var currentHour = currentDate.getHours();
-    if (currentHour >= nightStart || currentHour < nightEnd) {
-        // It is night time
-        pageBody.classList.add("dark-mode");
-    }
-}
-
-// Auto Detect Dark Mode
-if (MyGreenGarden.Dark_Mode.auto_detect.enable)
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        pageBody.classList.add("dark-mode");
-    }
-
-function switchDarkModeCheck(value) {
-    switchDarkMode.forEach(function (el) {
-        el.checked = value
-    })
-}
-// if dark mode on
-if (checkDarkModeStatus === 1 || checkDarkModeStatus === "1" || pageBody.classList.contains('dark-mode')) {
-    switchDarkModeCheck(true);
-    if (pageBodyActive) {
-        // dark mode already activated
-    }
-    else {
-        pageBody.classList.add("dark-mode")
-    }
-}
-else {
-    switchDarkModeCheck(false);
-}
-switchDarkMode.forEach(function (el) {
-    el.addEventListener("click", function () {
-        var darkmodeCheck = localStorage.getItem("MyGreenGardenDarkmode");
-        var bodyCheck = pageBody.classList.contains('dark-mode');
-        if (darkmodeCheck === 1 || darkmodeCheck === "1" || bodyCheck) {
-            pageBody.classList.remove("dark-mode");
-            localStorage.setItem("MyGreenGardenDarkmode", "0");
-            switchDarkModeCheck(false);
-        }
-        else {
-            pageBody.classList.add("dark-mode")
-            switchDarkModeCheck(true);
-            localStorage.setItem("MyGreenGardenDarkmode", "1");
-        }
-    })
-})
-//-----------------------------------------------------------------------
 
 
 //-----------------------------------------------------------------------
@@ -590,114 +470,3 @@ else {
 
 //-----------------------------------------------------------------------
 
-
-//-----------------------------------------------------------------------
-// Test Mode
-function testMode() {
-    var colorDanger = "color: #FF396F; font-weight:bold;"
-    var colorSuccess = "color: #1DCC70; font-weight:bold;"
-
-    console.clear();
-    console.log("%cMyGreenGarden", "font-size: 1.3em; font-weight: bold; color: #FFF; background-color: #6236FF; padding: 10px 120px; margin-bottom: 16px;")
-    console.log("%c🚀 TEST MODE ACTIVATED ..!", "font-size: 1em; font-weight: bold; margin: 4px 0;");
-
-    function testModeMsg(value, msg) {
-        if (value) {
-            console.log("%c|" + "%c " + msg + " : " + "%cEnabled", "color: #444; font-size :1.2em; font-weight: bold;", "color: inherit", colorSuccess);
-        }
-        else if (value == false) {
-            console.log("%c|" + "%c " + msg + " : " + "%cDisabled", "color: #444; font-size :1.2em; font-weight: bold;", "color: inherit", colorDanger);
-        }
-    }
-    function testModeInfo(value, msg) {
-        console.log("%c|" + "%c " + msg + " : " + "%c" + value, "color: #444; font-size :1.2em; font-weight: bold;", "color: inherit", "color:#6236FF; font-weight: bold;");
-    }
-    function testModeSubtitle(msg) {
-        console.log("%c # " + msg, "color: #FFF; background: #444; font-size: 1.2em; padding: 8px 16px; margin-top: 16px; border-radius: 12px 12px 0 0");
-    }
-
-    testModeSubtitle("THEME SETTINGS")
-    testModeMsg(MyGreenGarden.PWA.enable, "PWA")
-    testModeMsg(MyGreenGarden.Dark_Mode.default, "Set dark mode as default theme")
-    testModeMsg(MyGreenGarden.Dark_Mode.local_mode.enable, "Local dark mode (between " + MyGreenGarden.Dark_Mode.local_mode.start_time + ":00 and " + MyGreenGarden.Dark_Mode.local_mode.end_time + ":00)")
-    testModeMsg(MyGreenGarden.Dark_Mode.auto_detect.enable, "Auto detect dark mode")
-    testModeMsg(MyGreenGarden.RTL.enable, "RTL")
-    testModeMsg(MyGreenGarden.Test.enable, "Test mode")
-    testModeMsg(MyGreenGarden.Test.alert, "Test mode alert")
-
-    testModeSubtitle("PREVIEW INFOS")
-    // Resolution
-    testModeInfo(window.screen.availWidth + " x " + window.screen.availHeight, "Resolution")
-    // Device
-    if (iosDetection) {
-        testModeInfo("iOS", "Device")
-    }
-    else if (androidDetection) {
-        testModeInfo("Android", "Device")
-    }
-    else if (windowsPhoneDetection) {
-        testModeInfo("Windows Phone", "Device")
-    }
-    else {
-        testModeInfo("Not a Mobile Device", "Device")
-    }
-    //Language
-    testModeInfo(window.navigator.language, "Language")
-    // Theme
-    if (pageBody.classList.contains("dark-mode")) {
-        testModeInfo("Dark Mode", "Current theme")
-    }
-    else {
-        testModeInfo("Light Mode", "Current theme")
-    }
-    // Online Status
-    if (window.navigator.onLine) {
-        testModeInfo("Online", "Internet connection")
-    }
-    else {
-        testModeInfo("Offline", "Internet connection")
-    }
-
-    testModeSubtitle("ANIMATIONS")
-    testModeMsg(MyGreenGarden.Animation.goBack, "Go Back")
-}
-function themeTesting() {
-    var word = MyGreenGarden.Test.word;
-    var value = "";
-    window.addEventListener('keypress', function (e) {
-        value = value + String.fromCharCode(e.keyCode).toLowerCase();
-        if (value.length > word.length) {
-            value = value.slice(1);
-        }
-        if (value == word || value === word) {
-            value = ""
-            if (MyGreenGarden.Test.alert) {
-                var content = document.getElementById("appCapsule")
-                content.appendChild(document.createElement("div")).className = "test-alert-wrapper";
-                var alert =
-                    "<div id='alert-toast' class='toast-box toast-center tap-to-close'>"
-                    +
-                    "<div class='in'>"
-                    +
-                    "<div class='text'><h1 class='text-light mb-05'>🤖</h1><strong>"
-                    +
-                    MyGreenGarden.Test.alertMessage
-                    +
-                    "</strong></div></div></div>"
-                var wrapper = document.querySelector(".test-alert-wrapper")
-                wrapper.innerHTML = alert;
-                toastbox('alert-toast');
-                setTimeout(() => {
-                    this.document.getElementById("alert-toast").classList.remove("show")
-                }, 4000);
-            }
-            testMode();
-        }
-
-    })
-}
-
-if (MyGreenGarden.Test.enable) {
-    themeTesting();
-}
-//-----------------------------------------------------------------------
