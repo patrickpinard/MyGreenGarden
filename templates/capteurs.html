@@ -1,17 +1,13 @@
-<!--- 
-  
-MyGreenGarden V3.1
-4 juin 2022
-Patrick Pinard
-
---->
-
-
-
     {% extends "layout.html" %}
     {% set active_page = "capteurs" %}
     {% block body %}
    
+    <script>
+        window.onload= function () {
+            getAllValues();
+            console.log("chargement des dernières mesures")
+        }; 
+    </script>
    
     <!-- App Capsule -->
     <div id="appCapsule" class="full-height">
@@ -149,34 +145,14 @@ Patrick Pinard
             </div>
         </div>
 
-        <div class="text-end">
-            <label id="LastRefreshTime" style="font-size:15px; margin-left: 10px;"> </label>
-        </div>
-
-        <!--- <div class="section mt-2">
-            <div class="section-title">Mesure</div>
-            <div class="card">
-                <ul class="listview flush transparent no-line image-listview detailed-list mt-1 mb-1">
-                    
-                    <li>
-                        <a class="item">
-                            <div class="icon-box bg-danger">
-                                <ion-icon name="time-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                <div>
-                                    <strong>Effectuée le </strong>
-                                </div>
-                                <div class="text-end">
-                                    <label id="LastRefreshTime" style="font-size:15px; margin-left: 10px;"> </label>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                   
-                </ul>
+        <div class="form-links mt-2">
+            <div>
+                <a style="margin-left:10px"> Dernière mesure effectuée le :  </a><label style="margin-left:10px" id="LastRefreshTime"> </label>
             </div>
-        </div>--->
+            
+        </div>
+                           
+        </div>
         
     </div>
     <!-- * App Capsule -->

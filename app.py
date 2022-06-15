@@ -3,10 +3,10 @@
 # -*- coding: utf-8 -*- 
 
 # Auteur  : Patrick Pinard 
-# Date    : 8.6.2022
+# Date    : 15.6.2022
 # Objet   : Programme simple de gestion automatisée d'une serre avec deux zones d'arrosages
 # Source  : app.py
-# Version : 3.2  (interface mobile avec template bootstrap 5 et PWA fonctionnel)
+# Version : 4.0  (intégration de l'authentification avec SQLAlchemy et Flask_Login)
 
 #   Clavier MAC :      
 #  {} = "alt/option" + "(" ou ")"
@@ -14,7 +14,9 @@
 #   ~  = "alt/option" + n    s
 #   \  = Alt + Maj + / 
 
-from ssl import ALERT_DESCRIPTION_ACCESS_DENIED
+
+from distutils.log import Log
+from pathlib import Path
 import sys, os
 sys.path.extend([f'./{name}' for name in os.listdir(".") if os.path.isdir(name)])
 
@@ -25,7 +27,7 @@ from myJSONLib import writeJSONtoFile, readJSONfromFile
 from time import sleep
 from mySensorsLib import Temperatures, Moisture, Anemometer, Humidity
 from myActuatorsLib import WaterValve, SkyLight, Relay, Fan
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, make_response, flash
 from flask_cors import CORS
 from flask_pwa import PWA
 import os
@@ -34,13 +36,22 @@ import SequentLib8relay
 import datetime
 import pickle
 from gpiozero import CPUTemperature
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+import datetime
+from flask_login import LoginManager,login_required, current_user, login_user, logout_user
+
+
 
 
 NAME                           = "MyGreenGarden "
-RELEASE                        = "V3.2 PWA"
+RELEASE                        = "V4"
 AUTHOR                         = "Patrick Pinard © 2022"
-DATAFILE                       = '/home/pi/MyGreenGarden/mesures.dta'
+PATH                           = '/home/pi/MyGreenGardenV4/'
+DATAFILE                       = PATH + 'mesures.dta'
 DEBUG                          = False
+USERNAME                       = ""
+
 
 now = datetime.datetime.now()
 date = now.strftime("%-d.%-m")  
@@ -118,7 +129,7 @@ WINDOW_OPEN_VALUE              = 0              # valeur fictive pour visualisat
 WINDOW_CLOSE_VALUE             = -10            # valeur fictive pour visualisation lucarne fermée sur graph temp.
 
 CAMERA_STATE                   = False          # état du streaming camera (enclenché : True; arrêté : False)
-CONFIG_FILENAME                = "/home/pi/MyGreenGarden/config.json"  # fichier de sauvegarde des paramètres de configuration
+CONFIG_FILENAME                = PATH + "config.json"  # fichier de sauvegarde des paramètres de configuration
 
 TemplateData                   = {}
 bootTime                       = ""
@@ -139,46 +150,165 @@ F                              = []
 
 # Création de l'APPLICATION FLASK:
 app = Flask(__name__)
-#CORS(app)
+app.config['SECRET_KEY']='Th1s1ss3cr3t'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///mygreengarden.db' 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True 
+CORS(app)
 PWA(app)
 
+###### AUTHENTIFICATION ############
 
-def LoadTemplateData():
-    '''
-    chargement de l'ensemble des données dans un template pour envoi au front-end   
-    '''
-
-    global TemplateData, eventlog, INTERVAL
-
-    TemplateData = {'Name'                      : NAME, 
-                    'Release'                   : RELEASE,
-                    'Author'                    : AUTHOR,
-                    'Window_auto_mode'          : WINDOW_AUTO_MODE,
-                    'Window'                    : WINDOW_STATE,
-                    'Fan_state'                 : FAN_STATE,
-                    'Fan_auto_mode'             : FAN_AUTO_MODE,
-                    'Tin'                       : TEMPERATURE_INSIDE,
-                    'Tout'                      : TEMPERATURE_OUTSIDE,
-                    'Tmax'                      : TEMP_MAX_THRESHOLD,
-                    'Light'                     : LIGHT_STATE,
-                    'Watering_zone1'            : WATERING_ZONE_1, 
-                    'Watering_zone2'            : WATERING_ZONE_2,
-                    'Watering_auto_mode'        : WATERING_AUTO_MODE,
-                    'Camera'                    : CAMERA_STATE,
-                    'Moisture_zone1'            : MOISTURE_ZONE_1,
-                    'Moisture_zone2'            : MOISTURE_ZONE_2,
-                    'Moisture_zone1_text'       : MOISTURE_ZONE_1_TEXT,
-                    'Moisture_zone2_text'       : MOISTURE_ZONE_2_TEXT,
-                    'Humidity'                  : HUMIDITY,
-                    'WINDSPEEDLIMIT'            : WINDSPEEDLIMIT,
-                    'eventlog'                  : eventlog,
-                    'INTERVAL'                  : INTERVAL,
-                    }
-
-    return TemplateData
+# gestion des login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 
-###### PWA files  ######################################
+# Création de la base de donnée et modèle:
+db = SQLAlchemy(app)   
+
+class Users(db.Model):
+    """
+    """
+    __tablename__ = 'user'
+
+    name = db.Column(db.String, primary_key=True)
+    password = db.Column(db.String)
+    authenticated = db.Column(db.Boolean, default=False)
+
+    def is_active(self):
+        """True, as all users are active."""
+        return True
+
+    def get_id(self):
+        """Return the username to satisfy Flask-Login's requirements."""
+        return self.name
+
+    def is_authenticated(self):
+        """Return True if the user is authenticated."""
+        return self.authenticated
+
+    def is_anonymous(self):
+        """False, as anonymous users aren't supported."""
+        return False
+
+#from app import db
+db.create_all() 
+
+
+@login_manager.user_loader
+def user_loader(user_id):
+    """
+    """
+    return Users.query.get(user_id)
+
+
+
+@app.route('/signup', methods=['GET','POST'])
+def signup():  
+    LogEvent("Demande d'enregistrement d'un utilisateur en cours...")
+ 
+    name = request.form.get("name")
+    password = request.form.get("password")
+
+    user = Users.query.filter_by(name=name).first() 
+
+    if user  : # contrôle si utilisateur existe déjà 
+        LogEvent("Nom d'utilisateur déjà existant ! ")
+        flash("Nom d'utilisateur déjà existant ! ")
+        return render_template('register.html') 
+
+    if name == ""  : # contrôle si nom utilisateur vide
+        LogEvent("Nom d'utilisateur incorrect ! ")
+        flash("Nom d'utilisateur est incorrect ! ")
+        return render_template('register.html') 
+
+    if password == "" : # contrôle si utilisateur existe déjà ou nom, password vide
+        LogEvent("Mot de passe incorrect ! ")
+        flash("Mot de passe incorrect ! ")
+        return render_template('register.html') 
+
+    hashed_password = generate_password_hash(password, method='sha256')
+    
+    new_user = Users(name=name, password=hashed_password) 
+    db.session.add(new_user)  
+    db.session.commit()    
+
+    LogEvent("Enregistrement de l'utilisateur " + str(name) + ' effectué avec succès')  
+
+    return render_template('login.html') 
+
+
+@app.route('/login', methods=['GET','POST'])  
+def login(): 
+    
+    global USERNAME
+
+    name = request.form.get("name")
+    password = request.form.get("password")
+    
+    if name == None or password == None or name =="" or password == "": 
+        return render_template('login.html') 
+
+    LogEvent("Authentification utilisateur  " + str(name) + " en cours...")
+
+    user = Users.query.filter_by(name=name).first()   
+
+    if not user: # Si utilisateur n'existe pas -> ERREUR 
+        LogEvent("Nom d'utilisateur inexistant ! ")
+        flash("Ce nom d'utilisateur n'existe pas ! Veuillez vous enregistrer.")
+        return render_template('login.html') 
+
+        
+    if check_password_hash(user.password, password):  
+        user.authenticated = True
+        USERNAME = name
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        LogEvent("Utilisateur " + str(name) + " authentifié.")
+        return render_template('capteurs.html') 
+
+    LogEvent("Echec de l'authentification ! ")  
+
+    return render_template('login.html') 
+
+@app.route("/logout", methods=['GET','POST'])
+@login_required
+def logout():
+
+    """Logout"""
+    
+    LogEvent("Logout de l'utilisateur  " + str(current_user.name) + " en cours...")  
+    user = current_user
+    user.authenticated = False
+    logout_user()
+    LogEvent("Logout effectué !")  
+    
+    return render_template("logout.html")
+
+@app.route('/users', methods=['GET'])
+#@login_required
+def get_all_users():  
+   
+   users = Users.query.all() 
+
+   result = []   
+
+   for user in users:   
+       user_data = {}   
+       user_data['name'] = user.name 
+       user_data['password'] = user.password
+       user_data['authenticated'] = user.authenticated
+       
+       result.append(user_data)   
+
+   return jsonify({'users': result}) 
+
+
+
+
+###### PWA files  ##########
 
 @app.route("/service-worker.js", methods=['GET'])
 def sw():
@@ -190,22 +320,39 @@ def man():
         
     return app.send_static_file('manifest.json') 
 
-#########################################################
 
-
-####################   API   ###############################################
+####################   API   ############################
 
 
 @app.route("/", methods=['GET'])
-@app.route("/actionneurs", methods=['GET'])
+@app.route("/index", methods=['GET'])
 def main():
     '''
-    chargement de la page principale html avec données dans un template. 
+    chargement de la page principale de login. 
+    '''
+    
+    return render_template('login.html') 
+
+@app.route("/register", methods=['GET'])
+def register():
+    '''
+    chargement de la page d'enregistrement utilisateur. 
+    '''
+    
+    return render_template('register.html') 
+
+@app.route("/actionneurs", methods=['GET'])
+@login_required
+def actionneurs():
+    '''
+    chargement de la page capteurs avec données dans un template. 
     '''
     templateData = LoadTemplateData()
     return render_template('actionneurs.html', **templateData) 
-    
+
+
 @app.route("/parameters", methods=['GET'])
+@login_required
 def parameters():
     '''
     chargement de la page paramètres de configurations. 
@@ -215,6 +362,7 @@ def parameters():
 
 
 @app.route("/shutdown", methods=['POST'])
+@login_required
 def shutdown():
     '''
     Shutdown Raspberry PI 4.
@@ -227,6 +375,7 @@ def shutdown():
     return jsonify('Shutdown en cours...', 204)   
    
 @app.route("/reboot", methods=['POST','GET'])
+@login_required
 def reboot():
 
     '''
@@ -240,6 +389,7 @@ def reboot():
     return jsonify('Reboot en cours...', 204)
     
 @app.route("/camera", methods=["GET","POST"])
+@login_required
 def camera():
     '''
         POST : activation/arrêt du streaming de la caméra sur l'interface web. 
@@ -267,6 +417,7 @@ def camera():
         return render_template("camera.html", Camera = CAMERA_STATE)
 
 @app.route("/light", methods=["GET","POST"])
+@login_required
 def light():
     '''
     POST : Allumer / Eteindre la lampe.
@@ -300,6 +451,7 @@ def light():
         return jsonify(data)
 
 @app.route('/windspeed', methods=['GET'])
+@login_required
 def windspeed():
     '''
     Retourne la vitesse du vent en km/h
@@ -315,6 +467,7 @@ def windspeed():
 
 
 @app.route("/window/auto", methods=['GET','POST'])
+@login_required
 def window_auto_mode():
     '''
     POST : Activation de l'aération automatique de la serre.
@@ -343,6 +496,7 @@ def window_auto_mode():
         return jsonify(data)
 
 @app.route("/window", methods=["GET","POST"])
+@login_required
 def window():
     '''
     Ouvrir ou Fermer la lucarne.
@@ -372,6 +526,7 @@ def window():
 
 
 @app.route("/fan", methods=["GET","POST"])
+@login_required
 def fan():
     '''
     Activation ou arrêt de la ventilation.
@@ -400,6 +555,7 @@ def fan():
         return jsonify(data)
 
 @app.route("/fan/auto", methods=['GET','POST'])
+@login_required
 def fan_auto_mode():
     '''
     POST : Activation de l'aération automatique de la serre via ventilateurs.
@@ -428,6 +584,7 @@ def fan_auto_mode():
         return jsonify(data)
 
 @app.route("/watering/auto", methods=["GET","POST"])
+@login_required
 def watering_auto_mode():
     '''
     POST : Activer ou Désactiver l'arrosage automatique d'une zone
@@ -457,6 +614,7 @@ def watering_auto_mode():
         return jsonify(data)
 
 @app.route("/watering", methods=["GET","POST"])
+@login_required
 def watering():
     '''
     POST : Activer ou Désactiver l'arrosage automatique d'une zone
@@ -472,8 +630,6 @@ def watering():
     if not WATERING_AUTO_MODE:
 
         if request.method == "POST":
-
-            #ReadHumidityWindSpeedAndTemperatures()   !!!?!??!?!!?!
 
             zone = request.form.get('zone')
             state = request.form.get('state')
@@ -511,13 +667,14 @@ def watering():
                 'WATERING_ZONE_2' : WATERING_ZONE_2}
         return jsonify(data) 
 
-#@app.route("/refresh", methods=['GET'])
-@app.route("/values", methods=['GET'])
-def values():
+@app.route("/getallvalues", methods=['GET'])
+@login_required
+def getallvalues():
     '''
     Retourne les valeurs des mesure des capteurs d'humidité & températures 
     Requête API sous forme : 
     http://mygreengarden.ppdlab.ch/values
+    http://mygreengarden.ppdlab.ch:81/manifest.json
 
     '''
     global HUMIDITY, MOISTURE_ZONE_1, MOISTURE_ZONE_2, TEMPERATURE_OUTSIDE, TEMPERATURE_INSIDE, WINDSPEED, eventlog, INTERVAL
@@ -532,22 +689,19 @@ def values():
         CPU = CPUTemperature()
         TCPU = round(CPU.temperature,2)
         CPU_usage = psutil.cpu_percent()
-
        
-        data = {'Name'      : NAME, 
-                'Release'   : RELEASE,
-                'Author'    : AUTHOR,
-                "Tin"       : TEMPERATURE_INSIDE, 
-                "Tout"      : TEMPERATURE_OUTSIDE, 
-                "H1"        : MOISTURE_ZONE_1, 
-                "H2"        : MOISTURE_ZONE_2, 
-                "H1TEXT"    : MOISTURE_SENSOR_ZONE_1.text, 
-                "H2TEXT"    : MOISTURE_SENSOR_ZONE_2.text, 
-                "TCPU"      : TCPU,
-                "CPU_usage" : CPU_usage,
-                "WINDSPEED" : WINDSPEED,
-                "LastRefreshTime" : dateandtime,
-                "eventlog"  : eventlog,
+        data = {
+                "Tin"                       : TEMPERATURE_INSIDE, 
+                "Tout"                      : TEMPERATURE_OUTSIDE, 
+                "H1"                        : MOISTURE_ZONE_1, 
+                "H2"                        : MOISTURE_ZONE_2, 
+                "H1TEXT"                    : MOISTURE_SENSOR_ZONE_1.text, 
+                "H2TEXT"                    : MOISTURE_SENSOR_ZONE_2.text, 
+                "TCPU"                      : TCPU,
+                "CPU_usage"                 : CPU_usage,
+                #"WINDSPEED"                : WINDSPEED,
+                "LastRefreshTime"           : dateandtime,
+                "eventlog"                  : eventlog,
                 } 
         
         if DEBUG : LogEvent("DEBUG - Rafraichissement des données pour affichage principal ")
@@ -557,6 +711,7 @@ def values():
         return jsonify(data)
 
 @app.route("/graph", methods=['GET'])
+@login_required
 def graph():
     '''
     Affichage des graphiques des mesures d'humidité, températures et vitesse du vent.
@@ -570,6 +725,7 @@ def graph():
 
 
 @app.route("/capteurs", methods=['GET'])
+@login_required
 def capteurs():
     '''
     Affichage des mesures d'humidité, températures.
@@ -582,6 +738,7 @@ def capteurs():
         return render_template("capteurs.html", **templateData)
 
 @app.route("/events", methods=['GET'])
+@login_required
 def events():
     '''
     Affichage de la page des événements enregistrés.
@@ -594,6 +751,7 @@ def events():
         return render_template("events.html", eventlog=eventlog)
 
 @app.route("/saveparameters", methods=['POST'])
+@login_required
 def saveparameters():
     '''
     Sauvegarde des paramètres de configuration de gestion de la serre.
@@ -633,6 +791,7 @@ def saveparameters():
 
 
 @app.route("/getparameters", methods=['GET'])
+@login_required
 def getparameters():
     '''
     Retourne la liste des paramètres de gestion de la serre.
@@ -659,6 +818,7 @@ def getparameters():
         return jsonify(data)
 
 @app.route("/force", methods=['POST'])
+@login_required
 def force():
     '''
     Force le lancement des mesures et actions manuellement
@@ -673,7 +833,43 @@ def force():
         return render_template("capteurs.html", **templateData)
 
     
-####################   fin API   ###############################################
+####################   fin API   ###########################
+
+
+def LoadTemplateData():
+    '''
+    chargement de l'ensemble des données dans un template pour envoi au front-end   
+    '''
+
+    global TemplateData, eventlog, INTERVAL, USERNAME
+
+    TemplateData = {'AppName'                   : NAME, 
+                    'Username'                  : USERNAME,
+                    'AppRelease'                : RELEASE,
+                    'AppAuthor'                 : AUTHOR,
+                    'Window_auto_mode'          : WINDOW_AUTO_MODE,
+                    'Window'                    : WINDOW_STATE,
+                    'Fan_state'                 : FAN_STATE,
+                    'Fan_auto_mode'             : FAN_AUTO_MODE,
+                    'Tin'                       : TEMPERATURE_INSIDE,
+                    'Tout'                      : TEMPERATURE_OUTSIDE,
+                    'Tmax'                      : TEMP_MAX_THRESHOLD,
+                    'Light'                     : LIGHT_STATE,
+                    'Watering_zone1'            : WATERING_ZONE_1, 
+                    'Watering_zone2'            : WATERING_ZONE_2,
+                    'Watering_auto_mode'        : WATERING_AUTO_MODE,
+                    'Camera'                    : CAMERA_STATE,
+                    'Moisture_zone1'            : MOISTURE_ZONE_1,
+                    'Moisture_zone2'            : MOISTURE_ZONE_2,
+                    'Moisture_zone1_text'       : MOISTURE_ZONE_1_TEXT,
+                    'Moisture_zone2_text'       : MOISTURE_ZONE_2_TEXT,
+                    'Humidity'                  : HUMIDITY,
+                    'WINDSPEEDLIMIT'            : WINDSPEEDLIMIT,
+                    'eventlog'                  : eventlog,
+                    'INTERVAL'                  : INTERVAL,
+                    }
+    
+    return TemplateData
 
 def SaveParametersToFile():
     '''
@@ -1009,7 +1205,7 @@ class FlaskApp (Thread):
    def run(self):
       LogEvent("FlaskApp Thread started") 
       try:
-        app.run(host='0.0.0.0', port = 80, debug=False)        
+        app.run(host='0.0.0.0', port = 81, debug=False)        
       except OSError as err:
         LogEvent("ERREUR : thread FlaskApp ! Message : " + str(err))
 
@@ -1053,6 +1249,7 @@ if __name__ == '__main__':
     LogEvent("Mesure automatique des capteurs toutes les " + str(INTERVAL) + " secondes.")
     LoadData()
 
+    
     thread1 = FlaskApp(1, "FlaskApp")
     thread2 = Loop(2, "Loop")
     

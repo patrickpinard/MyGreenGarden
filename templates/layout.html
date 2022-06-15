@@ -1,12 +1,4 @@
-<!--- 
-  
-MyGreenGarden V3.2  (PWA ok)
-8 juin 2022
-Patrick Pinard
-
---->
-
-  <!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -25,8 +17,10 @@ Patrick Pinard
     <!-- ========= JS Files =========  -->
 
     
-     <!-- Ajax --->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <!-- Ajax & jquery
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     
      <!-- Bootstrap -->
      <script src="static/js/lib/bootstrap.bundle.min.js"></script>
      <!-- Ionicons -->
@@ -42,7 +36,16 @@ Patrick Pinard
   
 </head>
 
-<body onload="start()">
+<!--- <body onload="start()">  --->
+
+<script>
+    window.onload= function () {
+        getAllValues();
+        console.log("chargement des dernières mesures")
+    }; 
+</script>
+
+<body>
 
     <!-- App Header -->
     <div class="appHeader bg-primary text-light">
@@ -57,12 +60,12 @@ Patrick Pinard
           <img src="static/img/favicon.png" style="color:white" type="image/png" sizes="32x32">   <strong> MyGreenGarden </strong>
         </div>
 
-        <div class="right">
-            <a href="#APropos" class="headerButton" style="color:rgb(252, 249, 249)" data-bs-toggle="modal" data-bs-target="#APropos">
-              <ion-icon name="information-circle"></ion-icon>
-            </a>
-            
-        </div>
+        <div class="right">           
+          <a class="headerButton" data-bs-toggle="offcanvas" href="#cookiesbox">
+            <ion-icon style="color:rgb(252, 249, 249) "name="information-circle"></ion-icon>
+          </a>
+          
+      </div>
     </div>
     
 
@@ -121,8 +124,8 @@ Patrick Pinard
                             <img src="static/img/profile.png" alt="image" class="imaged  w36">
                         </div>
                         <div class="in">
-                            <strong>Administrateur</strong>
-                            <div class="text-muted"># ATTENTION #</div>
+                            <strong>Welcome</strong>
+                            <label id="Username"> </label>
                         </div>
                         <a href="#" class="btn btn-link btn-icon sidebar-close" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
@@ -135,34 +138,7 @@ Patrick Pinard
                     <div class="listview-title mt-1">Menu</div>
                     
                     <ul class="listview flush transparent no-line image-listview">
-                      <!---    
-                        <li>
-                          <div class="item">
-                              <div class="icon-box bg-primary">
-                                  <ion-icon name="moon-outline"></ion-icon>
-                              </div>
-                              <div class="in">
-                                  <div>Dark Mode</div>
-                                  <div class="form-check form-switch  ms-2">
-                                      <input class="form-check-input dark-mode-switch" type="checkbox" id="darkmodeSwitch">
-                                      <label class="form-check-label" for="darkmodeSwitch"></label>
-                                  </div>
-                              </div>
-                          </div>
-                        </li>
-                        --->
-                        <!--- <li>
-                          <a href="#confirm_force" class="item" data-bs-toggle="modal" data-bs-target="#confirm_force">
-                              <div class="icon-box bg-primary">
-                                <ion-icon name="download-outline"></ion-icon>
-                              </div>
-                              <div class="in">
-                                  Lancer les mesures
-                              </div>
-                          </a>
-                        </li>  -->
-
-                       
+                                            
                         <li>
                           <a href="#confirm_reboot" class="item" data-bs-toggle="modal" data-bs-target="#confirm_reboot">
                               <div class="icon-box bg-primary">
@@ -185,6 +161,20 @@ Patrick Pinard
                           </a>
                         </li>
 
+                        <!--- <div class="dropdown-divider"></div>  -->
+                        
+                        <li>
+                            <a href="/logout" class="item">
+                                <div class="icon-box bg-primary">
+                                    <ion-icon name="log-out-outline"></ion-icon>
+                                </div>
+                                <div class="in">
+                                    Quitter (log out)
+                                </div>
+                            </a>
+                        </li>
+
+
                     </ul>
                     <!-- * menu -->
                 </div>
@@ -193,42 +183,44 @@ Patrick Pinard
     </div>
     <!-- * App Sidebar -->
     
-        <!-- Modal A Propos --->
-    <div class="modal  fade dialogbox" id="APropos" tabindex="-1" data-bs-backdrop="static" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h3 class="modal-title"><a> </a><label id="Name"></label><a> </a><label id="Release"></label> </h3>
-              </div>
-              <div class="modal-body">
-                
-                    <p>
-                          MyGreenGarden est un projet de serre connectée et automatisée via une APP web. 
-                          
-                          La serre est équipée d'un Raspberry Pi 4 qui pilote deux vannes d'eau & deux ventilateurs en fonction de la température 
-                          et de l'humidité du sol pour un arrosage optimal. 
+    <!-- Info Box -->
+    <div id="cookiesbox" class="offcanvas offcanvas-bottom cookies-box" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false">
+      
+      <div class="offcanvas-header">
+        <h3 class="modal-title"><label>MyGreenGarden V4.0</label>  </h3>
+      </div>
+      
+      <div class="offcanvas-body">
+        <p>
+          MyGreenGarden est un projet de serre connectée et automatisée via une APP web. 
+          
+          La serre est équipée d'un Raspberry Pi 4 qui pilote deux vannes d'eau & deux ventilateurs en fonction de la température 
+          et de l'humidité du sol pour un arrosage optimal. 
 
-                          Pilotable en mode automatique sur la base de paramètres de configuration ou manuellement au travers 
-                          d'une interface web PWA (Progressive Web App).
+          Pilotable en mode automatique sur la base de paramètres de configuration ou manuellement au travers 
+          d'une interface web PWA (Progressive Web App).
 
-                    </p>
-                    
-                    </br>
-                      <img src="static/img/laserre.jpg" class="class="rounded float-center img-responsive" alt="Responsive image">
-                    </br></br>
-                   
-                    <div class="modal-footer">
-                      </br>
-                      <label id="Author"> </label><a href="#" style="border-left: 10px;" data-bs-dismiss="modal">Close</a>
-                      </br>
-                    </div>
-                  
-              </div>
-            </div>
+          </p>
+          
+          <!---</br>
+            <img src="static/img/laserre.jpg" class="class="rounded float-center img-responsive" alt="Responsive image">
+          </br></br>
+          --->
+        
+          <div class="modal-footer">
+            </br>
+            <label> Patrick Pinard © 2022 </label>
+            </br>
+          </div>
+
+          <div class="buttons">
+              <a href="/actionneurs" class="btn btn-primary btn-block accept-cookies" data-bs-dismiss="offcanvas">
+                  Quitter</a>
           </div>
       </div>
-  </div>
-  <!--- * Modal A Propos -->
+    </div>
+    <!-- * A propos de Cookies Box -->
+
 
   <!-- Modal (force mesure) -->
 
@@ -309,8 +301,8 @@ Patrick Pinard
     
           function start() 
           {
-            refreshConfigParameters();
-            refreshAllValues();
+            getConfigParameters();
+            getAllValues();
           }
     </script>
 
@@ -318,7 +310,7 @@ Patrick Pinard
 
     // fonction appelée lors d'un refraichissement des paramètres de configuration
 
-    function refreshConfigParameters() {
+    function getConfigParameters() {
         $.ajax({
           url: "/getparameters",
           type: "get",
@@ -343,18 +335,15 @@ Patrick Pinard
 
     // fonction appelée lors d'un refraichissement des mesures de capteurs
 
-    function refreshAllValues() {
+    function getAllValues() {
         $.ajax({
-           url: "/refresh",
+           url: "/getallvalues",
            type: "get",
            dataType: 'json',
            contentType: 'application/json',
            data: {},
            success: function(response) {
             var obj = JSON.parse(JSON.stringify(response));
-            document.getElementById('Name').innerHTML = obj.Name;
-            document.getElementById('Release').innerHTML = obj.Release;
-            document.getElementById('Author').innerHTML = obj.Author;
             document.getElementById('Tin').innerHTML = obj.Tin;
             document.getElementById('Tout').innerHTML = obj.Tout;
             document.getElementById('H1').innerHTML = obj.H1;
@@ -363,12 +352,13 @@ Patrick Pinard
             document.getElementById('H2TEXT').innerHTML = obj.H2TEXT;
             document.getElementById('TCPU').innerHTML = obj.TCPU;
             document.getElementById('CPU_usage').innerHTML = obj.CPU_usage;
-            document.getElementById('WINDSPEED').innerHTML = obj.WINDSPEED;
+            //document.getElementById('WINDSPEED').innerHTML = obj.WINDSPEED;
             document.getElementById('LastRefreshTime').innerHTML = obj.LastRefreshTime;
             document.getElementById('eventlog').innerHTML = obj.eventlog;
             
            }
         });
+        console.log(obj)
       }
   </script>
       

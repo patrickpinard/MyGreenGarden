@@ -10,13 +10,12 @@ Patrick Pinard
 {% set active_page = "parameters" %}
 {% block body %}
 
-<!--- <script>
-window.onlaod= function () {
-    refreshAllValues();
-    console.log("chargement des paramètres")
+<script>
+window.onload= function () {
+    getConfigParameters();
+    console.log("chargement des paramètres de configurations de l'App")
 }; 
 </script>
---->
 
     <!-- App Capsule -->
     <div id="appCapsule" class="full-height"> 
