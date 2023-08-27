@@ -1,9 +1,9 @@
 # Auteur  : Patrick Pinard 
-# Date    : 19.4.2022
+# Date    : 27.8.2023
 # Objet   : sondes de température, humidité et anémomètre.
 # Source  : mySensorsLib.py
-# Version : 1.2  (ajout capteur humidité air SparkFin HIH-4030=
-# Changes : revue code pour accès aux fichiers des sondes DS18B20 car lib DS18B20 -> erreur
+# Version : 1  (
+# Changes : -
 
 # -*- coding: utf-8 -*-
 
@@ -14,12 +14,12 @@
 #   \  = Alt + Maj + / 
 
 VERBOSE = False     # affichage de tous des log 
+SIMULATE = True     # mode simulation
 
-from distutils.log import Log
-from adc       import ADC
+if not SIMULATE : from adc       import ADC
 from myLOGLib  import LogEvent
-import glob
-
+if not SIMULATE : import glob
+import random
 
 
 def mapRange(value, inMin, inMax, outMin, outMax):
@@ -56,7 +56,7 @@ class Humidity(object):
         self.unit = '%HR'
         self.value = 0.0
         
-        self.adc = ADC()
+        if not SIMULATE :  self.adc = ADC()
         self.adc_channel = channelID
 
         LogEvent("Création de la sonde d'humidité de l'air intérieur." )
@@ -79,10 +79,13 @@ class Humidity(object):
         T = Température actuelle en °C pour ajuster le calcul de TrueRH
         """
         supply_voltage = 5  
-        vout = ADC.read_voltage(self.adc, self.adc_channel) * supply_voltage/1023
-        RH = ((vout) / (0.0062 * supply_voltage) - 25.81)
-        TrueRH = RH / (1.0546 - (0.00216 * T))
-        H = round(TrueRH,2)
+        if not SIMULATE :  
+            vout = ADC.read_voltage(self.adc, self.adc_channel) * supply_voltage/1023
+            RH = ((vout) / (0.0062 * supply_voltage) - 25.81)
+            TrueRH = RH / (1.0546 - (0.00216 * T))
+            H = round(TrueRH,2)
+        else:
+            H = random.ranint(0,100)
         self.value = H
         return H
 
@@ -115,7 +118,7 @@ class Anemometer(object):
         self.unit = 'km/h'
         self.value = ""
         
-        self.adc = ADC()
+        if not SIMULATE :  self.adc = ADC()
         self.adc_channel = channelID
         
         LogEvent("Création de l'anénomètre." )
@@ -135,13 +138,16 @@ class Anemometer(object):
         1 m/s = 3.6 km/h
         """
         
-        anemometer_voltage = ADC.read_voltage(self.adc, self.adc_channel)/1000
-        if anemometer_voltage > 0.4:
-            windspeed = ((anemometer_voltage -0.4) / 2.0 * 32.4) * 3.6
-        else:
-            windspeed = 0.00
-        #print('Windspeed [km/h] : ' ,'{:3.2f}'.format(windspeed),  end = "\r")
-        windspeed = round(windspeed,2)
+        if not SIMULATE :  
+            anemometer_voltage = ADC.read_voltage(self.adc, self.adc_channel)/1000
+            if anemometer_voltage > 0.4:
+                windspeed = ((anemometer_voltage -0.4) / 2.0 * 32.4) * 3.6
+            else:
+                windspeed = 0.00
+            windspeed = round(windspeed,2)
+        else: 
+            windspeed= random.randint(0,50)
+            
         self.value = windspeed
         return windspeed
         
@@ -190,42 +196,47 @@ class Temperatures(object):
         Méthode permettant de lire les températures : intérieure et extérieure.
         Retourne une liste avec les valeures de températures au format float.
         """
-
-        routes_capteurs = glob.glob("/sys/bus/w1/devices/28*/w1_slave")
         t = []
+        if not SIMULATE :  
+            routes_capteurs = glob.glob("/sys/bus/w1/devices/28*/w1_slave")
+       
 
-        # les sondes sont crées avec identifiant unique de type 28-3c01d0750cbe 
-        # -> ../../../devices/w1_bus_master1/28-3c01d0750cbe
-        # et l'autre identifiant : 28-3c01e0763559 
-        # glob permet de retourner la liste des répertoires avec le prefix demandé 
+            # les sondes sont crées avec identifiant unique de type 28-3c01d0750cbe 
+            # -> ../../../devices/w1_bus_master1/28-3c01d0750cbe
+            # et l'autre identifiant : 28-3c01e0763559 
+            # glob permet de retourner la liste des répertoires avec le prefix demandé 
 
-        if len(routes_capteurs) > 0 :
-            c = 1  #nombre de routes = nombre de capteurs
-            for capteur in routes_capteurs :
+            if len(routes_capteurs) > 0 :
+                c = 1  #nombre de routes = nombre de capteurs
+                for capteur in routes_capteurs :
 
-                # fichier w1_slave contient le relevé de température
+                    # fichier w1_slave contient le relevé de température
 
-                try:
-                    file = open(capteur)
-                    content = file.read()
-                    file.close()
-                except : 
-                    raise LogEvent("ERREUR : lecture du fichier températures : " + (capteur))
+                    try:
+                        file = open(capteur)
+                        content = file.read()
+                        file.close()
+                    except : 
+                        raise LogEvent("ERREUR : lecture du fichier températures : " + (capteur))
 
-                # contenu texte du fichier du type : 
-                # 6c 01 55 05 7f a5 81 66 56 : crc=56 YES
-                # 6c 01 55 05 7f a5 81 66 56 t=22750
+                    # contenu texte du fichier du type : 
+                    # 6c 01 55 05 7f a5 81 66 56 : crc=56 YES
+                    # 6c 01 55 05 7f a5 81 66 56 t=22750
 
-                try:
-                    line = content.split("\n")[1]
-                    temperature = line.split(" ")[9]
-                except : 
-                    raise LogEvent("ERREUR : lecture du contenu fichier de températures : " + (content)) 
-                temperature = float(temperature[2:]) / 1000
-                t.append(round(temperature,2))
-                c += 1
-        else :
-            LogEvent("ERREUR : Aucune sonde détectée. Vérifier les branchements.")
+                    try:
+                        line = content.split("\n")[1]
+                        temperature = line.split(" ")[9]
+                    except : 
+                        raise LogEvent("ERREUR : lecture du contenu fichier de températures : " + (content)) 
+                    temperature = float(temperature[2:]) / 1000
+                    t.append(round(temperature,2))
+                    c += 1
+            else :
+                LogEvent("ERREUR : Aucune sonde détectée. Vérifier les branchements.")
+        else:
+            t.append(random.randint(0,40))  #Tint
+            t.append(random.randint(0,40))  #Tout
+            
         self.value = t
         return t
         
@@ -259,7 +270,7 @@ class Moisture(object):
         self.type = "SoilWatch 10." 
         self.unit = "%HR"
 
-        self.adc = ADC()    
+        if not SIMULATE: self.adc = ADC()    
         self.value = ""    
         self.text = ""
         self.adc_channel = adc_channel                    
@@ -297,7 +308,10 @@ class Moisture(object):
         vwcValue = 0
 
         try: 
-            rawValue = int(ADC.read_voltage(self.adc, self.adc_channel))
+            if not SIMULATE: 
+                rawValue = int(ADC.read_voltage(self.adc, self.adc_channel))
+            else: 
+                rawValue = random.randint(0,3000)
         except Exception as error:
             LogEvent("Erreur de lecture de la sonde " + self.name + " : " + str(error))
             return 0
@@ -335,7 +349,7 @@ if __name__ == "__main__":
     t= T.read()
     H1 = Moisture(1,"ZONE1", 0)
     H2 = Moisture(2,"ZONE2", 1)
-    WindSpeedSensor = Anemometer()
+    WindSpeedSensor = Anemometer(1)
     Tint = t[0]
     Text = t[1]
     windspeed  = WindSpeedSensor.read()

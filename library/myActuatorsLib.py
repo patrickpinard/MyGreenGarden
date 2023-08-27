@@ -16,7 +16,10 @@ VERBOSE                 = False     # affichage de tous les log.
 WINDOW_OPEN_CLOSE_TIME  = 60        # temps nécessaire pour vérin afin d'ouvrir/fermer de la lucarne
                                     # 10mm/s pour 500mm = 50 secondes minimum. A ajuster lors de l'installation
 
-import SequentLib8relay 
+SIMULATE = True                     # mode simulation 
+
+
+if not SIMULATE : import SequentLib8relay 
 from myLOGLib  import LogEvent
 from time import sleep
 
@@ -93,7 +96,7 @@ class Relay(object):
         """
         if (state==0) or (state==1):
             try:
-                SequentLib8relay.set(self.stack, self.relayid, state)
+                if not SIMULATE : SequentLib8relay.set(self.stack, self.relayid, state)
                 self.state = state 
             except Exception as e:
                 LogEvent("ERREUR : Pas possible de changer l'état du relai #" + str(self.relayid) + " : " + self.name)
@@ -111,7 +114,10 @@ class Relay(object):
         """
        
         try:
-            state = SequentLib8relay.get(self.stack, self.relayid)
+            if not SIMULATE : 
+                state = SequentLib8relay.get(self.stack, self.relayid)
+            else: 
+                state = self.state
         except Exception as e:
             LogEvent("Erreur de lecture d'état du relai #" + str(self.relayid) + " : " + self.name)
        
@@ -334,7 +340,7 @@ if __name__ == "__main__":
     LogEvent(" ---- test de la librairie MyActuatorsLib   -----")
     print()
     print("Remise à zéro de tous les relais")
-    SequentLib8relay.set_all(0, 0)
+    #SequentLib8relay.set_all(0, 0)
     sleep(3)
     print()
     print("Création des objets")
@@ -359,4 +365,4 @@ if __name__ == "__main__":
     Water_Valve_Zone_2.close()
     Water_Valve_Zone_1.close()
 
-    SequentLib8relay.set_all(0, 0)
+    #SequentLib8relay.set_all(0, 0)

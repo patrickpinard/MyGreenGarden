@@ -1,96 +1,63 @@
-2022-06-15 18:16:47,482 - INFO - ---      LOGFILE      ------
-2022-06-15 18:16:47,482 - INFO - ---- { start logging } -----
-2022-06-15 18:16:48,638 - INFO - Redémarrage le 15.6 à 18:16:48
-2022-06-15 18:16:48,638 - INFO - MyGreenGarden V4Patrick Pinard © 2022
-2022-06-15 18:16:48,638 - INFO - Création des objets...
-2022-06-15 18:16:48,638 - INFO - Mode DEBUG désactivé.
-2022-06-15 18:16:48,639 - INFO - Création du relai #6 pour Lampe LED
-2022-06-15 18:16:48,639 - INFO - Création des sondes de températures intérieure & extérieure.
-2022-06-15 18:16:48,641 - INFO - Création de l'anénomètre.
-2022-06-15 18:16:48,641 - INFO - Création du ventilateur.
-2022-06-15 18:16:48,642 - INFO - Création du relai #7 pour Ventilateur(s)
-2022-06-15 18:16:48,643 - INFO - Création de vanne d'eau zone 1
-2022-06-15 18:16:48,643 - INFO - Création du relai #4 pour vanne d'eau zone 1
-2022-06-15 18:16:48,644 - INFO - Création de vanne d'eau zone 2
-2022-06-15 18:16:48,644 - INFO - Création du relai #5 pour vanne d'eau zone 2
-2022-06-15 18:16:48,644 - INFO - Création de la sonde d'humidité au sol humidité sol zone 1
-2022-06-15 18:16:48,644 - INFO - Création de la sonde d'humidité au sol humidité sol zone 2
-2022-06-15 18:16:48,722 - INFO - Remise à zéro de tous les relais.
-2022-06-15 18:16:48,724 - INFO - Chargement des paramètres de configuration de la serre depuis le fichier : /home/pi/MyGreenGardenV4/config.json
-2022-06-15 18:16:48,725 - INFO - TEMP_MAX_THRESOLD = 35
-2022-06-15 18:16:48,725 - INFO - TEMP_MIN_THRESOLD = 30
-2022-06-15 18:16:48,725 - INFO - MOISTURE_THRESHOLD_ZONE_1 = 55
-2022-06-15 18:16:48,725 - INFO - MOISTURE_THRESHOLD_ZONE_2 = 55
-2022-06-15 18:16:48,725 - INFO - WATERING_TIME_ZONE_1 = 300
-2022-06-15 18:16:48,725 - INFO - WATERING_TIME_ZONE_2 = 300
-2022-06-15 18:16:48,725 - INFO - WINDSPEEDLIMIT = 40
-2022-06-15 18:16:48,726 - INFO - HUMIDITYLIMIT = 80
-2022-06-15 18:16:48,726 - INFO - Mesure automatique des capteurs toutes les 900 secondes.
-2022-06-15 18:16:48,726 - INFO - Fichier de sauvegarde des mesures : /home/pi/MyGreenGardenV4/mesures.dta disponible.
-2022-06-15 18:16:48,727 - INFO - Chargement des mesures sauvegardées terminé.
-2022-06-15 18:16:48,727 - INFO - FlaskApp Thread started
-2022-06-15 18:16:48,728 - INFO - Loop Thread started
-2022-06-15 18:16:48,729 - INFO -  *** Thread Loop id = 0 ***
-2022-06-15 18:16:48,744 - INFO -  * Running on http://0.0.0.0:81/ (Press CTRL+C to quit)
-2022-06-15 18:16:50,526 - INFO - Mesure de l'humidité dans la zone 1 : 56 [% HR]
-2022-06-15 18:16:50,526 - INFO - Mesure de l'humidité dans la zone 2 : 61 [% HR]
-2022-06-15 18:16:50,527 - INFO - Mesure de la température extérieure : 32.56 [°C]
-2022-06-15 18:16:50,527 - INFO - Mesure de la température intérieure : 35.56 [°C]
-2022-06-15 18:16:50,528 - INFO - Mesure de la vitesse du vent        : 0.0 [km/h]
-2022-06-15 18:16:50,528 - INFO - Température CPU du Raspberry Pi 4   : 55.02 [°C]
-2022-06-15 18:16:50,528 - INFO - Utilisation CPU du Raspberry Pi 4   : 25.6 [%]
-2022-06-15 18:16:50,529 - INFO - Température intérieure supérieure au maximum de 35 [°C]. Activation des ventilateurs.
-2022-06-15 18:16:50,532 - INFO - Ventilateur(s)  enclenché(s) (ON).
-2022-06-15 18:16:50,533 - INFO - Humidité relative en zone 1 est supérieure à valeur minimale. Pas d'arrosage.
-2022-06-15 18:16:50,533 - INFO - Humidité relative en zone 2 est supérieure à valeur minimale. Pas d'arrosage.
-2022-06-15 18:16:50,536 - INFO - Sauvegarde des mesures enregistrées terminée.
-2022-06-15 18:16:51,411 - INFO - 192.168.1.144 - - [15/Jun/2022 18:16:51] "[32mGET /actionneurs HTTP/1.1[0m" 302 -
-2022-06-15 18:16:51,481 - INFO - 192.168.1.144 - - [15/Jun/2022 18:16:51] "[37mGET /login?next=%2Factionneurs HTTP/1.1[0m" 200 -
-2022-06-15 18:17:02,631 - INFO - Demande d'authentification pour utilisateur  admin en cours...
-2022-06-15 18:17:02,678 - INFO - Utilisateur admin authentifié correctement ! 
-2022-06-15 18:17:02,713 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:02] "[37mPOST /login HTTP/1.1[0m" 200 -
-2022-06-15 18:17:04,032 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:04] "[37mGET /events HTTP/1.1[0m" 200 -
-2022-06-15 18:17:04,630 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:04] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:17:05,892 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:05] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:17:13,030 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:13] "[37mGET /actionneurs HTTP/1.1[0m" 200 -
-2022-06-15 18:17:14,365 - INFO - Lampe allumée.
-2022-06-15 18:17:14,369 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:14] "[37mPOST /light HTTP/1.1[0m" 200 -
-2022-06-15 18:17:15,012 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:15] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:17:15,324 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:15] "[37mGET /events HTTP/1.1[0m" 200 -
-2022-06-15 18:17:17,031 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:17] "[37mGET /actionneurs HTTP/1.1[0m" 200 -
-2022-06-15 18:17:17,191 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:17] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:17:17,817 - INFO - Lampe éteinte.
-2022-06-15 18:17:17,821 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:17] "[37mPOST /light HTTP/1.1[0m" 200 -
-2022-06-15 18:17:18,852 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:18] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:17:20,017 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:20] "[37mGET /capteurs HTTP/1.1[0m" 200 -
-2022-06-15 18:17:21,892 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:21] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:17:30,740 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:30] "[37mGET /events HTTP/1.1[0m" 200 -
-2022-06-15 18:17:32,612 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:32] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:17:35,070 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:35] "[37mGET /parameters HTTP/1.1[0m" 200 -
-2022-06-15 18:17:35,176 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:35] "[37mGET /getparameters HTTP/1.1[0m" 200 -
-2022-06-15 18:17:41,227 - INFO - Sauvegarde des paramètres sur fichier : /home/pi/MyGreenGardenV4/config.json
-2022-06-15 18:17:41,231 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:41] "[37mPOST /saveparameters HTTP/1.1[0m" 200 -
-2022-06-15 18:17:41,318 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:41] "[37mGET /getparameters HTTP/1.1[0m" 200 -
-2022-06-15 18:17:42,850 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:42] "[37mGET /events HTTP/1.1[0m" 200 -
-2022-06-15 18:17:44,692 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:44] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:17:48,937 - INFO - Logout de l'utilisateur  admin en cours...
-2022-06-15 18:17:48,938 - INFO - Logout effectué !
-2022-06-15 18:17:48,948 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:48] "[37mGET /logout HTTP/1.1[0m" 200 -
-2022-06-15 18:17:50,375 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:50] "[37mGET /login HTTP/1.1[0m" 200 -
-2022-06-15 18:17:52,910 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:52] "[37mPOST /login HTTP/1.1[0m" 200 -
-2022-06-15 18:17:58,976 - INFO - Demande d'authentification pour utilisateur  admin en cours...
-2022-06-15 18:17:58,988 - INFO - Utilisateur admin authentifié correctement ! 
-2022-06-15 18:17:58,994 - INFO - 192.168.1.144 - - [15/Jun/2022 18:17:58] "[37mPOST /login HTTP/1.1[0m" 200 -
-2022-06-15 18:18:00,649 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:00] "[37mGET /events HTTP/1.1[0m" 200 -
-2022-06-15 18:18:00,851 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:00] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:18:02,532 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:02] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:18:06,744 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:06] "[37mGET /actionneurs HTTP/1.1[0m" 200 -
-2022-06-15 18:18:08,495 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:08] "[37mGET /capteurs HTTP/1.1[0m" 200 -
-2022-06-15 18:18:08,611 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:08] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:18:10,372 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:10] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:18:29,253 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:29] "[37mGET /events HTTP/1.1[0m" 200 -
-2022-06-15 18:18:31,048 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:31] "[37mGET /events HTTP/1.1[0m" 200 -
-2022-06-15 18:18:32,612 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:32] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:18:33,012 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:33] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
-2022-06-15 18:18:43,893 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:43] "[37mGET /capteurs HTTP/1.1[0m" 200 -
-2022-06-15 18:18:45,812 - INFO - 192.168.1.144 - - [15/Jun/2022 18:18:45] "[37mGET /getallvalues HTTP/1.1[0m" 200 -
+2023-08-27 16:48:51,874 - INFO - ---      LOGFILE      ------
+2023-08-27 16:48:51,874 - INFO - ---- { start logging } -----
+2023-08-27 16:48:52,634 - INFO - Redémarrage le 27.8 à 16:48:52
+2023-08-27 16:48:52,634 - INFO - MyGreenGarden V5-SIMULATEPatrick Pinard © 2023
+2023-08-27 16:48:52,634 - INFO - Création des objets...
+2023-08-27 16:48:52,635 - INFO - Mode DEBUG désactivé.
+2023-08-27 16:48:52,635 - INFO - Création du relai #6 pour Lampe LED
+2023-08-27 16:48:52,635 - INFO - Création des sondes de températures intérieure & extérieure.
+2023-08-27 16:48:52,635 - INFO - Création de l'anénomètre.
+2023-08-27 16:48:52,635 - INFO - Création du ventilateur.
+2023-08-27 16:48:52,635 - INFO - Création du relai #7 pour Ventilateur(s)
+2023-08-27 16:48:52,635 - INFO - Création de vanne d'eau zone 1
+2023-08-27 16:48:52,635 - INFO - Création du relai #4 pour vanne d'eau zone 1
+2023-08-27 16:48:52,635 - INFO - Création de vanne d'eau zone 2
+2023-08-27 16:48:52,635 - INFO - Création du relai #5 pour vanne d'eau zone 2
+2023-08-27 16:48:52,635 - INFO - Création de la sonde d'humidité au sol humidité sol zone 1
+2023-08-27 16:48:52,635 - INFO - Création de la sonde d'humidité au sol humidité sol zone 2
+2023-08-27 16:48:52,660 - INFO - Création de la base de données effectuée.
+2023-08-27 16:48:52,669 - INFO - Création du modèle de données utilisateurs (Users).
+2023-08-27 16:48:52,682 - INFO - Remise à zéro de tous les relais.
+2023-08-27 16:48:52,683 - INFO - Chargement des paramètres de configuration de la serre depuis le fichier : config.json
+2023-08-27 16:48:52,683 - INFO - TEMP_MAX_THRESOLD = 35
+2023-08-27 16:48:52,683 - INFO - TEMP_MIN_THRESOLD = 30
+2023-08-27 16:48:52,683 - INFO - MOISTURE_THRESHOLD_ZONE_1 = 55
+2023-08-27 16:48:52,683 - INFO - MOISTURE_THRESHOLD_ZONE_2 = 55
+2023-08-27 16:48:52,683 - INFO - WATERING_TIME_ZONE_1 = 300
+2023-08-27 16:48:52,683 - INFO - WATERING_TIME_ZONE_2 = 300
+2023-08-27 16:48:52,684 - INFO - WINDSPEEDLIMIT = 40
+2023-08-27 16:48:52,684 - INFO - HUMIDITYLIMIT = 80
+2023-08-27 16:48:52,684 - INFO - Mesure automatique des capteurs toutes les 900 secondes.
+2023-08-27 16:48:52,684 - INFO - Fichier de sauvegarde des mesures : mesures.dta disponible.
+2023-08-27 16:48:52,685 - INFO - Chargement des mesures sauvegardées terminé.
+2023-08-27 16:48:52,685 - INFO - FlaskApp Thread started
+2023-08-27 16:48:52,686 - INFO - Loop Thread started
+2023-08-27 16:48:52,686 - INFO -  *** Thread Loop id = 0 ***
+2023-08-27 16:48:52,686 - INFO - Mesure de l'humidité dans la zone 1 : 35 [% HR]
+2023-08-27 16:48:52,686 - INFO - Mesure de l'humidité dans la zone 2 : 1 [% HR]
+2023-08-27 16:48:52,686 - INFO - Mesure de la température extérieure : 31 [°C]
+2023-08-27 16:48:52,687 - INFO - Mesure de la température intérieure : 37 [°C]
+2023-08-27 16:48:52,687 - INFO - Mesure de la vitesse du vent        : 31 [km/h]
+2023-08-27 16:48:52,687 - INFO - Température CPU du Raspberry Pi 4   : 50 [°C]
+2023-08-27 16:48:52,687 - INFO - Utilisation CPU du Raspberry Pi 4   : 23 [%]
+2023-08-27 16:48:52,687 - INFO - ATTENTION : Température élevée.  Mode manuel enclenché pour ventilateurs. Veuillez aérer la serre manuellement svp !
+2023-08-27 16:48:52,687 - INFO - ATTENTION : Arrosage automatique déclenché. Veuillez arroser manuellement les zones 1 & 2.
+2023-08-27 16:48:52,689 - INFO - Sauvegarde des mesures enregistrées terminée.
+2023-08-27 16:48:52,697 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:81
+ * Running on http://192.168.1.119:81
+2023-08-27 16:48:52,697 - INFO - [33mPress CTRL+C to quit[0m
+2023-08-27 16:48:55,743 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "[32mGET / HTTP/1.1[0m" 302 -
+2023-08-27 16:48:55,757 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "[32mGET /actionneurs HTTP/1.1[0m" 302 -
+2023-08-27 16:48:55,779 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /login?next=/actionneurs HTTP/1.1" 200 -
+2023-08-27 16:48:55,855 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/css/style.css HTTP/1.1" 200 -
+2023-08-27 16:48:55,866 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/js/lib/bootstrap.bundle.min.js HTTP/1.1" 200 -
+2023-08-27 16:48:55,868 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/js/plugins/splide/splide.min.js HTTP/1.1" 200 -
+2023-08-27 16:48:55,870 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/js/plugins/apexcharts/apexcharts.min.js HTTP/1.1" 200 -
+2023-08-27 16:48:55,871 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/js/base.js HTTP/1.1" 200 -
+2023-08-27 16:48:56,248 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "GET /static/css/src/bootstrap/bootstrap.min.css HTTP/1.1" 200 -
+2023-08-27 16:48:56,337 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "GET /static/css/src/splide/splide.min.css HTTP/1.1" 200 -
+2023-08-27 16:48:56,434 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "GET /static/img/favicon.png HTTP/1.1" 200 -
+2023-08-27 16:48:56,438 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "GET /static/img/greengarden.png HTTP/1.1" 200 -
+2023-08-27 16:48:56,673 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "[36mGET /static/img/favicon.png HTTP/1.1[0m" 304 -

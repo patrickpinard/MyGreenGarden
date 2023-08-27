@@ -12,15 +12,11 @@
     <link rel="icon" type="image/png" href="static/img/favicon.png" sizes="32x32"> 
     <link rel="apple-touch-icon" sizes="201x251" href="static/img/greengarden-logo.png">
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="manifest" href="manifest.json"> 
+    <link rel="manifest" href="__manifest.json"> 
+   
       
     <!-- ========= JS Files =========  -->
 
-    
-     <!-- Ajax & jquery
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>--->
-     
      <!-- Bootstrap -->
      <script src="static/js/lib/bootstrap.bundle.min.js"></script>
      <!-- Ionicons -->
@@ -33,9 +29,7 @@
      <script src="static/js/plugins/apexcharts/apexcharts.min.js"></script>
      <!-- jquery -->
      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-     <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"></script>
    
-    
   
 </head>
 
@@ -119,8 +113,8 @@
                             <img src="static/img/profile.png" alt="image" class="imaged  w36">
                         </div>
                         <div class="in">
-                            <strong>Bienvenue :   <label id="Username"> </label> </strong>
-                            upsince : <label id="LastRebootTime"> </label>
+                            <strong>  Bienvenue :  {{Username}} </strong>
+                            upsince : {{LastRebootTime}} 
                         </div>
                         <a href="#" class="btn btn-link btn-icon sidebar-close" data-bs-dismiss="modal">
                             <ion-icon name="close-outline"></ion-icon>
@@ -182,7 +176,7 @@
     <div id="cookiesbox" class="offcanvas offcanvas-bottom cookies-box" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false">
       
       <div class="offcanvas-header">
-        <h3 class="modal-title"><label>MyGreenGarden V4.0</label>  </h3>
+        <h3 class="modal-title">{{AppName}}{{AppRelease}}</h3>
       </div>
       
       <div class="offcanvas-body">
@@ -204,7 +198,7 @@
         
           <div class="modal-footer">
             </br>
-            <label> Patrick Pinard © 2022 </label>
+            {{AppAuthor}}
             </br>
           </div>
 
@@ -338,38 +332,17 @@
           document.getElementById('TCPU').innerHTML = obj.TCPU;
           document.getElementById('CPU_usage').innerHTML = obj.CPU_usage;
           document.getElementById('LastRefreshTime').innerHTML = obj.LastRefreshTime;
-          document.getElementById('LastRebootTime').innerHTML = obj.LastRebootTime,
-          document.getElementById('Username').innerHTML = obj.Username
+          document.getElementById('LastRebootTime').innerHTML = obj.LastRebootTime
          }
       });
     }
 </script>
 
-
-<script>
-
-  // fonction appelée lors d'un refraichissement des mesures de capteurs
-
-  function getGraphValues() {
-      $.ajax({
-         url: "/getallvalues",
-         type: "get",
-         dataType: 'json',
-         contentType: 'application/json',
-         data: {},
-         success: function(response) {
-          var obj = JSON.parse(JSON.stringify(response));
-          document.getElementById('LastRebootTime').innerHTML = obj.LastRebootTime,
-          document.getElementById('Username').innerHTML = obj.Username
-         }
-      });
-    }
-</script>
 
 <script>
 
     // fonction appelée lors d'un changement d'état du switch de la lucarne 
-    // fonction pas encore implémentée
+    // usage du verin électrique
     
     function set_window(state) {
       $.ajax({
@@ -400,7 +373,6 @@
 <script>
 
       // fonction appelée lors d'un changement d'état du switch window auto mode
-      // fonction pas encore implémentée
 
     function window_auto_mode(state) {
       $.ajax({

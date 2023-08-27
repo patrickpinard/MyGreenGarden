@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 # Auteur    : Patrick Pinard
-# Date      : 3.5.2022
-# Objet     : gestion des LOG 
+# Date      : 27.8.2023
+# Objet     : gestion des LOG pour application MyApp
 # Source    : myLOGLib.py
-# Version   : 1.1 (augmentation du nombre maximum d'event sauvegardé à 1000)
-# Statut    : fonctionne parfaitement
+# Version   : 1 
+# Statut    : ok
 
 # -*- coding: utf-8 -*-
 #   Clavier MAC :      
@@ -18,16 +18,16 @@ import logging
 import datetime
 
 
-DEBUG       = True         # sauvegarde tous les événements dans fichier de log
-VERBOSE     = False         # print tous les événements sur la console
-PATH        = "/home/pi/MyGreenGardenV4/"
-LOGFILENAME = PATH + "mygreengarden.log"   # fichier de LOG par defaut
+DEBUG       = True                           # sauvegarde tous les événements dans fichier de log
+VERBOSE     = False                         # print tous les événements sur la console
+PATH        = ""                            # même répertoire 
+LOGFILENAME = PATH + "mygreengarden.log"    # fichier de LOG par defaut
 LOGLEVEL    = DEBUG 
 FILEMODE    = 'w'
-RELEASE     = "V1.1"
+RELEASE     = "V1"
 eventlog = []
 id = 0
-MAXSIZE = 100
+MAXSIZE = 1000
 
 # LOG LEVEL = Critical, Error, Warning, Info, Debug, Not Set
 

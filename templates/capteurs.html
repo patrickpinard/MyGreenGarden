@@ -2,12 +2,7 @@
     {% set active_page = "capteurs" %}
     {% block body %}
    
-    <script>
-        window.onload= function () {
-            getCapteursValues();
-        }; 
-    </script>
-   
+               
     <!-- App Capsule -->
     <div id="appCapsule" class="full-height">
         <div class="section mt-1 mb-1">
@@ -27,10 +22,8 @@
                                     <div class="text-secondary"> [%Humidité Relative] </div>
                                 </div>
                                 <div class="text-end">
-                                    <label id="H1" style="font-size:20px; margin-left: 10px;"> </label>
-                                    <div>
-                                        <label id="H1TEXT" style="font-size:15px; margin-left: 10px;"> </label>
-                                    </div> 
+                                    <div style="font-size:20px; margin-left: 10px;">{{H1}}</div> 
+                                    <div style="font-size:10px; margin-left: 10px;">{{H1_text}}</div>
                                 </div>
                             </div>
                         </a>
@@ -46,10 +39,8 @@
                                     <div class="text-secondary"> [%Humidité Relative] </div>
                                 </div>
                                 <div class="text-end">
-                                    <label id="H2" style="font-size:20px; margin-left: 10px;"> </label>
-                                    <div>
-                                        <label id="H2TEXT" style="font-size:15px; margin-left: 10px;"> </label>
-                                    </div> 
+                                    <div style="font-size:20px; margin-left: 10px;">{{H2}}</div> 
+                                    <div style="font-size:10px; margin-left: 10px;">{{H2_text}}</div>
                                 </div>
                             </div>
                         </a>
@@ -75,7 +66,7 @@
                                     <div class="text-secondary"> [°Celsius] </div>
                                 </div>
                                 <div class="text-end">
-                                    <label id="Tin" style="font-size:20px; margin-left: 10px;"> </label>
+                                    <div style="font-size:20px; margin-left: 10px;">{{Tin}}</div> 
                                 </div>
                             </div>
                         </a>
@@ -91,12 +82,37 @@
                                     <div class="text-secondary"> [°Celsius] </div>
                                 </div>
                                 <div class="text-end">
-                                    <label id="Tout" style="font-size:20px; margin-left: 10px;"> </label>
+                                    <div style="font-size:20px; margin-left: 10px;">{{Tout}}</div> 
                                 </div>
                             </div>
                         </a>
                     </li>
                     
+                </ul>
+            </div>
+        </div>
+
+        <div class="section mt-2">
+            <div class="section-title">Vent</div>
+            <div class="card">
+                <ul class="listview flush transparent no-line image-listview detailed-list mt-1 mb-1">
+                    
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-danger">
+                                <ion-icon name="partly-sunny-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>
+                                    <strong>Vitesse du vent</strong>
+                                    <div class="text-secondary"> [km/h] </div>
+                                </div>
+                                <div class="text-end">
+                                    <div style="font-size:20px; margin-left: 10px;">{{WINDSPEED}}</div> 
+                                </div>
+                            </div>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -117,7 +133,7 @@
                                     <div class="text-secondary"> [°Celsius] </div>
                                 </div>
                                 <div class="text-end">
-                                    <label id="TCPU" style="font-size:20px; margin-left: 10px;"> </label>
+                                    <div style="font-size:20px; margin-left: 10px;">{{TCPU}}</div> 
                                 </div>
                             </div>
                         </a>
@@ -134,7 +150,7 @@
                                     <div class="text-secondary"> [%] </div>
                                 </div>
                                 <div class="text-end">
-                                    <label id="CPU_usage" style="font-size:20px; margin-left: 10px;"> </label>
+                                    <div style="font-size:20px; margin-left: 10px;">{{CPU_usage}}</div> 
                                 </div>
                             </div>
                         </a>
@@ -144,9 +160,10 @@
             </div>
         </div>
 
+       
         <div class="form-links mt-2">
             <div>
-                <a style="margin-left:10px"> Dernière mesure effectuée le :  </a><label style="margin-left:10px" id="LastRefreshTime"> </label>
+                <a style="margin-left:10px"> Dernière mesure effectuée le :  {{LastRefreshTime}}</a> 
             </div>
             
         </div>

@@ -1,7 +1,7 @@
 {
     "name": "MyGreenGarden",
     "short_name": "MyGreenGarden",
-    "start_url": "actionneurs.html",
+    "start_url": "login.html",
     "display": "standalone",
     "scope" : "/",
     "background_color": "#000000",
