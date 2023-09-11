@@ -18,16 +18,16 @@ SIMULATE = True
 
 
 import sys, os
-sys.path.extend([f'./{name}' for name in os.listdir(".") if os.path.isdir(name)])
+#sys.path.extend([f'./{name}' for name in os.listdir(".") if os.path.isdir(name)])
 
 from logging import DEBUG
 import random
 import psutil
-from myLOGLib import LogEvent, eventlog
-from myJSONLib import writeJSONtoFile, readJSONfromFile
+from library.myLOGLib import LogEvent, eventlog
+from library.myJSONLib import writeJSONtoFile, readJSONfromFile
 from time import sleep
-from mySensorsLib import Temperatures, Moisture, Anemometer, Humidity
-from myActuatorsLib import WaterValve, SkyLight, Relay, Fan
+from library.mySensorsLib import Temperatures, Moisture, Anemometer, Humidity
+from library.myActuatorsLib import WaterValve, SkyLight, Relay, Fan
 from flask import Flask, render_template, request, jsonify, make_response, flash, redirect, url_for
 from flask_cors import CORS
 from flask_pwa import PWA

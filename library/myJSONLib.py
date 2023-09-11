@@ -13,7 +13,7 @@
 
 import json
 import io
-from myLOGLib import LogEvent
+from library.myLOGLib import LogEvent
 
 try:
     to_unicode = unicode

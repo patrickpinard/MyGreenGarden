@@ -20,7 +20,7 @@ SIMULATE = True                     # mode simulation
 
 
 if not SIMULATE : import SequentLib8relay 
-from myLOGLib  import LogEvent
+from library.myLOGLib  import LogEvent
 from time import sleep
 
 class Relay(object):

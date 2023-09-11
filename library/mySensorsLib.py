@@ -16,8 +16,8 @@
 VERBOSE = False     # affichage de tous des log 
 SIMULATE = True     # mode simulation
 
-if not SIMULATE : from adc       import ADC
-from myLOGLib  import LogEvent
+if not SIMULATE : from library.adc       import ADC
+from library.myLOGLib  import LogEvent
 if not SIMULATE : import glob
 import random
 
