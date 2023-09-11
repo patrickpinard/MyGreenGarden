@@ -1,6 +1,8 @@
 # MyGreenGarden V5.1
-Dernière mise à jour le 12 sept. 2023. 
+Dernière mise à jour le 12 sept. 2023
+
 APP PWA pour mobile en BootStrap 5
+
 Last change : mode simulation (sans HW Raspberry et senseurs/capteurs) pour tests et formation
 
 
