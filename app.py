@@ -33,7 +33,7 @@ from flask_cors import CORS
 from flask_pwa import PWA
 import os
 from threading import Thread
-if not SIMULATE: import SequentLib8relay
+if not SIMULATE: import library.SequentLib8relay
 import datetime
 import pickle
 if not SIMULATE: from gpiozero import CPUTemperature
@@ -218,18 +218,18 @@ def signup():
 
     user = Users.query.filter_by(name=name).first() 
 
-    if user  : # contrôle si utilisateur existe déjà 
-        LogEvent("Nom d'utilisateur déjà existant ! ")
-        flash("Nom d'utilisateur déjà existant ! ")
+    if user: # contrôle si utilisateur existe déjà 
+        LogEvent("Nom d'utilisateur déjà existant !")
+        flash("Nom d'utilisateur déjà existant !")
         return render_template('register.html') 
 
-    if name == ""  : # contrôle si nom utilisateur vide
-        LogEvent("Nom d'utilisateur incorrect ! ")
-        flash("Nom d'utilisateur est incorrect ! ")
+    if not name: # contrôle si nom utilisateur vide
+        LogEvent("Nom d'utilisateur incorrect !")
+        flash("Nom d'utilisateur est incorrect !")
         return render_template('register.html') 
 
-    if password == "" : # contrôle si password vide
-        LogEvent("Mot de passe incorrect ! ")
+    if not password: # contrôle si password vide
+        LogEvent("Mot de passe incorrect !")
         flash("Mot de passe incorrect ! ")
         return render_template('register.html') 
 
