@@ -610,14 +610,14 @@ def fan_auto_mode():
    
     if request.method == "POST":
         state = request.form.get('state')       
-        if state=="true":
+        if state == "true":
             FAN_AUTO_MODE = True
             text = "Activation mode automatique des ventilateurs."
-        elif state=="false":
+        elif state == "false":
             FAN_AUTO_MODE = False
             text = "Mode automatique des ventilateurs désactivé."
         else: 
-            text= "Erreur : état du mode des ventilateurs indéfini."
+            text = "Erreur : état du mode des ventilateurs indéfini."
         LogEvent(text)
         return jsonify('Etat du mode automatique des ventilateurs : ' + str(FAN_AUTO_MODE), 204) 
 
@@ -641,7 +641,7 @@ def watering_auto_mode():
 
     if request.method == "POST":
         state = request.form.get('state')
-        if state=="true":
+        if state == "true":
             WATERING_AUTO_MODE = True
             LogEvent("Arrosage automatique activé.")
         elif state=="false":
@@ -760,17 +760,17 @@ def graph():
     Requête API sous forme : http://mygreengarden.ppdlab.ch/graph
     '''
 
-    templateData = {'AppName'                   : NAME, 
+    templateData = {'AppName'                   : NAME,
                     'Username'                  : USERNAME,
                     'AppRelease'                : RELEASE,
                     'AppAuthor'                 : AUTHOR,
                     'LastRebootTime'            : LastRebootTime,
-                    'labels'                    : LABELS, 
-                    'H0'                        : H0, 
-                    'H1'                        : H1, 
+                    'labels'                    : LABELS,
+                    'H0'                        : H0,
+                    'H1'                        : H1,
                     'H2'                        : H2,
-                    'W1'                        : W1, 
-                    'W2'                        : W2, 
+                    'W1'                        : W1,
+                    'W2'                        : W2,
                     'L'                         : L,
                     'T1'                        : T1,
                     'T2'                        : T2,
@@ -792,7 +792,6 @@ def capteurs():
     '''
 
     if request.method == "GET":
-        
         now = datetime.datetime.now()
         date = now.strftime("%-d.%-m.%-Y")  
         time = now.strftime("%H:%M:%S")  
