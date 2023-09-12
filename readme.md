@@ -1,7 +1,9 @@
-# MyGreenGarden V4.0
-Dernière mise à jour le 12 juin 2022. 
+# MyGreenGarden V5.1
+Dernière mise à jour le 12 sept. 2023
+
 APP PWA pour mobile en BootStrap 5
-Last change : Authentification via Flask_Login avec dB SQLAlchemy
+
+Last change : mode simulation (sans HW Raspberry et senseurs/capteurs) pour tests et formation
 
 
 MyGreenGarden est un projet qui consiste à mettre en œuvre une serre connectée et automatisée pour la culture de légumes. 
