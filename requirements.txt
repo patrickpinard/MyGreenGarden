@@ -1,5 +1,5 @@
 click==7.1.2
-Flask==1.1.4
+Flask==2.2.5
 Flask-Cors==3.0.10
 Flask-Login==0.6.1
 flask-pwa==0.1.0
