@@ -1,5 +1,7 @@
-# MyGreenGarden V5.1
+# MyGreenGarden V5.2
 Dernière mise à jour le 12 sept. 2023
+
+Un grand merci à Sébastien Pittet pour sa patience et ses conseils avisés !
 
 APP PWA pour mobile en BootStrap 5
 
