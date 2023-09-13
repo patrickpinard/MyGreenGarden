@@ -1,5 +1,5 @@
-
 #!/usr/bin/env python3
+
 # -*- coding: utf-8 -*- 
 
 # Auteur  : Patrick Pinard 
@@ -33,7 +33,7 @@ from flask_cors import CORS
 from flask_pwa import PWA
 import os
 from threading import Thread
-if not SIMULATE: import SequentLib8relay
+if not SIMULATE: import library.SequentLib8relay
 import datetime
 import pickle
 if not SIMULATE: from gpiozero import CPUTemperature
@@ -218,18 +218,18 @@ def signup():
 
     user = Users.query.filter_by(name=name).first() 
 
-    if user  : # contrôle si utilisateur existe déjà 
-        LogEvent("Nom d'utilisateur déjà existant ! ")
-        flash("Nom d'utilisateur déjà existant ! ")
+    if user: # contrôle si utilisateur existe déjà 
+        LogEvent("Nom d'utilisateur déjà existant !")
+        flash("Nom d'utilisateur déjà existant !")
         return render_template('register.html') 
 
-    if name == ""  : # contrôle si nom utilisateur vide
-        LogEvent("Nom d'utilisateur incorrect ! ")
-        flash("Nom d'utilisateur est incorrect ! ")
+    if not name: # contrôle si nom utilisateur vide
+        LogEvent("Nom d'utilisateur incorrect !")
+        flash("Nom d'utilisateur est incorrect !")
         return render_template('register.html') 
 
-    if password == "" : # contrôle si password vide
-        LogEvent("Mot de passe incorrect ! ")
+    if not password: # contrôle si password vide
+        LogEvent("Mot de passe incorrect !")
         flash("Mot de passe incorrect ! ")
         return render_template('register.html') 
 
@@ -610,14 +610,14 @@ def fan_auto_mode():
    
     if request.method == "POST":
         state = request.form.get('state')       
-        if state=="true":
+        if state == "true":
             FAN_AUTO_MODE = True
             text = "Activation mode automatique des ventilateurs."
-        elif state=="false":
+        elif state == "false":
             FAN_AUTO_MODE = False
             text = "Mode automatique des ventilateurs désactivé."
         else: 
-            text= "Erreur : état du mode des ventilateurs indéfini."
+            text = "Erreur : état du mode des ventilateurs indéfini."
         LogEvent(text)
         return jsonify('Etat du mode automatique des ventilateurs : ' + str(FAN_AUTO_MODE), 204) 
 
@@ -641,7 +641,7 @@ def watering_auto_mode():
 
     if request.method == "POST":
         state = request.form.get('state')
-        if state=="true":
+        if state == "true":
             WATERING_AUTO_MODE = True
             LogEvent("Arrosage automatique activé.")
         elif state=="false":
@@ -760,17 +760,17 @@ def graph():
     Requête API sous forme : http://mygreengarden.ppdlab.ch/graph
     '''
 
-    templateData = {'AppName'                   : NAME, 
+    templateData = {'AppName'                   : NAME,
                     'Username'                  : USERNAME,
                     'AppRelease'                : RELEASE,
                     'AppAuthor'                 : AUTHOR,
                     'LastRebootTime'            : LastRebootTime,
-                    'labels'                    : LABELS, 
-                    'H0'                        : H0, 
-                    'H1'                        : H1, 
+                    'labels'                    : LABELS,
+                    'H0'                        : H0,
+                    'H1'                        : H1,
                     'H2'                        : H2,
-                    'W1'                        : W1, 
-                    'W2'                        : W2, 
+                    'W1'                        : W1,
+                    'W2'                        : W2,
                     'L'                         : L,
                     'T1'                        : T1,
                     'T2'                        : T2,
@@ -792,7 +792,6 @@ def capteurs():
     '''
 
     if request.method == "GET":
-        
         now = datetime.datetime.now()
         date = now.strftime("%-d.%-m.%-Y")  
         time = now.strftime("%H:%M:%S")  
@@ -1137,7 +1136,7 @@ def LoadData():
 
 def WateringAndAerate():
     """
-    Mesures des différents capteurs, ventilation et arrosage en fonction 
+    Mesures des différents capteurs, ventilation et arrosage en fonction
     des paramètres de chacune des zones.
     """
     global MOISTURE_ZONE_1, MOISTURE_ZONE_2, WATERING_ZONE_1, WATERING_ZONE_2
@@ -1149,32 +1148,30 @@ def WateringAndAerate():
     global FAN_STATE, FAN_AUTO_MODE
     global WINDSPEED, WINDSPEEDLIMIT, count
     global HUMIDITY, HUMIDITYLIMIT
-   
-   
-    if DEBUG : LogEvent("DEBUG - Lecture des capteurs en cours...")
+
+    if DEBUG: LogEvent("DEBUG - Lecture des capteurs en cours...")
 
     if not SIMULATE : 
         CPU = CPUTemperature()
-        TCPU = round(CPU.temperature,2)
+        TCPU = round(CPU.temperature, 2)
         CPU_usage = psutil.cpu_percent()
     else:
-        CPU_usage = random.randint(0,30)
-        TCPU = random.randint(30,70)
-        
+        CPU_usage = random.randint(0, 30)
+        TCPU = random.randint(30, 70)
 
     ReadHumidityWindSpeedAndTemperatures()
 
     LogEvent("Mesure de l'humidité dans la zone 1 : " + str(MOISTURE_ZONE_1) + " [% HR]")
     LogEvent("Mesure de l'humidité dans la zone 2 : " + str(MOISTURE_ZONE_2) + " [% HR]")
-    LogEvent("Mesure de la température extérieure : " + str(TEMPERATURE_OUTSIDE) + " [°C]") 
-    LogEvent("Mesure de la température intérieure : " + str(TEMPERATURE_INSIDE) + " [°C]") 
-    LogEvent("Mesure de la vitesse du vent        : " + str(WINDSPEED) + " [km/h]") 
-    #LogEvent("Mesure de l'humidité de l'air      : " + str(HUMIDITY) + " [% HR]")   
-    LogEvent("Température CPU du Raspberry Pi 4   : " + str(TCPU)+ " [°C]")
-    LogEvent("Utilisation CPU du Raspberry Pi 4   : " + str(CPU_usage)+ " [%]")
+    LogEvent("Mesure de la température extérieure : " + str(TEMPERATURE_OUTSIDE) + " [°C]")
+    LogEvent("Mesure de la température intérieure : " + str(TEMPERATURE_INSIDE) + " [°C]")
+    LogEvent("Mesure de la vitesse du vent        : " + str(WINDSPEED) + " [km/h]")
+    #LogEvent("Mesure de l'humidité de l'air      : " + str(HUMIDITY) + " [% HR]")
+    LogEvent("Température CPU du Raspberry Pi 4   : " + str(TCPU) + " [°C]")
+    LogEvent("Utilisation CPU du Raspberry Pi 4   : " + str(CPU_usage) + " [%]")
 
-    if FAN_AUTO_MODE : 
-        if (TEMPERATURE_INSIDE > TEMP_MAX_THRESHOLD) :
+    if FAN_AUTO_MODE:
+        if (TEMPERATURE_INSIDE > TEMP_MAX_THRESHOLD):
             # si température intérieure > temp max, alors activation des ventilateurs
             if not FAN_STATE:
                 LogEvent("Température intérieure supérieure au maximum de " + str(TEMP_MAX_THRESHOLD) + " [°C]. Activation des ventilateurs.")
@@ -1183,7 +1180,7 @@ def WateringAndAerate():
             else:
                 LogEvent("Température intérieure supérieure au maximum de " + str(TEMP_MAX_THRESHOLD) + " [°C]. Ventilateurs enclenchés.")
 
-        if (TEMPERATURE_INSIDE < TEMP_MIN_THRESHOLD) :
+        if (TEMPERATURE_INSIDE < TEMP_MIN_THRESHOLD):
             if FAN_STATE:
                 LogEvent("Température intérieure inférieure au minimum de " + str(TEMP_MIN_THRESHOLD) + " [°C]. Arrêt des ventilateurs.")
                 FAN.off() # arrêt des ventilateurs
@@ -1192,41 +1189,40 @@ def WateringAndAerate():
                 LogEvent("Température intérieure inférieure au minimum de " + str(TEMP_MIN_THRESHOLD) + " [°C].")
     else:
         if TEMPERATURE_INSIDE > TEMP_MAX_THRESHOLD:
-            LogEvent("ATTENTION : Température élevée.  Mode manuel enclenché pour ventilateurs. Veuillez aérer la serre manuellement svp !") 
+            LogEvent("ATTENTION : Température élevée.  Mode manuel enclenché pour ventilateurs. Veuillez aérer la serre manuellement svp !")
         else:
             LogEvent("Température intérieure dans les limites définies. Pas de changements nécessaires.") 
 
-    if WINDSPEED>WINDSPEEDLIMIT:
+    if WINDSPEED > WINDSPEEDLIMIT:
         count = count + 1
-        if count>2 : 
+        if count > 2:
             if WINDOW_STATE:
                 LogEvent("ATTENTION : Vitesse du vent : " + str(WINDSPEED) + ". Supérieur à la limite autorisée de : "  + str(WINDSPEEDLIMIT) + ". Fermeture Lucarne svp.")
-                #WINDOW.close()   # verin pas encore installé
+                # WINDOW.close()   # verin pas encore installé
             else:
-                LogEvent("ATTENTION : Vitesse du vent : " + str(WINDSPEED) + ". Supérieur à la limite autorisée de : "  + str(WINDSPEEDLIMIT) + ". Lucarne déjà fermée.")
+                LogEvent("ATTENTION : Vitesse du vent : " + str(WINDSPEED) + ". Supérieur à la limite autorisée de : " + str(WINDSPEEDLIMIT) + ". Lucarne déjà fermée.")
     else:
         count = 0
 
     if WATERING_AUTO_MODE:
         if MOISTURE_ZONE_1 < int(MOISTURE_THRESHOLD_ZONE_1):
             LogEvent("Humidité relative en zone 1 est inférieure à valeur minimale de " + str(MOISTURE_THRESHOLD_ZONE_1))
-            LogEvent("Début de la période d'arrosage dans zone 1 pendant : " + str(WATERING_TIME_ZONE_1) + " sec." )
-            WATERING_ZONE_1 = True 
+            LogEvent("Début de la période d'arrosage dans zone 1 pendant : " + str(WATERING_TIME_ZONE_1) + " sec.")
+            WATERING_ZONE_1 = True
             SaveState()
             WATER_VALVE_ZONE_1.open()   # pour démarrer l'arrosage pendant WATERING_TIME
             sleep(WATERING_TIME_ZONE_1)
             LogEvent("Fin de la période d'arrosage de la zone 1.")
             WATER_VALVE_ZONE_1.close()    # pour arrêt de l'arrosage
             WATERING_ZONE_1 = False
-           
+
         else:
-            LogEvent("Humidité relative en zone 1 est supérieure à valeur minimale. Pas d'arrosage.") 
+            LogEvent("Humidité relative en zone 1 est supérieure à valeur minimale. Pas d'arrosage.")
             WATERING_ZONE_1 = False
-            
 
         if MOISTURE_ZONE_2 < int(MOISTURE_THRESHOLD_ZONE_2):
             LogEvent("Humidité relative en zone 2 est inférieure à valeur minimale de " + str(MOISTURE_THRESHOLD_ZONE_2))
-            LogEvent("Début de la période d'arrosage dans zone 2 pendant : " + str(WATERING_TIME_ZONE_1) + " sec." )
+            LogEvent("Début de la période d'arrosage dans zone 2 pendant : " + str(WATERING_TIME_ZONE_1) + " sec.")
             WATERING_ZONE_2 = True
             SaveState()
             WATER_VALVE_ZONE_2.open()   # pour démarrer l'arrosage pendant WATERING_TIME
@@ -1234,34 +1230,33 @@ def WateringAndAerate():
             LogEvent("Fin de la période d'arrosage de la zone 2.")
             WATER_VALVE_ZONE_2.close()    # pour arrêt de l'arrosage
             WATERING_ZONE_2 = False
-            
+
         else:
-            LogEvent("Humidité relative en zone 2 est supérieure à valeur minimale. Pas d'arrosage.") 
+            LogEvent("Humidité relative en zone 2 est supérieure à valeur minimale. Pas d'arrosage.")
             WATERING_ZONE_2 = False
-           
+
     else:
         if MOISTURE_ZONE_1 < int(MOISTURE_THRESHOLD_ZONE_1) or MOISTURE_ZONE_2 < int(MOISTURE_THRESHOLD_ZONE_2):
             LogEvent("ATTENTION : Arrosage automatique déclenché. Veuillez arroser manuellement les zones 1 & 2.")
-            
+
     SaveState()
-    
-    return   
+
+    return
 
 
-    
-##### Threads pour lancement de Flask et des mesures récurrentes #######
-
+# #### Threads pour lancement de Flask et des mesures récurrentes #######
 
 class FlaskApp (Thread):
    def __init__(self, threadID, name):
       Thread.__init__(self)
       self.threadID = threadID
       self.name = name
+
    def run(self):
-      LogEvent("FlaskApp Thread started") 
+      LogEvent("FlaskApp Thread started")
       try:
-        #app.run(host='0.0.0.0', port = 81, debug=False, ssl_context=('cert.pem', 'key.pem')) 
-        app.run(host='0.0.0.0', port = 81, debug=False)      
+        # app.run(host='0.0.0.0', port = 81, debug=False, ssl_context=('cert.pem', 'key.pem'))
+        app.run(host='0.0.0.0', port=81, debug=False)
       except OSError as err:
         LogEvent("ERREUR : thread FlaskApp ! Message : " + str(err))
 
@@ -1274,15 +1269,15 @@ class Loop (Thread):
       self.name = name
 
     def run(self):
-        
+
         global INTERVAL
 
         LogEvent("Loop Thread started") 
         id = 0
-        while True : 
+        while True:
             try:
-                while True: 
-                    LogEvent(" *** Thread Loop id = " + str(id) + " ***" )
+                while True:
+                    LogEvent(" *** Thread Loop id = " + str(id) + " ***")
                     id = id + 1
                     WateringAndAerate()
                     SaveData()
@@ -1292,46 +1287,22 @@ class Loop (Thread):
                 LogEvent("ERREUR : thread Loop ! Message : " + str(err))
 
 
-
-
 if __name__ == '__main__': 
-    
-    
     app.secret_key = os.urandom(12)
     count = 0
     LogEvent("Remise à zéro de tous les relais.")
-    if not SIMULATE: SequentLib8relay.set_all(0,0)
-    LoadParametersFromFile() 
+    if not SIMULATE: SequentLib8relay.set_all(0, 0)
+    LoadParametersFromFile()
     LogEvent("Mesure automatique des capteurs toutes les " + str(INTERVAL) + " secondes.")
     LoadData()
-    
 
     ReadHumidityWindSpeedAndTemperatures()
 
     thread1 = FlaskApp(1, "FlaskApp")
     thread2 = Loop(2, "Loop")
-    
+
     thread1.start()
     thread2.start()
-    
+
     thread1.join()
     thread2.join()
-   
-    
-    
-    
-  
-    
-    
-
-
-
-    
-
-    
-   
-
-
-
-
-

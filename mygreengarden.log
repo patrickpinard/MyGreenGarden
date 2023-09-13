@@ -1,63 +1,40 @@
-2023-08-27 16:48:51,874 - INFO - ---      LOGFILE      ------
-2023-08-27 16:48:51,874 - INFO - ---- { start logging } -----
-2023-08-27 16:48:52,634 - INFO - Redémarrage le 27.8 à 16:48:52
-2023-08-27 16:48:52,634 - INFO - MyGreenGarden V5-SIMULATEPatrick Pinard © 2023
-2023-08-27 16:48:52,634 - INFO - Création des objets...
-2023-08-27 16:48:52,635 - INFO - Mode DEBUG désactivé.
-2023-08-27 16:48:52,635 - INFO - Création du relai #6 pour Lampe LED
-2023-08-27 16:48:52,635 - INFO - Création des sondes de températures intérieure & extérieure.
-2023-08-27 16:48:52,635 - INFO - Création de l'anénomètre.
-2023-08-27 16:48:52,635 - INFO - Création du ventilateur.
-2023-08-27 16:48:52,635 - INFO - Création du relai #7 pour Ventilateur(s)
-2023-08-27 16:48:52,635 - INFO - Création de vanne d'eau zone 1
-2023-08-27 16:48:52,635 - INFO - Création du relai #4 pour vanne d'eau zone 1
-2023-08-27 16:48:52,635 - INFO - Création de vanne d'eau zone 2
-2023-08-27 16:48:52,635 - INFO - Création du relai #5 pour vanne d'eau zone 2
-2023-08-27 16:48:52,635 - INFO - Création de la sonde d'humidité au sol humidité sol zone 1
-2023-08-27 16:48:52,635 - INFO - Création de la sonde d'humidité au sol humidité sol zone 2
-2023-08-27 16:48:52,660 - INFO - Création de la base de données effectuée.
-2023-08-27 16:48:52,669 - INFO - Création du modèle de données utilisateurs (Users).
-2023-08-27 16:48:52,682 - INFO - Remise à zéro de tous les relais.
-2023-08-27 16:48:52,683 - INFO - Chargement des paramètres de configuration de la serre depuis le fichier : config.json
-2023-08-27 16:48:52,683 - INFO - TEMP_MAX_THRESOLD = 35
-2023-08-27 16:48:52,683 - INFO - TEMP_MIN_THRESOLD = 30
-2023-08-27 16:48:52,683 - INFO - MOISTURE_THRESHOLD_ZONE_1 = 55
-2023-08-27 16:48:52,683 - INFO - MOISTURE_THRESHOLD_ZONE_2 = 55
-2023-08-27 16:48:52,683 - INFO - WATERING_TIME_ZONE_1 = 300
-2023-08-27 16:48:52,683 - INFO - WATERING_TIME_ZONE_2 = 300
-2023-08-27 16:48:52,684 - INFO - WINDSPEEDLIMIT = 40
-2023-08-27 16:48:52,684 - INFO - HUMIDITYLIMIT = 80
-2023-08-27 16:48:52,684 - INFO - Mesure automatique des capteurs toutes les 900 secondes.
-2023-08-27 16:48:52,684 - INFO - Fichier de sauvegarde des mesures : mesures.dta disponible.
-2023-08-27 16:48:52,685 - INFO - Chargement des mesures sauvegardées terminé.
-2023-08-27 16:48:52,685 - INFO - FlaskApp Thread started
-2023-08-27 16:48:52,686 - INFO - Loop Thread started
-2023-08-27 16:48:52,686 - INFO -  *** Thread Loop id = 0 ***
-2023-08-27 16:48:52,686 - INFO - Mesure de l'humidité dans la zone 1 : 35 [% HR]
-2023-08-27 16:48:52,686 - INFO - Mesure de l'humidité dans la zone 2 : 1 [% HR]
-2023-08-27 16:48:52,686 - INFO - Mesure de la température extérieure : 31 [°C]
-2023-08-27 16:48:52,687 - INFO - Mesure de la température intérieure : 37 [°C]
-2023-08-27 16:48:52,687 - INFO - Mesure de la vitesse du vent        : 31 [km/h]
-2023-08-27 16:48:52,687 - INFO - Température CPU du Raspberry Pi 4   : 50 [°C]
-2023-08-27 16:48:52,687 - INFO - Utilisation CPU du Raspberry Pi 4   : 23 [%]
-2023-08-27 16:48:52,687 - INFO - ATTENTION : Température élevée.  Mode manuel enclenché pour ventilateurs. Veuillez aérer la serre manuellement svp !
-2023-08-27 16:48:52,687 - INFO - ATTENTION : Arrosage automatique déclenché. Veuillez arroser manuellement les zones 1 & 2.
-2023-08-27 16:48:52,689 - INFO - Sauvegarde des mesures enregistrées terminée.
-2023-08-27 16:48:52,697 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:81
- * Running on http://192.168.1.119:81
-2023-08-27 16:48:52,697 - INFO - [33mPress CTRL+C to quit[0m
-2023-08-27 16:48:55,743 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "[32mGET / HTTP/1.1[0m" 302 -
-2023-08-27 16:48:55,757 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "[32mGET /actionneurs HTTP/1.1[0m" 302 -
-2023-08-27 16:48:55,779 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /login?next=/actionneurs HTTP/1.1" 200 -
-2023-08-27 16:48:55,855 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/css/style.css HTTP/1.1" 200 -
-2023-08-27 16:48:55,866 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/js/lib/bootstrap.bundle.min.js HTTP/1.1" 200 -
-2023-08-27 16:48:55,868 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/js/plugins/splide/splide.min.js HTTP/1.1" 200 -
-2023-08-27 16:48:55,870 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/js/plugins/apexcharts/apexcharts.min.js HTTP/1.1" 200 -
-2023-08-27 16:48:55,871 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:55] "GET /static/js/base.js HTTP/1.1" 200 -
-2023-08-27 16:48:56,248 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "GET /static/css/src/bootstrap/bootstrap.min.css HTTP/1.1" 200 -
-2023-08-27 16:48:56,337 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "GET /static/css/src/splide/splide.min.css HTTP/1.1" 200 -
-2023-08-27 16:48:56,434 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "GET /static/img/favicon.png HTTP/1.1" 200 -
-2023-08-27 16:48:56,438 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "GET /static/img/greengarden.png HTTP/1.1" 200 -
-2023-08-27 16:48:56,673 - INFO - 192.168.1.119 - - [27/Aug/2023 16:48:56] "[36mGET /static/img/favicon.png HTTP/1.1[0m" 304 -
+2023-09-12 20:05:27,132 - INFO - ---      LOGFILE      ------
+2023-09-12 20:05:27,132 - INFO - ---- { start logging } -----
+2023-09-12 20:05:27,324 - INFO - Redémarrage le 12.9 à 20:05:27
+2023-09-12 20:05:27,324 - INFO - MyGreenGarden V5-SIMULATEPatrick Pinard © 2023
+2023-09-12 20:05:27,324 - INFO - Création des objets...
+2023-09-12 20:05:27,324 - INFO - Mode DEBUG désactivé.
+2023-09-12 20:05:27,324 - INFO - Création du relai #6 pour Lampe LED
+2023-09-12 20:05:27,324 - INFO - Création des sondes de températures intérieure & extérieure.
+2023-09-12 20:05:27,324 - INFO - Création de l'anénomètre.
+2023-09-12 20:05:27,324 - INFO - Création du ventilateur.
+2023-09-12 20:05:27,324 - INFO - Création du relai #7 pour Ventilateur(s)
+2023-09-12 20:05:27,325 - INFO - Création de vanne d'eau zone 1
+2023-09-12 20:05:27,325 - INFO - Création du relai #4 pour vanne d'eau zone 1
+2023-09-12 20:05:27,325 - INFO - Création de vanne d'eau zone 2
+2023-09-12 20:05:27,325 - INFO - Création du relai #5 pour vanne d'eau zone 2
+2023-09-12 20:05:27,325 - INFO - Création de la sonde d'humidité au sol humidité sol zone 1
+2023-09-12 20:05:27,325 - INFO - Création de la sonde d'humidité au sol humidité sol zone 2
+2023-09-12 20:05:27,328 - INFO - Création de la base de données effectuée.
+2023-09-12 20:05:27,340 - INFO - Création du modèle de données utilisateurs (Users).
+2023-09-12 20:05:27,355 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-09-12 20:05:33,767 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:33] "[32mGET / HTTP/1.1[0m" 302 -
+2023-09-12 20:05:33,780 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:33] "[32mGET /actionneurs HTTP/1.1[0m" 302 -
+2023-09-12 20:05:33,787 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:33] "[37mGET /login?next=%2Factionneurs HTTP/1.1[0m" 200 -
+2023-09-12 20:05:33,842 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:33] "[36mGET /__service-worker.js HTTP/1.1[0m" 304 -
+2023-09-12 20:05:33,875 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:33] "[33mGET /index.html HTTP/1.1[0m" 404 -
+2023-09-12 20:05:35,399 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:35] "[37mGET /register HTTP/1.1[0m" 200 -
+2023-09-12 20:05:35,428 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:35] "[33mGET /assets/js/lib/bootstrap.bundle.min.js HTTP/1.1[0m" 404 -
+2023-09-12 20:05:35,431 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:35] "[33mGET /assets/js/plugins/splide/splide.min.js HTTP/1.1[0m" 404 -
+2023-09-12 20:05:35,439 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:35] "[36mGET /__service-worker.js HTTP/1.1[0m" 304 -
+2023-09-12 20:05:35,447 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:35] "[33mGET /assets/js/base.js HTTP/1.1[0m" 404 -
+2023-09-12 20:05:35,457 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:35] "[33mGET /index.html HTTP/1.1[0m" 404 -
+2023-09-12 20:05:35,493 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:35] "[33mGET /images/icons/icon-144x144.png HTTP/1.1[0m" 404 -
+2023-09-12 20:05:37,424 - INFO - Nom d'utilisateur incorrect ! 
+2023-09-12 20:05:37,430 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:37] "[37mPOST /signup HTTP/1.1[0m" 200 -
+2023-09-12 20:05:37,459 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:37] "[33mGET /assets/js/lib/bootstrap.bundle.min.js HTTP/1.1[0m" 404 -
+2023-09-12 20:05:37,462 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:37] "[33mGET /assets/js/plugins/splide/splide.min.js HTTP/1.1[0m" 404 -
+2023-09-12 20:05:37,477 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:37] "[33mGET /assets/js/base.js HTTP/1.1[0m" 404 -
+2023-09-12 20:05:37,482 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:37] "[36mGET /__service-worker.js HTTP/1.1[0m" 304 -
+2023-09-12 20:05:37,511 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:37] "[33mGET /index.html HTTP/1.1[0m" 404 -
+2023-09-12 20:05:37,515 - INFO - 127.0.0.1 - - [12/Sep/2023 20:05:37] "[33mGET /images/icons/icon-144x144.png HTTP/1.1[0m" 404 -
