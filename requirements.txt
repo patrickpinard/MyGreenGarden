@@ -7,7 +7,7 @@ uvicorn[standard]==0.30.6
 python-multipart==0.0.9        # pour les formulaires HTML
 jinja2==3.1.4                  # templates HTML
 itsdangerous==2.2.0            # signature sécurisée des cookies de session
-starlette==0.38.6
+starlette==0.49.1
 
 # --- Base de données ---
 sqlalchemy==2.0.35
