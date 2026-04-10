@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+
+  <!-- Panel TL : jauge / speedometer -->
+  <rect x="1" y="1" width="29" height="29" rx="4" fill="white" stroke="#1e6b6b" stroke-width="1.8"/>
+  <!-- Arc gauge -->
+  <path d="M7,24 A9,9,0,0,1,25,24" fill="none" stroke="#5ecdc8" stroke-width="2" stroke-linecap="round"/>
+  <!-- Needle -->
+  <line x1="16" y1="24" x2="11" y2="17" stroke="#1e6b6b" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="16" cy="24" r="1.8" fill="#1e6b6b"/>
+  <!-- Tick marks -->
+  <line x1="7"  y1="24" x2="8.5" y2="24" stroke="#1e6b6b" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="25" y1="24" x2="23.5" y2="24" stroke="#1e6b6b" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="15" x2="16"   y2="16.5" stroke="#1e6b6b" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Bottom data lines -->
+  <line x1="6"  y1="27" x2="14" y2="27" stroke="#5ecdc8" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="6"  y1="29" x2="11" y2="29" stroke="#d1f5f3" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Panel TR : bar chart -->
+  <rect x="34" y="1" width="29" height="29" rx="4" fill="white" stroke="#1e6b6b" stroke-width="1.8"/>
+  <!-- Bars -->
+  <rect x="38" y="22" width="4" height="5"  rx="1" fill="#5ecdc8"/>
+  <rect x="44" y="17" width="4" height="10" rx="1" fill="#14b8a6"/>
+  <rect x="50" y="13" width="4" height="14" rx="1" fill="#1e6b6b"/>
+  <rect x="56" y="16" width="4" height="11" rx="1" fill="#14b8a6"/>
+  <!-- X axis -->
+  <line x1="37" y1="27.5" x2="62" y2="27.5" stroke="#1e6b6b" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- Panel BL : jauge (variante) -->
+  <rect x="1" y="34" width="29" height="29" rx="4" fill="white" stroke="#1e6b6b" stroke-width="1.8"/>
+  <!-- Arc gauge -->
+  <path d="M7,57 A9,9,0,0,1,25,57" fill="none" stroke="#5ecdc8" stroke-width="2" stroke-linecap="round"/>
+  <!-- Needle pointing right -->
+  <line x1="16" y1="57" x2="22" y2="51" stroke="#1e6b6b" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="16" cy="57" r="1.8" fill="#1e6b6b"/>
+  <!-- Tick marks -->
+  <line x1="7"  y1="57" x2="8.5" y2="57" stroke="#1e6b6b" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="25" y1="57" x2="23.5" y2="57" stroke="#1e6b6b" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="48" x2="16"   y2="49.5" stroke="#1e6b6b" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Bottom data lines -->
+  <line x1="6"  y1="60" x2="14" y2="60" stroke="#5ecdc8" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="6"  y1="62" x2="11" y2="62" stroke="#d1f5f3" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Panel BR : line / trend chart -->
+  <rect x="34" y="34" width="29" height="29" rx="4" fill="white" stroke="#1e6b6b" stroke-width="1.8"/>
+  <!-- Trend line -->
+  <polyline points="38,59 42,54 46,56 50,49 54,51 59,44"
+            fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- X axis -->
+  <line x1="37" y1="61" x2="62" y2="61" stroke="#1e6b6b" stroke-width="1" stroke-linecap="round"/>
+  <!-- Dots on line -->
+  <circle cx="38" cy="59" r="1.5" fill="white" stroke="#1e6b6b" stroke-width="1.2"/>
+  <circle cx="50" cy="49" r="1.5" fill="white" stroke="#1e6b6b" stroke-width="1.2"/>
+  <circle cx="59" cy="44" r="1.5" fill="white" stroke="#1e6b6b" stroke-width="1.2"/>
+
+</svg>

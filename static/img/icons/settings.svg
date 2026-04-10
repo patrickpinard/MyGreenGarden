@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Outer gear teeth (8 teeth) via path -->
+  <path d="
+    M36,6 L38,10 Q43,11 47,14 L51,12 L54,15 L52,19 Q55,23 56,28 L60,30 L60,34 L56,36
+    Q55,41 52,45 L54,49 L51,52 L47,50 Q43,53 38,54 L36,58 L28,58 L26,54
+    Q21,53 17,50 L13,52 L10,49 L12,45 Q9,41 8,36 L4,34 L4,30 L8,28
+    Q9,23 12,19 L10,15 L13,12 L17,14 Q21,11 26,10 L28,6 Z
+  " fill="#d1f5f3" stroke="#1e6b6b" stroke-width="2" stroke-linejoin="round" fill-rule="evenodd"/>
+  <!-- Inner circle (cutout visual) -->
+  <circle cx="32" cy="32" r="16" fill="white" stroke="#1e6b6b" stroke-width="2"/>
+  <!-- Inner detail: small gear or cross -->
+  <circle cx="32" cy="32" r="10" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.5"/>
+  <circle cx="32" cy="32" r="5" fill="white" stroke="#1e6b6b" stroke-width="1.5"/>
+  <!-- Cross tick marks on inner gear -->
+  <line x1="32" y1="23" x2="32" y2="26" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="38" x2="32" y2="41" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="23" y1="32" x2="26" y2="32" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="38" y1="32" x2="41" y2="32" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+</svg>

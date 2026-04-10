@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+{% block title %}Tableau de bord — Ma Serre{% endblock %}
+{% block page_title %}Tableau de bord{% endblock %}
+{% block page_subtitle %}Surveillance en temps réel de la serre{% endblock %}
+
+{% block header_actions %}
+<span id="last-update-badge-desktop" class="hidden sm:inline text-xs text-slate-400"></span>
+<button onclick="forceCycle()"
+        class="flex items-center gap-1.5 rounded-full bg-teal-600 px-3 py-1.5
+               text-xs font-semibold text-white shadow-sm transition hover:bg-teal-500 active:scale-95">
+  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round"
+      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+  </svg>
+  <span class="hidden sm:inline">Forcer cycle</span>
+</button>
+{% endblock %}
+
+{% block content %}
+<div class="h-4"></div>
+
+<!-- ═══════ CARTES CAPTEURS ═══════════════════════════════════════════════ -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+
+  <!-- Température intérieure -->
+  <div class="card p-4">
+    <div class="flex items-start justify-between mb-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100">
+        <img src="/static/img/icons/temperature.svg" class="h-7 w-7" alt="" draggable="false">
+      </div>
+      <span id="badge-temp-in" class="badge-off">—</span>
+    </div>
+    <p class="text-2xl font-semibold text-slate-900" id="val-temp-in">—</p>
+    <p class="mt-0.5 text-xs text-slate-500">T° intérieure</p>
+  </div>
+
+  <!-- Température extérieure -->
+  <div class="card p-4">
+    <div class="flex items-start justify-between mb-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100">
+        <img src="/static/img/icons/temperature.svg" class="h-7 w-7" alt="" draggable="false">
+      </div>
+      <span class="badge-off">Ext.</span>
+    </div>
+    <p class="text-2xl font-semibold text-slate-900" id="val-temp-out">—</p>
+    <p class="mt-0.5 text-xs text-slate-500">T° extérieure</p>
+  </div>
+
+  <!-- Humidité sol zone 1 -->
+  <div class="card p-4">
+    <div class="flex items-start justify-between mb-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
+        <img src="/static/img/icons/humidity.svg" class="h-7 w-7" alt="" draggable="false">
+      </div>
+      <span id="badge-moist1" class="badge-off">Z1</span>
+    </div>
+    <div class="flex items-end gap-1">
+      <p class="text-2xl font-semibold text-slate-900" id="val-moist1">—</p>
+      <p class="mb-0.5 text-sm text-slate-400">%</p>
+    </div>
+    <p class="mt-0.5 text-xs text-slate-500" id="label-moist1">Sol zone 1</p>
+    <div class="mt-2 h-1.5 rounded-full bg-slate-100 overflow-hidden">
+      <div id="bar-moist1" class="h-full rounded-full bg-emerald-400 transition-all" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Humidité sol zone 2 -->
+  <div class="card p-4">
+    <div class="flex items-start justify-between mb-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-100">
+        <img src="/static/img/icons/humidity.svg" class="h-7 w-7" alt="" draggable="false">
+      </div>
+      <span id="badge-moist2" class="badge-off">Z2</span>
+    </div>
+    <div class="flex items-end gap-1">
+      <p class="text-2xl font-semibold text-slate-900" id="val-moist2">—</p>
+      <p class="mb-0.5 text-sm text-slate-400">%</p>
+    </div>
+    <p class="mt-0.5 text-xs text-slate-500" id="label-moist2">Sol zone 2</p>
+    <div class="mt-2 h-1.5 rounded-full bg-slate-100 overflow-hidden">
+      <div id="bar-moist2" class="h-full rounded-full bg-teal-400 transition-all" style="width:0%"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ACTIONNEURS ════════════════════════════════════════════════════ -->
+<section class="rounded-2xl border border-slate-200 bg-white shadow-sm mb-4">
+  <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+    <h2 class="text-lg font-semibold text-slate-900">Actionneurs</h2>
+    <a href="/actionneurs"
+       class="inline-flex items-center gap-1 rounded-full border border-slate-200 px-4 py-1.5
+              text-xs font-semibold uppercase tracking-wide text-slate-700 transition
+              hover:border-teal-400 hover:text-teal-600">
+      Détails →
+    </a>
+  </div>
+  <div class="p-5 grid grid-cols-2 lg:grid-cols-4 gap-3">
+
+    <!-- Ventilateurs -->
+    <div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+      <div class="flex items-center gap-2">
+        <img src="/static/img/icons/fan.svg" class="h-5 w-5" alt="" draggable="false">
+        <span class="text-sm font-medium text-slate-700">Ventilo</span>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="toggle-fan" onchange="toggleActuator('fan', this.checked)">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <!-- Lampe -->
+    <div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+      <div class="flex items-center gap-2">
+        <img src="/static/img/icons/lamp.svg" class="h-5 w-5" alt="" draggable="false">
+        <span class="text-sm font-medium text-slate-700">Lampe</span>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="toggle-light" onchange="toggleActuator('light', this.checked)">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <!-- Arrosage Z1 -->
+    <div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+      <div class="flex items-center gap-2">
+        <img src="/static/img/icons/zone1.svg" class="h-6 w-6" alt="" draggable="false">
+        <span class="text-sm font-medium text-slate-700">Arros. Z1</span>
+      </div>
+      <span id="badge-valve1" class="badge-off">OFF</span>
+    </div>
+
+    <!-- Arrosage Z2 -->
+    <div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+      <div class="flex items-center gap-2">
+        <img src="/static/img/icons/zone2.svg" class="h-6 w-6" alt="" draggable="false">
+        <span class="text-sm font-medium text-slate-700">Arros. Z2</span>
+      </div>
+      <span id="badge-valve2" class="badge-off">OFF</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ MINI-GRAPHIQUE + ÉVÉNEMENTS RÉCENTS ════════════════════════════ -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+  <div class="card p-5">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-lg font-semibold text-slate-900">Température (1h)</h2>
+      <a href="/graphiques"
+         class="text-xs font-semibold text-sky-600 hover:text-sky-700">Voir tout →</a>
+    </div>
+    <div id="mini-chart" style="height:140px;"></div>
+  </div>
+
+  <div class="card p-5">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-lg font-semibold text-slate-900">Derniers événements</h2>
+      <a href="/evenements"
+         class="text-xs font-semibold text-sky-600 hover:text-sky-700">Voir tout →</a>
+    </div>
+    <div id="recent-events" class="space-y-2 text-sm">
+      <p class="text-xs text-slate-400">Chargement...</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/charts.js"></script>
+<script>
+  function updateDashboard(data) {
+    const s = data.sensors;
+    const a = data.actuators;
+
+    setVal('val-temp-in',  s.temp_inside  !== undefined ? s.temp_inside.toFixed(1)  + ' °C' : '—');
+    setVal('val-temp-out', s.temp_outside !== undefined ? s.temp_outside.toFixed(1) + ' °C' : '—');
+    setVal('val-moist1',   s.moisture_zone1 !== undefined ? s.moisture_zone1.toFixed(0) : '—');
+    setVal('val-moist2',   s.moisture_zone2 !== undefined ? s.moisture_zone2.toFixed(0) : '—');
+
+    if (s.moisture_zone1_label) setVal('label-moist1', s.moisture_zone1_label);
+    if (s.moisture_zone2_label) setVal('label-moist2', s.moisture_zone2_label);
+
+    setWidth('bar-moist1', s.moisture_zone1);
+    setWidth('bar-moist2', s.moisture_zone2);
+
+    if (s.temp_inside !== undefined) {
+      const el = document.getElementById('badge-temp-in');
+      if (s.temp_inside > 35)      setBadge(el, 'err',  s.temp_inside.toFixed(1) + '°C');
+      else if (s.temp_inside > 30) setBadge(el, 'warn', s.temp_inside.toFixed(1) + '°C');
+      else                         setBadge(el, 'on',   s.temp_inside.toFixed(1) + '°C');
+    }
+
+    updateMoistureBadge('badge-moist1', s.moisture_zone1);
+    updateMoistureBadge('badge-moist2', s.moisture_zone2);
+
+    setToggle('toggle-fan',   a.fan_on);
+    setToggle('toggle-light', a.light_on);
+    setBadgeByState('badge-valve1', a.valve1_open, 'Arrosage', 'OFF');
+    setBadgeByState('badge-valve2', a.valve2_open, 'Arrosage', 'OFF');
+
+    updateAlertBanner(data.alerts || []);
+
+    if (data.last_update) {
+      const t = new Date(data.last_update);
+      const str = t.toLocaleTimeString('fr-CH', {hour:'2-digit', minute:'2-digit'});
+      setVal('last-update-badge-desktop', 'Dernière mesure : ' + str);
+    }
+  }
+
+  function updateMoistureBadge(id, val) {
+    const el = document.getElementById(id);
+    if (val === undefined) return;
+    const z = id.includes('1') ? 'Z1' : 'Z2';
+    if (val < 30)      setBadge(el, 'err',  z + ' Sec');
+    else if (val < 50) setBadge(el, 'warn', z + ' OK');
+    else               setBadge(el, 'on',   z + ' ✓');
+  }
+
+  let miniChart = null;
+  function renderMiniChart(history) {
+    if (!history || !history.data || history.data.length === 0) {
+      // Generate demo data for simulation mode
+      const now = new Date();
+      const demoData = Array.from({length: 12}, (_, i) => {
+        const t = new Date(now - (11 - i) * 5 * 60000);
+        return {
+          timestamp: t.toISOString(),
+          temp_inside:  +(22 + Math.sin(i * 0.5) * 4 + Math.random() * 1.5).toFixed(1),
+          temp_outside: +(14 + Math.cos(i * 0.4) * 3 + Math.random() * 1).toFixed(1),
+        };
+      });
+      history = { data: demoData };
+    }
+    const labels = history.data.map(r => {
+      const d = new Date(r.timestamp);
+      return d.toLocaleTimeString('fr-CH', {hour:'2-digit', minute:'2-digit'});
+    });
+    const t1 = history.data.map(r => r.temp_inside);
+    const t2 = history.data.map(r => r.temp_outside);
+
+    const opts = {
+      series: [
+        { name: 'Intérieur', data: t1 },
+        { name: 'Extérieur', data: t2 },
+      ],
+      chart: { type: 'line', height: 140, sparkline: { enabled: false },
+               toolbar: { show: false }, animations: { enabled: false },
+               fontFamily: 'Inter, system-ui, sans-serif' },
+      stroke: { curve: 'smooth', width: 2 },
+      colors: ['#f97316','#0ea5e9'],
+      xaxis: { categories: labels, labels: { show: true, rotate: -30, style: { fontSize: '10px', colors: '#94a3b8' } }, axisBorder: { show: false }, axisTicks: { show: false }, tickAmount: 6 },
+      yaxis: { labels: { style: { fontSize: '10px', colors: '#94a3b8' } } },
+      grid:  { borderColor: '#f1f5f9', strokeDashArray: 3 },
+      legend: { show: false },
+      tooltip: { x: { show: true } },
+    };
+    if (miniChart) { miniChart.destroy(); }
+    miniChart = new ApexCharts(document.getElementById('mini-chart'), opts);
+    miniChart.render();
+  }
+
+  function loadRecentEvents() {
+    fetch('/api/events?limit=5').then(r => r.json()).then(data => {
+      const container = document.getElementById('recent-events');
+      if (!data.events || data.events.length === 0) {
+        container.innerHTML = '<p class="text-xs text-slate-400">Aucun événement</p>';
+        return;
+      }
+      container.innerHTML = data.events.map(e => `
+        <div class="flex items-start gap-2">
+          <span class="mt-1.5 flex-shrink-0 h-2 w-2 rounded-full
+            ${e.level==='ERROR'?'bg-rose-400':e.level==='WARNING'?'bg-amber-400':'bg-emerald-400'}"></span>
+          <div class="min-w-0">
+            <p class="text-sm text-slate-700 leading-snug truncate">${e.message}</p>
+            <p class="text-xs text-slate-400">${e.date} ${e.time}</p>
+          </div>
+        </div>`).join('');
+    }).catch(() => {});
+  }
+
+  startPolling('/api/state', updateDashboard, 30000);
+  fetch('/api/history?period=1h').then(r=>r.json()).then(renderMiniChart).catch(()=>{});
+  loadRecentEvents();
+  setInterval(loadRecentEvents, 60000);
+</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+[Unit]
+Description=Ma Serre — Gestion automatisée de serre
+Documentation=https://github.com/patrickpinard/maserre
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/MyGreenGarden
+Environment="PATH=/home/pi/MyGreenGarden/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ExecStart=/home/pi/MyGreenGarden/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000 --workers 1
+
+# Redémarrage automatique en cas d'erreur
+Restart=on-failure
+RestartSec=5s
+
+# Logs
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=maserre
+
+# Sécurité minimale
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

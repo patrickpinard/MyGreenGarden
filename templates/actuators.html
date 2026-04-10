@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% block title %}Actionneurs — Ma Serre{% endblock %}
+{% block page_title %}Actionneurs{% endblock %}
+{% block page_subtitle %}Contrôle manuel et automatique{% endblock %}
+
+{% block content %}
+<div class="h-4"></div>
+
+<div class="space-y-3">
+
+  <!-- Ventilateur + Lampe LED -->
+  <div class="grid grid-cols-2 gap-3">
+
+    <!-- Ventilateurs -->
+    <div class="card p-4">
+      <div class="mb-3 flex items-center gap-2">
+        <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-sky-100">
+          <img src="/static/img/icons/fan.svg" class="h-7 w-7" alt="" draggable="false">
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-slate-800 leading-tight">Ventilateurs</p>
+          <p class="truncate text-xs text-slate-400">Relais #7</p>
+        </div>
+      </div>
+      <span id="act-fan-status" class="badge-off mb-3 inline-block">OFF</span>
+      <div class="space-y-2 border-t border-slate-100 pt-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-500">Mode auto</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="auto-fan" onchange="setFanAutoMode(this.checked)" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <button id="btn-fan-toggle" onclick="toggleFan()"
+                class="w-full rounded-xl bg-sky-100 py-1.5 text-xs font-medium text-sky-700 transition
+                       hover:bg-sky-200 active:scale-95
+                       disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none">
+          Allumer
+        </button>
+      </div>
+    </div>
+
+    <!-- Lampe LED -->
+    <div class="card p-4">
+      <div class="mb-3 flex items-center gap-2">
+        <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-amber-100">
+          <img src="/static/img/icons/lamp.svg" class="h-7 w-7" alt="" draggable="false">
+        </div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-slate-800 leading-tight">Lampe LED</p>
+          <p class="truncate text-xs text-slate-400">Relais #6</p>
+        </div>
+      </div>
+      <span id="act-light-status" class="badge-off mb-3 inline-block">OFF</span>
+      <div class="border-t border-slate-100 pt-2">
+        <button onclick="toggleLight()"
+                class="w-full rounded-xl bg-amber-100 py-1.5 text-xs font-medium text-amber-700 transition
+                       hover:bg-amber-200 active:scale-95">
+          Allumer / Éteindre
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrosage Zone 1 + Zone 2 -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+    <!-- Zone 1 -->
+    <div class="card p-4">
+      <div class="mb-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-100">
+            <img src="/static/img/icons/zone1.svg" class="h-8 w-8" alt="" draggable="false">
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-slate-800 leading-tight">Zone 1</p>
+            <p class="text-xs text-slate-400">GARDENA — #4</p>
+          </div>
+        </div>
+        <span id="act-valve1-status" class="badge-off">Fermé</span>
+      </div>
+      <div class="space-y-2 border-t border-slate-100 pt-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-500">Mode auto</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="auto-watering-z1" onchange="setWateringAutoMode(1, this.checked)" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <select id="dur-z1"
+                  class="flex-1 rounded-xl border border-slate-200 px-2 py-1.5 text-xs text-slate-600
+                         focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200">
+            <option value="30">30 sec</option>
+            <option value="60">1 min</option>
+            <option value="120">2 min</option>
+            <option value="300" selected>5 min</option>
+            <option value="600">10 min</option>
+          </select>
+          <button id="btn-water1" onclick="manualWater(1)"
+                  class="rounded-xl bg-emerald-100 px-2.5 py-1.5 text-xs font-medium text-emerald-700 transition
+                         hover:bg-emerald-200 active:scale-95
+                         disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none">
+            Arroser
+          </button>
+          <button id="btn-stop1" onclick="stopValve(1)"
+                  class="rounded-xl bg-rose-100 px-2.5 py-1.5 text-xs font-medium text-rose-600 transition
+                         hover:bg-rose-200 active:scale-95
+                         disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none">
+            Stop
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone 2 -->
+    <div class="card p-4">
+      <div class="mb-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-teal-100">
+            <img src="/static/img/icons/zone2.svg" class="h-8 w-8" alt="" draggable="false">
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-slate-800 leading-tight">Zone 2</p>
+            <p class="text-xs text-slate-400">GARDENA — #5</p>
+          </div>
+        </div>
+        <span id="act-valve2-status" class="badge-off">Fermé</span>
+      </div>
+      <div class="space-y-2 border-t border-slate-100 pt-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-500">Mode auto</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="auto-watering-z2" onchange="setWateringAutoMode(2, this.checked)" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <select id="dur-z2"
+                  class="flex-1 rounded-xl border border-slate-200 px-2 py-1.5 text-xs text-slate-600
+                         focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200">
+            <option value="30">30 sec</option>
+            <option value="60">1 min</option>
+            <option value="120">2 min</option>
+            <option value="300" selected>5 min</option>
+            <option value="600">10 min</option>
+          </select>
+          <button id="btn-water2" onclick="manualWater(2)"
+                  class="rounded-xl bg-teal-100 px-2.5 py-1.5 text-xs font-medium text-teal-700 transition
+                         hover:bg-teal-200 active:scale-95
+                         disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none">
+            Arroser
+          </button>
+          <button id="btn-stop2" onclick="stopValve(2)"
+                  class="rounded-xl bg-rose-100 px-2.5 py-1.5 text-xs font-medium text-rose-600 transition
+                         hover:bg-rose-200 active:scale-95
+                         disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none">
+            Stop
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lucarne (non installée) -->
+  <div class="card p-4 opacity-50">
+    <div class="flex items-center gap-3">
+      <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100">
+        <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        </svg>
+      </div>
+      <div>
+        <p class="text-sm font-semibold text-slate-500">Lucarne (skylight)</p>
+        <p class="text-xs text-slate-400">Vérin VEVOR 12V — Non installée</p>
+      </div>
+      <span class="ml-auto rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">
+        Désactivée
+      </span>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function _applyFanLock(autoOn, fanIsOn) {
+    const btn = document.getElementById('btn-fan-toggle');
+    if (!btn) return;
+    btn.disabled    = autoOn;
+    btn.textContent = fanIsOn ? 'Éteindre' : 'Allumer';
+  }
+
+  function _applyZoneLock(zone, autoOn) {
+    const w = document.getElementById(`btn-water${zone}`);
+    const s = document.getElementById(`btn-stop${zone}`);
+    if (w) w.disabled = autoOn;
+    if (s) s.disabled = autoOn;
+  }
+
+  function updateActuators(data) {
+    const a = data.actuators;
+    const m = data.modes;
+    setBadgeByState('act-fan-status',    a.fan_on,      'ON',       'OFF');
+    setBadgeByState('act-light-status',  a.light_on,    'ON',       'OFF');
+    setBadgeByState('act-valve1-status', a.valve1_open, 'Arrosage', 'Fermé');
+    setBadgeByState('act-valve2-status', a.valve2_open, 'Arrosage', 'Fermé');
+    setCheck('auto-fan',          m.fan_auto);
+    setCheck('auto-watering-z1',  m.watering_auto_z1);
+    setCheck('auto-watering-z2',  m.watering_auto_z2);
+    _applyFanLock(m.fan_auto, a.fan_on);
+    _applyZoneLock(1, m.watering_auto_z1);
+    _applyZoneLock(2, m.watering_auto_z2);
+    updateAlertBanner(data.alerts || []);
+  }
+
+  async function toggleFan() {
+    const data = await toggleActuator('fan');
+    if (data) {
+      setBadgeByState('act-fan-status', data.fan_on, 'ON', 'OFF');
+      _applyFanLock(document.getElementById('auto-fan').checked, data.fan_on);
+    }
+  }
+
+  async function toggleLight() {
+    const data = await toggleActuator('light');
+    if (data) setBadgeByState('act-light-status', data.light_on, 'ON', 'OFF');
+  }
+
+  function manualWater(zone) {
+    const dur = parseInt(document.getElementById(`dur-z${zone}`).value);
+    apiPost(`/api/actuator/valve/${zone}`, { duration: dur })
+      .then(() => {
+        setBadgeByState(`act-valve${zone}-status`, true, 'Arrosage', 'Fermé');
+        showToast(`Arrosage zone ${zone} démarré (${dur}s)`);
+      });
+  }
+
+  function stopValve(zone) {
+    apiPost(`/api/actuator/valve/${zone}/stop`)
+      .then(() => {
+        setBadgeByState(`act-valve${zone}-status`, false, 'Arrosage', 'Fermé');
+        showToast(`Vanne zone ${zone} fermée`);
+      });
+  }
+
+  async function setFanAutoMode(enabled) {
+    await toggleMode('fan_auto', enabled);
+    const fanOn = document.getElementById('act-fan-status')?.classList.contains('badge-on');
+    _applyFanLock(enabled, fanOn);
+  }
+
+  async function setWateringAutoMode(zone, enabled) {
+    await toggleMode(`watering_auto_z${zone}`, enabled);
+    _applyZoneLock(zone, enabled);
+  }
+
+  startPolling('/api/state', updateActuators, 15000);
+</script>
+{% endblock %}

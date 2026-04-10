@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr" class="h-full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0284c7">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="apple-touch-icon" href="/static/img/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Ma Serre — Connexion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] } } }
+    }
+  </script>
+  <style>
+    .pin-dot { transition: all 0.15s ease; }
+    .pin-dot.filled { background: #14b8a6; transform: scale(1.1); }
+    input[type=tel]::-webkit-outer-spin-button,
+    input[type=tel]::-webkit-inner-spin-button { -webkit-appearance: none; }
+  </style>
+</head>
+<body class="flex min-h-screen flex-col bg-gradient-to-br from-slate-100 via-white to-sky-50 antialiased font-sans">
+
+  <main class="flex flex-1 items-center justify-center px-4 py-12 sm:px-6"
+        style="padding-top: max(3rem, env(safe-area-inset-top)); padding-bottom: max(3rem, env(safe-area-inset-bottom))">
+    <div class="relative w-full max-w-md">
+
+      <!-- Lueur derrière la carte -->
+      <div class="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-r
+                  from-sky-200 via-teal-100 to-sky-200 blur-2xl opacity-50 sm:opacity-60"></div>
+
+      <!-- Carte -->
+      <div class="rounded-3xl border border-slate-200/80 bg-white/95 p-6 shadow-xl
+                  shadow-sky-100 backdrop-blur sm:p-8">
+
+        <!-- Logo + titre -->
+        <div class="mb-8 text-center">
+          <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-3xl overflow-hidden shadow-lg bg-white">
+            <img src="/static/img/logo_app.svg" class="h-20 w-20 object-contain" alt="Ma Serre">
+          </div>
+          <h1 class="text-2xl font-semibold text-slate-900">Ma Serre</h1>
+        </div>
+
+        <h2 class="mb-6 text-center text-lg font-semibold text-slate-900">
+          Entrez votre code PIN
+        </h2>
+
+        {% if error %}
+        <div class="mb-4 flex items-center gap-2 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3">
+          <svg class="h-4 w-4 flex-shrink-0 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          <p class="text-sm text-rose-700">{{ error }}</p>
+        </div>
+        {% endif %}
+
+        <form method="post" action="/login" id="pin-form">
+          <!-- Dots PIN -->
+          <div class="mb-6 flex justify-center gap-4" id="pin-display">
+            <span class="pin-dot h-5 w-5 rounded-full border-2 border-sky-300 bg-transparent"></span>
+            <span class="pin-dot h-5 w-5 rounded-full border-2 border-sky-300 bg-transparent"></span>
+            <span class="pin-dot h-5 w-5 rounded-full border-2 border-sky-300 bg-transparent"></span>
+            <span class="pin-dot h-5 w-5 rounded-full border-2 border-sky-300 bg-transparent"></span>
+          </div>
+
+          <input type="hidden" name="pin" id="pin-input" autocomplete="off">
+
+          <!-- Clavier numérique -->
+          <div class="grid grid-cols-3 gap-3" id="keypad">
+            {% for digit in ['1','2','3','4','5','6','7','8','9','','0','⌫'] %}
+            <button type="button"
+                    class="keypad-btn h-14 rounded-2xl font-semibold text-xl transition active:scale-95
+                           {% if digit == '' %}invisible
+                           {% elif digit == '⌫' %}bg-rose-50 text-rose-500 hover:bg-rose-100
+                           {% else %}bg-slate-50 text-slate-800 hover:bg-sky-50 hover:text-sky-700
+                           {% endif %}"
+                    data-digit="{{ digit }}">
+              {{ digit }}
+            </button>
+            {% endfor %}
+          </div>
+
+          <button type="submit" id="submit-btn"
+                  class="mt-5 w-full rounded-2xl bg-teal-500 py-3 text-base font-semibold text-white
+                         shadow-lg shadow-sky-100 transition hover:bg-teal-400
+                         focus:outline-none focus:ring-2 focus:ring-teal-200
+                         active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                  disabled>
+            Connexion
+          </button>
+        </form>
+      </div>
+
+      <p class="mt-6 text-center text-xs text-slate-400">
+        Patrick Pinard © 2026
+      </p>
+    </div>
+  </main>
+
+  <script>
+    const pinInput  = document.getElementById('pin-input');
+    const submitBtn = document.getElementById('submit-btn');
+    const dots      = document.querySelectorAll('.pin-dot');
+    const MAX_LEN   = 4;
+    let currentPin  = '';
+
+    function updateDisplay() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('filled', i < currentPin.length);
+      });
+      pinInput.value = currentPin;
+      submitBtn.disabled = currentPin.length < MAX_LEN;
+    }
+
+    document.querySelectorAll('.keypad-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const d = btn.dataset.digit;
+        if (d === '⌫') {
+          currentPin = currentPin.slice(0, -1);
+        } else if (d && currentPin.length < MAX_LEN) {
+          currentPin += d;
+        }
+        updateDisplay();
+        if (currentPin.length === MAX_LEN) {
+          setTimeout(() => document.getElementById('pin-form').submit(), 200);
+        }
+      });
+    });
+
+    document.addEventListener('keydown', e => {
+      if (/^[0-9]$/.test(e.key) && currentPin.length < MAX_LEN) {
+        currentPin += e.key;
+      } else if (e.key === 'Backspace') {
+        currentPin = currentPin.slice(0, -1);
+      } else if (e.key === 'Enter' && currentPin.length >= 4) {
+        document.getElementById('pin-form').submit();
+      }
+      updateDisplay();
+    });
+  </script>
+</body>
+</html>

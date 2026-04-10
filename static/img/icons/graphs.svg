@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Axes -->
+  <line x1="9" y1="55" x2="57" y2="55" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="9" y1="8" x2="9" y2="55" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Bars -->
+  <rect x="13" y="45" width="8" height="10" rx="2" fill="#5ecdc8"/>
+  <rect x="24" y="37" width="8" height="18" rx="2" fill="#14b8a6"/>
+  <rect x="35" y="27" width="8" height="28" rx="2" fill="#1e6b6b"/>
+  <rect x="46" y="18" width="8" height="37" rx="2" fill="#14b8a6"/>
+  <!-- Trend line -->
+  <polyline points="17,46 28,38 39,28 50,19" stroke="#1e6b6b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Dots on trend -->
+  <circle cx="17" cy="46" r="3" fill="white" stroke="#1e6b6b" stroke-width="2"/>
+  <circle cx="28" cy="38" r="3" fill="white" stroke="#1e6b6b" stroke-width="2"/>
+  <circle cx="39" cy="28" r="3" fill="white" stroke="#1e6b6b" stroke-width="2"/>
+  <circle cx="50" cy="19" r="3" fill="white" stroke="#1e6b6b" stroke-width="2"/>
+  <!-- Arrow tip at end -->
+  <polyline points="47,14 50,19 55,16" stroke="#1e6b6b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

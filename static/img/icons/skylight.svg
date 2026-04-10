@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Greenhouse front face (trapezoid base) -->
+  <path d="M4,58 L4,34 L32,10 L60,34 L60,58 Z" fill="#d1f5f3" stroke="#1e6b6b" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Ridge line -->
+  <line x1="32" y1="10" x2="32" y2="58" stroke="#1e6b6b" stroke-width="1.5"/>
+  <!-- Left roof glass panes -->
+  <line x1="16" y1="22" x2="4" y2="34" stroke="#14b8a6" stroke-width="1" opacity="0.6"/>
+  <line x1="24" y1="16" x2="4" y2="40" stroke="#14b8a6" stroke-width="1" opacity="0.6"/>
+  <!-- Right roof glass panes (normal) -->
+  <line x1="48" y1="22" x2="60" y2="34" stroke="#14b8a6" stroke-width="1" opacity="0.6"/>
+  <line x1="40" y1="16" x2="60" y2="40" stroke="#14b8a6" stroke-width="1" opacity="0.6"/>
+  <!-- Open skylight hatch (left side, hinged at ridge) -->
+  <path d="M32,18 L32,10 L20,22 Z" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Hatch panel (open at angle) -->
+  <path d="M32,10 L22,4 L14,16 L24,22 Z" fill="#5ecdc8" stroke="#1e6b6b" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Glass shine on open hatch -->
+  <line x1="20" y1="7" x2="16" y2="14" stroke="white" stroke-width="1" opacity="0.7" stroke-linecap="round"/>
+  <!-- Hinge dot -->
+  <circle cx="32" cy="10" r="2.5" fill="#1e6b6b"/>
+  <!-- Wall base horizontal line -->
+  <line x1="4" y1="42" x2="60" y2="42" stroke="#1e6b6b" stroke-width="1.5" opacity="0.5"/>
+  <!-- Door/opening in center base -->
+  <rect x="24" y="46" width="16" height="12" rx="2" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.5"/>
+  <!-- Door handle -->
+  <circle cx="36" cy="52" r="1.5" fill="white"/>
+</svg>

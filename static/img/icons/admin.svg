@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Gear outline -->
+  <path d="M 26.66,12.73 L 28.71,5.2 L 35.29,5.2 L 37.34,12.73
+           L 41.85,14.59 L 48.62,10.72 L 53.28,15.38 L 49.41,22.15
+           L 51.27,26.66 L 58.8,28.71 L 58.8,35.29 L 51.27,37.34
+           L 49.41,41.85 L 53.28,48.62 L 48.62,53.28 L 41.85,49.41
+           L 37.34,51.27 L 35.29,58.8 L 28.71,58.8 L 26.66,51.27
+           L 22.15,49.41 L 15.38,53.28 L 10.72,48.62 L 14.59,41.85
+           L 12.73,37.34 L 5.2,35.29 L 5.2,28.71 L 12.73,26.66
+           L 14.59,22.15 L 10.72,15.38 L 15.38,10.72 L 22.15,14.59 Z"
+        fill="#d1f5f3" stroke="#1e6b6b" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- Gear inner ring -->
+  <circle cx="32" cy="32" r="19" fill="#d1f5f3" stroke="#1e6b6b" stroke-width="1.5"/>
+  <!-- Inner circle cut -->
+  <circle cx="32" cy="32" r="9.5" fill="white" stroke="#1e6b6b" stroke-width="1.3"/>
+
+  <!-- Person — head -->
+  <circle cx="32" cy="26" r="6" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.3"/>
+  <!-- Person — shoulders -->
+  <path d="M19,39 Q19,33.5 32,33.5 Q45,33.5 45,39"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.3" stroke-linecap="round"/>
+
+  <!-- Padlock body -->
+  <rect x="39" y="43" width="13" height="10" rx="2.5" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.5"/>
+  <!-- Padlock shackle -->
+  <path d="M42.5,43 L42.5,40 Q42.5,36.5 45.5,36.5 Q48.5,36.5 48.5,40 L48.5,43"
+        fill="none" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Keyhole -->
+  <circle cx="45.5" cy="48" r="2" fill="white"/>
+  <rect x="44.5" y="49" width="2" height="2.5" rx="1" fill="white"/>
+</svg>

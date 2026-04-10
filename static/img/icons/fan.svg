@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Outer ring -->
+  <circle cx="32" cy="32" r="30" fill="#f0fafa" stroke="#1e6b6b" stroke-width="2.2"/>
+  <!-- Inner background -->
+  <circle cx="32" cy="32" r="26" fill="#e0f5f5" stroke="#1e6b6b" stroke-width="1"/>
+
+  <!-- Fan blade 1 (top-left) -->
+  <path d="M32,32 C30,26 24,20 18,19 C14,18 12,22 15,25 C18,28 25,29 32,32 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.2" stroke-linejoin="round"/>
+  <!-- Fan blade 2 (top-right, rotated 90°) -->
+  <path d="M32,32 C38,30 44,24 45,18 C46,14 42,12 39,15 C36,18 35,25 32,32 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.2" stroke-linejoin="round"/>
+  <!-- Fan blade 3 (bottom-right, rotated 180°) -->
+  <path d="M32,32 C34,38 40,44 46,45 C50,46 52,42 49,39 C46,36 39,35 32,32 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.2" stroke-linejoin="round"/>
+  <!-- Fan blade 4 (bottom-left, rotated 270°) -->
+  <path d="M32,32 C26,34 20,40 19,46 C18,50 22,52 25,49 C28,46 29,39 32,32 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.2" stroke-linejoin="round"/>
+
+  <!-- Center hub -->
+  <circle cx="32" cy="32" r="5.5" fill="#1e6b6b" stroke="#1e6b6b" stroke-width="1"/>
+  <circle cx="32" cy="32" r="2.5" fill="#5ecdc8"/>
+</svg>

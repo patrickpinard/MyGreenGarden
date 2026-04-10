@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="fr" class="h-full bg-slate-100 text-slate-900">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Ma Serre">
+  <meta name="theme-color" content="#0284c7">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="apple-touch-icon" href="/static/img/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>{% block title %}Ma Serre{% endblock %}</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+  <style>
+    * { -webkit-tap-highlight-color: transparent; }
+
+    /* Scrollbar fine */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px; }
+
+    /* Toggle switch */
+    .toggle-switch { position: relative; display: inline-block; width: 52px; height: 28px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; cursor: pointer; inset: 0;
+      background: #cbd5e1; border-radius: 28px; transition: .3s;
+    }
+    .toggle-slider:before {
+      content: ""; position: absolute;
+      width: 22px; height: 22px; left: 3px; bottom: 3px;
+      background: white; border-radius: 50%;
+      transition: .3s; box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+    input:checked + .toggle-slider { background: #14b8a6; }
+    input:checked + .toggle-slider:before { transform: translateX(24px); }
+
+    /* Card */
+    .card {
+      background: white;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    }
+
+    /* Badge états */
+    .badge-base { border-radius: 9999px; padding: 2px 10px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
+    .badge-on   { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; border-radius: 9999px; padding: 2px 10px; font-size: 0.75rem; font-weight: 600; }
+    .badge-off  { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0;  border-radius: 9999px; padding: 2px 10px; font-size: 0.75rem; font-weight: 600; }
+    .badge-warn { background: #fef3c7; color: #92400e; border: 1px solid #fde68a;  border-radius: 9999px; padding: 2px 10px; font-size: 0.75rem; font-weight: 600; }
+    .badge-err  { background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3;  border-radius: 9999px; padding: 2px 10px; font-size: 0.75rem; font-weight: 600; }
+
+    /* PIN dot */
+    .pin-dot { transition: all 0.15s ease; }
+    .pin-dot.filled { background: #14b8a6; transform: scale(1.1); }
+
+    /* Sidebar desktop offset */
+    @media (min-width: 1024px) {
+      .main-content { margin-left: 18rem; }
+    }
+
+    /* Safe areas */
+    .pb-safe { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+    .mb-savenav { margin-bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
+
+    /* Header + content offset — responsive */
+    .site-header { padding-top: env(safe-area-inset-top, 0px); }
+    .site-header-inner { height: 3rem; }         /* mobile  48px */
+    .content-offset { padding-top: calc(3rem + env(safe-area-inset-top, 0px) + 0.5rem); }
+    @media (min-width: 640px) {
+      .site-header-inner { height: 3.5rem; }     /* tablet  56px */
+      .content-offset { padding-top: calc(3.5rem + env(safe-area-inset-top, 0px) + 0.75rem); }
+    }
+    @media (min-width: 1024px) {
+      .site-header-inner { height: 4rem; }       /* desktop 64px */
+      .content-offset { padding-top: calc(4rem + env(safe-area-inset-top, 0px) + 1.5rem); }
+    }
+  </style>
+</head>
+
+<body class="h-full bg-gradient-to-br from-slate-100 via-white to-sky-50 antialiased font-sans">
+
+<!-- ═══════════════════════════════════════════════════
+     SIDEBAR (desktop ≥1024px)
+════════════════════════════════════════════════════ -->
+<aside class="fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-slate-200 bg-white/90 backdrop-blur lg:flex lg:flex-col">
+
+  <!-- Logo -->
+  <div class="flex items-center gap-3 px-6 pb-6" style="padding-top: calc(env(safe-area-inset-top, 0px) + 1.75rem)">
+    <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl overflow-hidden shadow-sm bg-white">
+      <img src="/static/img/logo_app.svg" class="h-10 w-10 object-contain" alt="Logo">
+    </div>
+    <div>
+      <p class="text-xl font-semibold text-slate-900 leading-none">Ma Serre</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 overflow-y-auto px-4 pb-4 space-y-1">
+    {% set nav = [
+      ('dashboard',    '/dashboard',    'dashboard.svg',      'Tableau de bord'),
+      ('capteurs',     '/capteurs',     'sensors.svg',        'Capteurs'),
+      ('actionneurs',  '/actionneurs',  'valve.svg',          'Actionneurs'),
+      ('graphiques',   '/graphiques',   'graphs.svg',         'Graphiques'),
+      ('parametres',   '/parametres',   'settings.svg',       'Paramètres'),
+      ('planification','/planification','scheduler.svg',      'Planification'),
+      ('evenements',   '/evenements',   'events.svg',         'Événements'),
+    ] %}
+    {% if request.session.get('role') == 'admin' or request.session.get('role') is none %}
+    {% set nav = nav + [('admin', '/admin', 'admin.svg', 'Administration')] %}
+    {% endif %}
+    {% for id, href, icon_file, label in nav %}
+    <a href="{{ href }}"
+       class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition
+              {% if page == id %}bg-sky-100 shadow-sm ring-1 ring-sky-200{% else %}hover:bg-sky-50{% endif %}">
+      <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border transition overflow-hidden
+                   {% if page == id %}border-sky-200 bg-white ring-1 ring-sky-200{% else %}border-slate-200 bg-white group-hover:border-sky-200{% endif %}">
+        <img src="/static/img/icons/{{ icon_file }}" class="h-6 w-6" alt="" draggable="false">
+      </span>
+      <span class="font-semibold {% if page == id %}text-sky-700{% else %}text-slate-600 group-hover:text-sky-700{% endif %}">{{ label }}</span>
+    </a>
+    {% endfor %}
+  </nav>
+
+  <!-- Footer sidebar -->
+  <div class="border-t border-slate-200 px-4 py-5">
+    <div class="mb-3 flex items-center gap-3 px-2">
+      <div class="relative h-9 w-9 flex-shrink-0">
+        <img src="/static/img/icons/user-avatar.png" class="h-9 w-9 rounded-full" alt="">
+      </div>
+      <div class="min-w-0">
+        <p class="truncate text-sm font-semibold text-slate-900 leading-none">
+          {{ request.session.get('username', owner_name) }}
+        </p>
+        <p class="mt-0.5 text-xs text-slate-400">
+          {% if request.session.get('role') == 'admin' %}Administrateur{% else %}Utilisateur{% endif %}
+        </p>
+      </div>
+    </div>
+    <a href="/logout"
+       class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-rose-500 hover:bg-rose-50 transition">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+      </svg>
+      Déconnexion
+    </a>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════════════
+     HEADER (toutes tailles — décalé lg:left-72)
+════════════════════════════════════════════════════ -->
+<header class="site-header fixed top-0 left-0 right-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur lg:left-72">
+  <div class="site-header-inner flex items-center justify-between px-3 sm:px-5 lg:px-8">
+    <!-- Gauche : hamburger (mobile) + titre page -->
+    <div class="flex min-w-0 items-center gap-2 sm:gap-3">
+      <!-- Bouton hamburger — mobile uniquement -->
+      <button onclick="document.getElementById('menu-sheet').classList.remove('translate-y-full')"
+              class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 transition hover:border-sky-200 hover:text-sky-600 lg:hidden">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <div class="min-w-0">
+        <p class="truncate text-sm font-semibold text-slate-900 leading-none">
+          {% block page_title %}Ma Serre{% endblock %}
+        </p>
+        <p class="mt-0.5 truncate text-xs leading-none text-slate-400 hidden sm:block">
+          {% block page_subtitle %}{% endblock %}
+        </p>
+      </div>
+    </div>
+    <!-- Droite : actions page + horloge + statut + alertes -->
+    <div class="flex flex-shrink-0 items-center gap-1.5 sm:gap-2.5">
+      {% block header_actions %}{% endblock %}
+      <a href="/info" title="À propos"
+         class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl border transition
+                {% if page == 'info' %}border-teal-200 bg-teal-50{% else %}border-slate-200 bg-white hover:border-teal-200 hover:bg-teal-50{% endif %}">
+        <img src="/static/img/icons/info.svg" class="h-5 w-5" alt="" draggable="false">
+      </a>
+      <span id="header-clock" class="text-xs text-slate-500 tabular-nums font-medium hidden sm:inline">--:--</span>
+      <button id="pi-status" onclick="openConnectionModal()" title="Voir les infos de connexion"
+              class="flex items-center gap-1.5 rounded-full px-2 py-1 transition hover:bg-slate-100 active:scale-95 flex-shrink-0">
+        <span id="pi-status-dot" class="h-2 w-2 rounded-full bg-slate-300 flex-shrink-0"></span>
+        <span id="pi-status-label" class="text-xs text-slate-400 font-medium hidden sm:inline">—</span>
+      </button>
+      <div id="alert-bell" class="relative hidden">
+        <button onclick="document.getElementById('alert-panel').classList.toggle('hidden')"
+                class="flex h-8 w-8 items-center justify-center rounded-xl bg-rose-50">
+          <svg class="h-4 w-4 text-rose-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002
+                     6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6
+                     11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0
+                     11-6 0v-1m6 0H9"/>
+          </svg>
+          <span id="alert-count"
+                class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center
+                       rounded-full bg-rose-500 text-white text-xs">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Panneau alertes dropdown -->
+<div id="alert-panel"
+     class="fixed z-50 hidden rounded-2xl border border-rose-100 bg-white/95 shadow-xl backdrop-blur overflow-hidden"
+     style="top: calc(env(safe-area-inset-top, 0px) + 3rem + 0.5rem); left: 0.75rem; right: 0.75rem; max-width: 28rem; margin-left: auto; margin-right: auto">
+  <div class="flex items-center justify-between border-b border-rose-100 px-4 py-3">
+    <div class="flex items-center gap-2">
+      <svg class="h-4 w-4 text-rose-500" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+      </svg>
+      <p class="text-sm font-semibold text-rose-700">Notifications</p>
+      <span id="alert-count-badge" class="rounded-full bg-rose-500 px-1.5 py-0.5 text-xs font-bold text-white">0</span>
+    </div>
+    <button onclick="clearAlerts()"
+            class="rounded-lg px-2 py-1 text-xs font-medium text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition">
+      Tout effacer
+    </button>
+  </div>
+  <div id="alert-list" class="max-h-72 overflow-y-auto divide-y divide-rose-50"></div>
+  <div class="border-t border-rose-100 px-4 py-2 text-center">
+    <button onclick="document.getElementById('alert-panel').classList.add('hidden')"
+            class="text-xs text-slate-400 hover:text-slate-600 transition">Fermer</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CONTENU PRINCIPAL
+════════════════════════════════════════════════════ -->
+<div class="main-content flex min-h-screen flex-col">
+  <main class="content-offset flex-1 px-4 sm:px-6 lg:px-8 pb-6 mb-savenav lg:mb-0">
+    <div class="mx-auto max-w-6xl">
+
+      <!-- Bannière alertes globale -->
+      <div id="alert-banner"
+           class="hidden mb-4 rounded-2xl border border-rose-200 bg-rose-50 overflow-hidden">
+        <div class="flex items-start gap-3 px-4 py-3">
+          <svg class="mt-0.5 h-4 w-4 flex-shrink-0 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          <div class="flex-1 min-w-0">
+            <p class="text-xs font-semibold uppercase tracking-wide text-rose-600 mb-0.5">Alerte système</p>
+            <div id="alert-banner-text" class="text-sm text-rose-700"></div>
+          </div>
+        </div>
+        <div class="flex border-t border-rose-200">
+          <button onclick="acknowledgeBanner()"
+                  class="flex-1 py-2 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition">
+            ✓ Valider
+          </button>
+          <button onclick="document.getElementById('alert-panel').classList.toggle('hidden')"
+                  class="flex-1 py-2 text-xs font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 transition border-l border-rose-200">
+            Voir toutes
+          </button>
+        </div>
+      </div>
+
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     NAVIGATION BAS (mobile < 1024px) — 4 items
+════════════════════════════════════════════════════ -->
+<nav class="fixed bottom-0 left-0 right-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur lg:hidden pb-safe">
+  <div class="grid grid-cols-4 h-16">
+
+    <a href="/dashboard"
+       class="flex flex-col items-center justify-center gap-0.5 transition
+              {% if page == 'dashboard' %}text-sky-700{% else %}text-slate-400{% endif %}">
+      <img src="/static/img/icons/dashboard.svg" class="h-6 w-6 {% if page != 'dashboard' %}opacity-50{% endif %}" alt="" draggable="false">
+      <span class="text-xs font-medium leading-none">Accueil</span>
+      {% if page == 'dashboard' %}<span class="mt-0.5 h-1 w-1 rounded-full bg-sky-600"></span>{% endif %}
+    </a>
+
+    <a href="/capteurs"
+       class="flex flex-col items-center justify-center gap-0.5 transition
+              {% if page == 'capteurs' %}text-sky-700{% else %}text-slate-400{% endif %}">
+      <img src="/static/img/icons/sensors.svg" class="h-6 w-6 {% if page != 'capteurs' %}opacity-50{% endif %}" alt="" draggable="false">
+      <span class="text-xs font-medium leading-none">Capteurs</span>
+      {% if page == 'capteurs' %}<span class="mt-0.5 h-1 w-1 rounded-full bg-sky-600"></span>{% endif %}
+    </a>
+
+    <a href="/actionneurs"
+       class="flex flex-col items-center justify-center gap-0.5 transition
+              {% if page == 'actionneurs' %}text-sky-700{% else %}text-slate-400{% endif %}">
+      <img src="/static/img/icons/valve.svg" class="h-6 w-6 {% if page != 'actionneurs' %}opacity-50{% endif %}" alt="" draggable="false">
+      <span class="text-xs font-medium leading-none">Contrôle</span>
+      {% if page == 'actionneurs' %}<span class="mt-0.5 h-1 w-1 rounded-full bg-sky-600"></span>{% endif %}
+    </a>
+
+    <a href="/graphiques"
+       class="flex flex-col items-center justify-center gap-0.5 transition
+              {% if page == 'graphiques' %}text-sky-700{% else %}text-slate-400{% endif %}">
+      <img src="/static/img/icons/graphs.svg" class="h-6 w-6 {% if page != 'graphiques' %}opacity-50{% endif %}" alt="" draggable="false">
+      <span class="text-xs font-medium leading-none">Graphiques</span>
+      {% if page == 'graphiques' %}<span class="mt-0.5 h-1 w-1 rounded-full bg-sky-600"></span>{% endif %}
+    </a>
+
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     MENU SHEET (slide-up mobile)
+════════════════════════════════════════════════════ -->
+<div id="menu-overlay"
+     class="fixed inset-0 z-40 hidden bg-black/30"
+     onclick="closeMenuSheet()"></div>
+
+<div id="menu-sheet"
+     class="lg:hidden fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl bg-white shadow-2xl
+            transform translate-y-full transition-transform duration-300 ease-out pb-safe">
+  <div class="flex justify-center pt-3 pb-1">
+    <div class="h-1 w-10 rounded-full bg-slate-200"></div>
+  </div>
+  <!-- Identité utilisateur dans le menu -->
+  <div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
+    <div class="relative h-10 w-10 flex-shrink-0">
+      <img src="/static/img/icons/user-avatar.png" class="h-10 w-10 rounded-full" alt="">
+    </div>
+    <div class="min-w-0">
+      <p class="text-sm font-semibold text-slate-900 leading-none truncate">
+        {{ request.session.get('username', owner_name) }}
+      </p>
+      <p class="mt-0.5 text-xs text-slate-400">
+        {% if request.session.get('role') == 'admin' %}Administrateur{% else %}Utilisateur{% endif %}
+      </p>
+    </div>
+  </div>
+  <div class="px-4 py-2 space-y-1">
+    {% for href, icon_file, label in [
+      ('/dashboard',    'dashboard.svg',  'Tableau de bord'),
+      ('/capteurs',     'sensors.svg',    'Capteurs'),
+      ('/actionneurs',  'valve.svg',      'Actionneurs'),
+      ('/graphiques',   'graphs.svg',     'Graphiques'),
+      ('/parametres',   'settings.svg',   'Paramètres'),
+      ('/planification','scheduler.svg',  'Planification'),
+      ('/evenements',   'events.svg',     'Événements'),
+    ] %}
+    <a href="{{ href }}" onclick="closeMenuSheet()"
+       class="flex items-center gap-4 rounded-2xl px-4 py-3.5 transition
+              {% if page == href[1:] %}bg-sky-50 text-sky-700{% else %}text-slate-700 hover:bg-slate-50{% endif %}">
+      <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl overflow-hidden
+                  {% if page == href[1:] %}bg-sky-100{% else %}bg-slate-100{% endif %}">
+        <img src="/static/img/icons/{{ icon_file }}" class="h-6 w-6" alt="" draggable="false">
+      </div>
+      <span class="font-medium">{{ label }}</span>
+    </a>
+    {% endfor %}
+    {% if request.session.get('role') == 'admin' or request.session.get('role') is none %}
+    <a href="/admin" onclick="closeMenuSheet()"
+       class="flex items-center gap-4 rounded-2xl px-4 py-3.5 transition
+              {% if page == 'admin' %}bg-amber-50 text-amber-700{% else %}text-slate-700 hover:bg-slate-50{% endif %}">
+      <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl overflow-hidden
+                  {% if page == 'admin' %}bg-amber-100{% else %}bg-slate-100{% endif %}">
+        <img src="/static/img/icons/admin.svg" class="h-6 w-6" alt="" draggable="false">
+      </div>
+      <span class="font-medium">Administration</span>
+    </a>
+    {% endif %}
+
+    <div class="my-1 h-px bg-slate-100"></div>
+
+    <a href="/logout" onclick="closeMenuSheet()"
+       class="flex items-center gap-4 rounded-2xl px-4 py-3.5 text-rose-500 hover:bg-rose-50 transition">
+      <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-rose-100">
+        <svg class="h-5 w-5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+        </svg>
+      </div>
+      <span class="font-medium">Déconnexion</span>
+    </a>
+  </div>
+  <div class="h-4"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     MODAL CONNEXION
+════════════════════════════════════════════════════ -->
+<div id="connection-modal-overlay"
+     class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-sm"
+     onclick="closeConnectionModal()"></div>
+
+<div id="connection-modal"
+     class="fixed z-50 hidden rounded-3xl border border-slate-200 bg-white shadow-2xl"
+     style="bottom: calc(env(safe-area-inset-bottom, 0px) + 5rem); left: 1rem; right: 1rem; max-width: 26rem; margin-left: auto; margin-right: auto">
+  <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+    <div class="flex items-center gap-2">
+      <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-100">
+        <svg class="h-4 w-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+        </svg>
+      </span>
+      <p class="text-sm font-semibold text-slate-900">Connexion</p>
+    </div>
+    <button onclick="closeConnectionModal()"
+            class="flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="px-5 py-4 space-y-3">
+    <!-- Statut global -->
+    <div class="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
+      <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Statut</span>
+      <span id="conn-status-badge" class="badge-off">—</span>
+    </div>
+    <!-- Rows info -->
+    <div class="space-y-2 text-sm">
+      <div class="flex items-center justify-between">
+        <span class="text-slate-500">Serveur</span>
+        <span id="conn-host" class="font-medium text-slate-800 tabular-nums">—</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-slate-500">Délai aller-retour</span>
+        <span id="conn-rtt" class="font-medium text-slate-800 tabular-nums">—</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-slate-500">Qualité connexion</span>
+        <span id="conn-quality" class="font-medium text-slate-800">—</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-slate-500">Type réseau</span>
+        <span id="conn-type" class="font-medium text-slate-800">—</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-slate-500">Débit estimé</span>
+        <span id="conn-downlink" class="font-medium text-slate-800 tabular-nums">—</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-slate-500">Dernière mesure</span>
+        <span id="conn-last" class="font-medium text-slate-800 tabular-nums">—</span>
+      </div>
+    </div>
+    <!-- Bar qualité -->
+    <div>
+      <div class="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+        <div id="conn-quality-bar" class="h-full rounded-full bg-emerald-400 transition-all duration-500" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-slate-100 px-5 py-3">
+    <button onclick="measureConnection()" id="conn-refresh-btn"
+            class="w-full rounded-2xl bg-sky-50 py-2.5 text-xs font-semibold uppercase tracking-wide text-sky-700 transition hover:bg-sky-100 active:scale-95">
+      Mesurer à nouveau
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     MODAL CONFIRMATION GÉNÉRIQUE
+════════════════════════════════════════════════════ -->
+<div id="confirm-modal-overlay"
+     class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-sm"></div>
+
+<div id="confirm-modal"
+     class="fixed z-50 hidden rounded-3xl border border-slate-200 bg-white shadow-2xl"
+     style="top:50%; left:1rem; right:1rem; transform:translateY(-50%); max-width:22rem; margin-left:auto; margin-right:auto">
+  <div class="px-6 py-5">
+    <div class="mb-4 flex justify-center">
+      <span id="confirm-modal-icon"
+            class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100">
+        <svg class="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+      </span>
+    </div>
+    <p id="confirm-modal-title" class="mb-1 text-center text-base font-semibold text-slate-900">Confirmer</p>
+    <p id="confirm-modal-body" class="text-center text-sm text-slate-500">Êtes-vous sûr ?</p>
+  </div>
+  <div class="flex gap-2 border-t border-slate-100 px-4 py-3">
+    <button onclick="closeConfirmModal(false)"
+            class="flex-1 rounded-2xl border border-slate-200 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-95">
+      Annuler
+    </button>
+    <button id="confirm-modal-ok" onclick="closeConfirmModal(true)"
+            class="flex-1 rounded-2xl bg-teal-500 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-400 active:scale-95">
+      Confirmer
+    </button>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast"
+     class="fixed inset-x-4 z-50 hidden rounded-2xl border border-slate-200 bg-white/95 shadow-xl backdrop-blur px-4 py-3 text-sm text-slate-700"
+     style="top: calc(env(safe-area-inset-top, 0px) + 4rem + 0.75rem); max-width: 24rem; margin-left: auto; margin-right: auto">
+</div>
+
+<script src="/static/js/app.js"></script>
+<script>
+  // Horloge
+  (function tickClock() {
+    const el = document.getElementById('header-clock');
+    if (el) {
+      const now = new Date();
+      el.textContent = now.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit' });
+    }
+    setTimeout(tickClock, 1000);
+  })();
+
+  /* ── Connection modal ── */
+  let _connResolve = null;
+
+  function openConnectionModal() {
+    document.getElementById('connection-modal').classList.remove('hidden');
+    document.getElementById('connection-modal-overlay').classList.remove('hidden');
+    measureConnection();
+  }
+  function closeConnectionModal() {
+    document.getElementById('connection-modal').classList.add('hidden');
+    document.getElementById('connection-modal-overlay').classList.add('hidden');
+  }
+
+  async function measureConnection() {
+    const btn = document.getElementById('conn-refresh-btn');
+    if (btn) btn.textContent = 'Mesure en cours…';
+
+    const host = window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+    document.getElementById('conn-host').textContent = host;
+
+    // Measure RTT with 3 pings
+    const rtts = [];
+    for (let i = 0; i < 3; i++) {
+      try {
+        const t0 = performance.now();
+        await fetch('/api/state?_t=' + Date.now(), { cache: 'no-store' });
+        rtts.push(Math.round(performance.now() - t0));
+      } catch (_) {}
+    }
+    const rtt = rtts.length ? Math.round(rtts.reduce((a, b) => a + b, 0) / rtts.length) : null;
+
+    const isOnline = rtts.length > 0;
+    const statusBadge = document.getElementById('conn-status-badge');
+    if (isOnline) {
+      statusBadge.className = 'badge-on';
+      statusBadge.textContent = 'Connecté';
+    } else {
+      statusBadge.className = 'badge-err';
+      statusBadge.textContent = 'Hors ligne';
+    }
+
+    // RTT display
+    if (rtt !== null) {
+      document.getElementById('conn-rtt').textContent = rtt + ' ms';
+      let quality, barColor, barWidth;
+      if (rtt < 50)       { quality = 'Excellente';   barColor = 'bg-emerald-400'; barWidth = '100%'; }
+      else if (rtt < 150) { quality = 'Bonne';        barColor = 'bg-teal-400';    barWidth = '70%'; }
+      else if (rtt < 400) { quality = 'Moyenne';      barColor = 'bg-amber-400';   barWidth = '40%'; }
+      else                { quality = 'Faible';       barColor = 'bg-rose-400';    barWidth = '20%'; }
+      document.getElementById('conn-quality').textContent = quality;
+      const bar = document.getElementById('conn-quality-bar');
+      bar.className = 'h-full rounded-full transition-all duration-500 ' + barColor;
+      bar.style.width = barWidth;
+    } else {
+      document.getElementById('conn-rtt').textContent = '—';
+      document.getElementById('conn-quality').textContent = '—';
+    }
+
+    // Navigator.connection (Network Information API)
+    const nc = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (nc) {
+      const typeMap = { wifi: 'WiFi', cellular: 'Cellulaire', ethernet: 'Ethernet', bluetooth: 'Bluetooth', none: 'Aucune' };
+      document.getElementById('conn-type').textContent = typeMap[nc.type] || nc.effectiveType?.toUpperCase() || '—';
+      document.getElementById('conn-downlink').textContent = nc.downlink ? nc.downlink + ' Mbps' : '—';
+    } else {
+      document.getElementById('conn-type').textContent = 'Non disponible';
+      document.getElementById('conn-downlink').textContent = '—';
+    }
+
+    const now = new Date();
+    document.getElementById('conn-last').textContent =
+      now.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+    if (btn) btn.textContent = 'Mesurer à nouveau';
+  }
+
+  /* ── Confirm modal ── */
+  let _confirmCallback = null;
+
+  function showConfirm(title, body, onConfirm, { okLabel = 'Confirmer', okClass = 'bg-teal-500 hover:bg-teal-400', danger = false } = {}) {
+    document.getElementById('confirm-modal-title').textContent = title;
+    document.getElementById('confirm-modal-body').textContent = body;
+    const okBtn = document.getElementById('confirm-modal-ok');
+    okBtn.textContent = okLabel;
+    okBtn.className = 'flex-1 rounded-2xl py-2.5 text-sm font-semibold text-white transition active:scale-95 ' +
+      (danger ? 'bg-rose-500 hover:bg-rose-400' : 'bg-teal-500 hover:bg-teal-400');
+    const icon = document.getElementById('confirm-modal-icon');
+    icon.className = 'flex h-12 w-12 items-center justify-center rounded-2xl ' + (danger ? 'bg-rose-100' : 'bg-amber-100');
+    icon.querySelector('svg').className = 'h-6 w-6 ' + (danger ? 'text-rose-600' : 'text-amber-600');
+    _confirmCallback = onConfirm;
+    document.getElementById('confirm-modal').classList.remove('hidden');
+    document.getElementById('confirm-modal-overlay').classList.remove('hidden');
+  }
+
+  function closeConfirmModal(confirmed) {
+    document.getElementById('confirm-modal').classList.add('hidden');
+    document.getElementById('confirm-modal-overlay').classList.add('hidden');
+    if (confirmed && _confirmCallback) _confirmCallback();
+    _confirmCallback = null;
+  }
+
+  function closeMenuSheet() {
+    document.getElementById('menu-sheet').classList.add('translate-y-full');
+    document.getElementById('menu-overlay').classList.add('hidden');
+  }
+  document.getElementById('menu-sheet').addEventListener('transitionend', function() {
+    const isOpen = !this.classList.contains('translate-y-full');
+    document.getElementById('menu-overlay').classList.toggle('hidden', !isOpen);
+  });
+  let touchStartY = 0;
+  document.getElementById('menu-sheet').addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  document.getElementById('menu-sheet').addEventListener('touchend', e => {
+    if (e.changedTouches[0].clientY - touchStartY > 60) closeMenuSheet();
+  }, { passive: true });
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

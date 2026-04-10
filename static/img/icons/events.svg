@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Timeline vertical line -->
+  <line x1="18" y1="8" x2="18" y2="56" stroke="#d1f5f3" stroke-width="3" stroke-linecap="round"/>
+  <line x1="18" y1="8" x2="18" y2="56" stroke="#14b8a6" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4,3"/>
+  <!-- Node 1: Bell (top) -->
+  <circle cx="18" cy="14" r="5.5" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.5"/>
+  <!-- Bell shape inside circle -->
+  <path d="M15.5,14.5 Q15.5,11.5 18,11.5 Q20.5,11.5 20.5,14.5 L21,16 L15,16 Z" fill="white"/>
+  <line x1="16" y1="16" x2="20" y2="16" stroke="white" stroke-width="1" stroke-linecap="round"/>
+  <path d="M17.2,16.5 Q18,17.5 18.8,16.5" stroke="white" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- Date/label right of node 1 -->
+  <rect x="27" y="9" width="28" height="10" rx="3" fill="#d1f5f3" stroke="#14b8a6" stroke-width="1"/>
+  <line x1="18" y1="14" x2="27" y2="14" stroke="#14b8a6" stroke-width="1"/>
+  <rect x="29" y="10.5" width="3" height="7" rx="1" fill="#14b8a6"/>
+  <rect x="33.5" y="12" width="9" height="2" rx="1" fill="#5ecdc8"/>
+  <rect x="33.5" y="15" width="6" height="1.5" rx="0.75" fill="#5ecdc8"/>
+  <!-- Node 2: LOG badge (middle) -->
+  <circle cx="18" cy="32" r="5.5" fill="#1e6b6b" stroke="#1e6b6b" stroke-width="1.5"/>
+  <!-- LOG text placeholder (rect) -->
+  <rect x="27" y="26" width="28" height="12" rx="3" fill="#1e6b6b"/>
+  <line x1="18" y1="32" x2="27" y2="32" stroke="#14b8a6" stroke-width="1"/>
+  <text x="32" y="35" font-family="monospace" font-size="7" font-weight="bold" fill="white">LOG</text>
+  <!-- Date text in circle -->
+  <text x="14.5" y="34" font-family="monospace" font-size="5.5" fill="white" font-weight="bold">L</text>
+  <!-- Node 3: Checkmark (bottom) -->
+  <circle cx="18" cy="50" r="5.5" fill="#5ecdc8" stroke="#1e6b6b" stroke-width="1.5"/>
+  <polyline points="15,50 17.5,52.5 21.5,47.5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Date/label right of node 3 -->
+  <rect x="27" y="45" width="28" height="10" rx="3" fill="#d1f5f3" stroke="#14b8a6" stroke-width="1"/>
+  <line x1="18" y1="50" x2="27" y2="50" stroke="#14b8a6" stroke-width="1"/>
+  <rect x="29" y="46.5" width="3" height="7" rx="1" fill="#14b8a6"/>
+  <rect x="33.5" y="48" width="9" height="2" rx="1" fill="#5ecdc8"/>
+  <rect x="33.5" y="51" width="6" height="1.5" rx="0.75" fill="#5ecdc8"/>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Zone blob (slightly different organic shape) -->
+  <path d="M20,4 C32,2 52,8 60,20 C66,30 60,46 52,56 C44,64 30,66 18,60 C8,54 4,44 6,32 C6,22 10,20 14,16 C16,8 18,6 20,4 Z"
+        fill="#d1f5f3" stroke="#1e6b6b" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Horizontal pipe -->
+  <line x1="12" y1="38" x2="56" y2="38" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Vertical pipe -->
+  <line x1="34" y1="14" x2="34" y2="54" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Top branch -->
+  <line x1="16" y1="24" x2="52" y2="24" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Faucet top-left -->
+  <rect x="12" y="21" width="7" height="3.5" rx="1.5" fill="#1e6b6b"/>
+  <line x1="15.5" y1="24.5" x2="15.5" y2="27" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="15.5" cy="28.5" r="1.3" fill="#5ecdc8"/>
+
+  <!-- Faucet top-right -->
+  <rect x="46" y="21" width="7" height="3.5" rx="1.5" fill="#1e6b6b"/>
+  <line x1="49.5" y1="24.5" x2="49.5" y2="27" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="49.5" cy="28.5" r="1.3" fill="#5ecdc8"/>
+
+  <!-- Faucet right-mid -->
+  <rect x="52" y="35.5" width="7" height="3.5" rx="1.5" fill="#1e6b6b"/>
+  <line x1="55.5" y1="39" x2="55.5" y2="41.5" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="55.5" cy="43" r="1.3" fill="#5ecdc8"/>
+
+  <!-- Faucet bottom-center -->
+  <rect x="30.5" y="51" width="7" height="3.5" rx="1.5" fill="#1e6b6b"/>
+  <line x1="34" y1="54.5" x2="34" y2="57" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="34" cy="58.5" r="1.3" fill="#5ecdc8"/>
+
+  <!-- Large tap/valve on left (zone 2 main supply) -->
+  <!-- Valve horizontal pipe coming out left -->
+  <line x1="0" y1="44" x2="12" y2="44" stroke="#1e6b6b" stroke-width="3" stroke-linecap="round"/>
+  <!-- Valve body rectangle -->
+  <rect x="0" y="40" width="10" height="8" rx="2" fill="#e0f5f5" stroke="#1e6b6b" stroke-width="1.8"/>
+  <!-- Valve handle / wheel (circle on top) -->
+  <circle cx="5" cy="35" r="5" fill="#e0f5f5" stroke="#1e6b6b" stroke-width="1.8"/>
+  <line x1="5" y1="30" x2="5" y2="40" stroke="#1e6b6b" stroke-width="1.2"/>
+  <line x1="0" y1="35" x2="10" y2="35" stroke="#1e6b6b" stroke-width="1.2"/>
+  <!-- Valve stem -->
+  <line x1="5" y1="40" x2="5" y2="40" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Water drops from tap -->
+  <circle cx="1.5" cy="51" r="1.3" fill="#5ecdc8"/>
+
+  <!-- Plant sprout -->
+  <line x1="20" y1="52" x2="20" y2="44" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <path d="M20,48 C20,48 15,45 14,41 C16.5,40 20,44 20,48 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.3"/>
+  <path d="M20,48 C20,48 25,45 26,41 C23.5,40 20,44 20,48 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.3"/>
+
+  <!-- Zone number "2" -->
+  <text x="42" y="36" font-family="Arial Black, sans-serif" font-size="22" font-weight="900"
+        fill="#1e6b6b" text-anchor="middle">2</text>
+</svg>

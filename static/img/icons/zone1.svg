@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Zone blob -->
+  <path d="M18,4 C30,2 50,6 58,18 C64,28 60,42 54,52 C48,60 36,64 24,62 C12,60 4,50 4,38 C2,26 6,12 18,4 Z"
+        fill="#d1f5f3" stroke="#1e6b6b" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Horizontal pipe -->
+  <line x1="10" y1="36" x2="56" y2="36" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Vertical pipe -->
+  <line x1="32" y1="12" x2="32" y2="54" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Top branch (shorter) -->
+  <line x1="16" y1="22" x2="48" y2="22" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Faucet top-left: body + spout + drop -->
+  <rect x="11" y="19" width="7" height="3.5" rx="1.5" fill="#1e6b6b"/>
+  <line x1="14.5" y1="22.5" x2="14.5" y2="25" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="14.5" cy="26.5" r="1.3" fill="#5ecdc8"/>
+
+  <!-- Faucet top-right: body + spout + drop -->
+  <rect x="43" y="19" width="7" height="3.5" rx="1.5" fill="#1e6b6b"/>
+  <line x1="46.5" y1="22.5" x2="46.5" y2="25" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="46.5" cy="26.5" r="1.3" fill="#5ecdc8"/>
+
+  <!-- Faucet bottom-right: body + spout + drop -->
+  <rect x="43" y="33.5" width="7" height="3.5" rx="1.5" fill="#1e6b6b"/>
+  <line x1="46.5" y1="37" x2="46.5" y2="39.5" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="46.5" cy="41" r="1.3" fill="#5ecdc8"/>
+
+  <!-- Faucet bottom-center: body + spout + drop -->
+  <rect x="28.5" y="51" width="7" height="3.5" rx="1.5" fill="#1e6b6b"/>
+  <line x1="32" y1="54.5" x2="32" y2="57" stroke="#1e6b6b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="32" cy="58.5" r="1.3" fill="#5ecdc8"/>
+
+  <!-- Plant sprout (lower-left quadrant) -->
+  <line x1="17" y1="52" x2="17" y2="44" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <path d="M17,48 C17,48 12,45 11,41 C13.5,40 17,44 17,48 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.3"/>
+  <path d="M17,48 C17,48 22,45 23,41 C20.5,40 17,44 17,48 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.3"/>
+
+  <!-- Zone number "1" -->
+  <text x="38" y="34" font-family="Arial Black, sans-serif" font-size="22" font-weight="900"
+        fill="#1e6b6b" text-anchor="middle">1</text>
+</svg>

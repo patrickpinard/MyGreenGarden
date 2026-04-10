@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Ceiling mount bar -->
+  <line x1="22" y1="4" x2="42" y2="4" stroke="#1e6b6b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Suspension cord -->
+  <line x1="32" y1="4" x2="32" y2="10" stroke="#1e6b6b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Hook ring -->
+  <circle cx="32" cy="13" r="3.2" fill="#d1f5f3" stroke="#1e6b6b" stroke-width="2"/>
+
+  <!-- Lamp dome (bell shape) -->
+  <path d="M16,36 Q14,18 32,16 Q50,18 48,36 Q46,42 32,44 Q18,42 16,36 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Dome highlight shine -->
+  <path d="M20,30 Q20,22 28,19 Q34,18 36,21 Q30,19 24,23 Q20,26 20,30 Z"
+        fill="#5ecdc8" opacity="0.5"/>
+  <!-- Bottom rim -->
+  <ellipse cx="32" cy="44" rx="16" ry="3.5" fill="#0d9488" stroke="#1e6b6b" stroke-width="1.5"/>
+  <!-- Small dots/vents on dome -->
+  <circle cx="26" cy="33" r="1.8" fill="#0d9488"/>
+  <circle cx="32" cy="35" r="1.8" fill="#0d9488"/>
+  <circle cx="38" cy="33" r="1.8" fill="#0d9488"/>
+
+  <!-- Light cone (faint) -->
+  <path d="M18,47 L10,60 L54,60 L46,47 Z"
+        fill="#5ecdc8" opacity="0.15"/>
+
+  <!-- Light rays -->
+  <line x1="26" y1="47" x2="22" y2="56" stroke="#5ecdc8" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+  <line x1="32" y1="47" x2="32" y2="57" stroke="#5ecdc8" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+  <line x1="38" y1="47" x2="42" y2="56" stroke="#5ecdc8" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+  <line x1="21" y1="47" x2="15" y2="56" stroke="#5ecdc8" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="43" y1="47" x2="49" y2="56" stroke="#5ecdc8" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Seedling left -->
+  <line x1="19" y1="62" x2="19" y2="57" stroke="#1e6b6b" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M19,59.5 C19,59.5 15,57 15,54 C17,53 19,56.5 19,59.5 Z" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1"/>
+  <path d="M19,59.5 C19,59.5 23,57 23,54 C21,53 19,56.5 19,59.5 Z" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1"/>
+
+  <!-- Seedling center -->
+  <line x1="32" y1="62" x2="32" y2="56" stroke="#1e6b6b" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M32,59 C32,59 28,56.5 28,53 C30,52 32,55.5 32,59 Z" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1"/>
+  <path d="M32,59 C32,59 36,56.5 36,53 C34,52 32,55.5 32,59 Z" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1"/>
+
+  <!-- Seedling right -->
+  <line x1="45" y1="62" x2="45" y2="57" stroke="#1e6b6b" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M45,59.5 C45,59.5 41,57 41,54 C43,53 45,56.5 45,59.5 Z" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1"/>
+  <path d="M45,59.5 C45,59.5 49,57 49,54 C47,53 45,56.5 45,59.5 Z" fill="#14b8a6" stroke="#1e6b6b" stroke-width="1"/>
+</svg>

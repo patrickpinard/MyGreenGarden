@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220">
+
+  <!-- ══ Background ══ -->
+  <rect x="0" y="0" width="220" height="220" rx="40" fill="white"/>
+
+  <!-- ══ Teal arcs (background, behind illustration) ══ -->
+  <path d="M 12,175 A 135,135 0 0 1 200,90"
+        fill="none" stroke="#2bbfbf" stroke-width="7" stroke-linecap="round" opacity="0.75"/>
+  <path d="M 22,175 A 112,112 0 0 1 195,98"
+        fill="none" stroke="#2bbfbf" stroke-width="4" stroke-linecap="round" opacity="0.45"/>
+
+  <!-- ══ TEXTE ══ -->
+  <text x="110" y="42"
+        text-anchor="middle"
+        font-family="Arial Black, Arial, sans-serif"
+        font-size="34" font-weight="900" letter-spacing="3"
+        fill="#1d3d4a">SERRE</text>
+  <text x="110" y="57"
+        text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="10.5" font-weight="400" letter-spacing="0.5"
+        fill="#1d3d4a">Smart Management</text>
+
+  <!-- ═══════════════════════════════════════
+       SERRE GAUCHE  (x 6–78 · y 66–152)
+  ════════════════════════════════════════ -->
+  <!-- Intérieur corps -->
+  <rect x="6"  y="90" width="72" height="62" fill="#cde8e6"/>
+  <!-- Toit -->
+  <polygon points="42,66  6,90  78,90" fill="#7cc8c4" stroke="#1d3d4a" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- Corps (contour) -->
+  <rect x="6"  y="90" width="72" height="62" fill="none" stroke="#1d3d4a" stroke-width="2.2"/>
+  <!-- Cloisons vitrées verticales -->
+  <line x1="28" y1="90" x2="28" y2="152" stroke="#1d3d4a" stroke-width="1.2" opacity="0.5"/>
+  <line x1="55" y1="90" x2="55" y2="152" stroke="#1d3d4a" stroke-width="1.2" opacity="0.5"/>
+  <!-- Cloison horizontale -->
+  <line x1="6"  y1="116" x2="78" y2="116" stroke="#1d3d4a" stroke-width="1"   opacity="0.4"/>
+  <!-- Plante 1 -->
+  <line x1="17" y1="152" x2="17" y2="133" stroke="#1d3d4a" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M17,142 C17,142 12,138 11,132 C13.5,131.5 17,137 17,142Z" fill="#14b8a6"/>
+  <path d="M17,142 C17,142 22,138 23,132 C20.5,131.5 17,137 17,142Z" fill="#14b8a6"/>
+  <!-- Plante 2 -->
+  <line x1="41" y1="152" x2="41" y2="128" stroke="#1d3d4a" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M41,139 C41,139 35,135 34,128 C36.5,127.5 41,134 41,139Z" fill="#14b8a6"/>
+  <path d="M41,139 C41,139 47,135 48,128 C45.5,127.5 41,134 41,139Z" fill="#14b8a6"/>
+  <!-- Plante 3 -->
+  <line x1="66" y1="152" x2="66" y2="133" stroke="#1d3d4a" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M66,142 C66,142 61,138 60,132 C62.5,131.5 66,137 66,142Z" fill="#14b8a6"/>
+  <path d="M66,142 C66,142 71,138 72,132 C69.5,131.5 66,137 66,142Z" fill="#14b8a6"/>
+
+  <!-- ═══════════════════════════════════════
+       SERRE DROITE  (x 80–138 · y 68–152)
+  ════════════════════════════════════════ -->
+  <rect x="80" y="90" width="58" height="62" fill="#cde8e6"/>
+  <polygon points="109,68  80,90  138,90" fill="#7cc8c4" stroke="#1d3d4a" stroke-width="2.2" stroke-linejoin="round"/>
+  <rect x="80" y="90" width="58" height="62" fill="none" stroke="#1d3d4a" stroke-width="2.2"/>
+  <line x1="109" y1="90" x2="109" y2="152" stroke="#1d3d4a" stroke-width="1.2" opacity="0.5"/>
+  <line x1="80"  y1="116" x2="138" y2="116" stroke="#1d3d4a" stroke-width="1"   opacity="0.4"/>
+  <!-- Plante 1 -->
+  <line x1="93"  y1="152" x2="93"  y2="133" stroke="#1d3d4a" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M93,142 C93,142 88,138 87,132 C89.5,131.5 93,137 93,142Z" fill="#14b8a6"/>
+  <path d="M93,142 C93,142 98,138 99,132 C96.5,131.5 93,137 93,142Z" fill="#14b8a6"/>
+  <!-- Plante 2 -->
+  <line x1="124" y1="152" x2="124" y2="133" stroke="#1d3d4a" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M124,142 C124,142 119,138 118,132 C120.5,131.5 124,137 124,142Z" fill="#14b8a6"/>
+  <path d="M124,142 C124,142 129,138 130,132 C127.5,131.5 124,137 124,142Z" fill="#14b8a6"/>
+
+  <!-- Ligne de sol -->
+  <line x1="4" y1="152" x2="140" y2="152" stroke="#1d3d4a" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- ═══════════════════════════════════════
+       LAPTOP  (x 142–205 · y 78–148)
+  ════════════════════════════════════════ -->
+  <!-- Écran -->
+  <rect x="142" y="78" width="60" height="44" rx="3" fill="white" stroke="#1d3d4a" stroke-width="2.5"/>
+  <!-- Zone écran intérieure -->
+  <rect x="145" y="81" width="54" height="38" rx="1.5" fill="#e5f7f5"/>
+  <!-- Graphique barre sur l'écran -->
+  <line x1="148" y1="116" x2="196" y2="116" stroke="#1d3d4a" stroke-width="1.2" opacity="0.6"/>
+  <rect x="150" y="106" width="7"  height="10" rx="1" fill="#b2dedd"/>
+  <rect x="160" y="99"  width="7"  height="17" rx="1" fill="#5ecdc8"/>
+  <rect x="170" y="92"  width="7"  height="24" rx="1" fill="#14b8a6"/>
+  <rect x="180" y="96"  width="7"  height="20" rx="1" fill="#0e9488"/>
+  <!-- Charnière laptop -->
+  <rect x="140" y="122" width="64" height="3"  rx="1.5" fill="#1d3d4a" opacity="0.5"/>
+  <!-- Base clavier -->
+  <path d="M138,125 L148,138 L196,138 L206,125 Z" fill="#e8f0f0" stroke="#1d3d4a" stroke-width="2"/>
+  <!-- Pavé tactile -->
+  <rect x="164" y="130" width="16" height="5" rx="2" fill="#1d3d4a" opacity="0.2"/>
+
+  <!-- ═══════════════════════════════════════
+       TÉLÉPHONE  (x 160–180 · y 140–176)
+  ════════════════════════════════════════ -->
+  <rect x="160" y="140" width="22" height="36" rx="4" fill="white" stroke="#1d3d4a" stroke-width="2.2"/>
+  <!-- Écran phone -->
+  <rect x="163" y="143" width="16" height="24" rx="1.5" fill="#e5f7f5"/>
+  <!-- Mini graphique phone -->
+  <rect x="165" y="160" width="3"  height="5"  rx="0.5" fill="#5ecdc8"/>
+  <rect x="170" y="157" width="3"  height="8"  rx="0.5" fill="#14b8a6"/>
+  <rect x="175" y="154" width="3"  height="11" rx="0.5" fill="#0e9488"/>
+  <!-- Bouton home -->
+  <circle cx="171" cy="171" r="2" fill="#1d3d4a" opacity="0.3"/>
+
+</svg>

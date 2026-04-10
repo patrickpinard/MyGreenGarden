@@ -1,0 +1,38 @@
+# MyGreenGarden V7.0 — Dépendances Python
+# Installation : pip install -r requirements.txt
+
+# --- Serveur web ---
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+python-multipart==0.0.9        # pour les formulaires HTML
+jinja2==3.1.4                  # templates HTML
+itsdangerous==2.2.0            # signature sécurisée des cookies de session
+starlette==0.38.6
+
+# --- Base de données ---
+sqlalchemy==2.0.35
+aiosqlite==0.20.0              # support async SQLite (optionnel)
+
+# --- Configuration / Sécurité ---
+pydantic-settings==2.5.2       # chargement .env
+python-dotenv==1.0.1
+bcrypt==4.2.0                  # hash du code PIN
+passlib[bcrypt]==1.7.4
+
+# --- Planification automatisée ---
+apscheduler==3.10.4            # scheduler pour automatisation + arrosage planifié
+
+# --- Notifications push (PWA iOS) ---
+pywebpush==2.0.0               # Web Push API (VAPID)
+cryptography==43.0.1           # dépendance pywebpush
+
+# --- Email ---
+# (stdlib smtplib utilisé, pas de dépendance externe)
+
+# --- Système / Hardware Raspberry Pi ---
+psutil==6.0.0                  # CPU temp + usage
+# gpiozero                     # décommenter sur Raspberry Pi
+# smbus2                       # décommenter sur Raspberry Pi (I2C)
+
+# --- Utilitaires ---
+python-dateutil==2.9.0

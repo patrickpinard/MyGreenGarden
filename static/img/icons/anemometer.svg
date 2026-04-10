@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Vertical pole -->
+  <line x1="10" y1="5" x2="10" y2="56" stroke="#1e6b6b" stroke-width="3" stroke-linecap="round"/>
+  <!-- Horizontal arm at top -->
+  <line x1="10" y1="10" x2="20" y2="10" stroke="#1e6b6b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Wind sock body (trapezoid: wide opening left, narrow right) -->
+  <path d="M20,4 L58,14 L58,20 L20,20 Z"
+        fill="#e0f5f5" stroke="#1e6b6b" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- Teal stripe bands on sock -->
+  <line x1="29" y1="5.2" x2="29" y2="19.8" stroke="#14b8a6" stroke-width="3.5"/>
+  <line x1="38" y1="7.2" x2="38" y2="19.8" stroke="#14b8a6" stroke-width="3.5"/>
+  <line x1="47" y1="9.5" x2="47" y2="19.8" stroke="#14b8a6" stroke-width="3.5"/>
+  <!-- Re-draw outline on top of stripes -->
+  <path d="M20,4 L58,14 L58,20 L20,20 Z"
+        fill="none" stroke="#1e6b6b" stroke-width="1.8" stroke-linejoin="round"/>
+
+  <!-- Arrow pointing right -->
+  <path d="M10,37 L44,37 L44,32 L58,44 L44,56 L44,51 L10,51 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

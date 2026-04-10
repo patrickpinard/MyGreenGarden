@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}À propos — Ma Serre{% endblock %}
+{% block page_title %}À propos{% endblock %}
+{% block page_subtitle %}Ma Serre — Gestion automatisée{% endblock %}
+
+{% block content %}
+<div class="space-y-6 pb-4">
+
+  <!-- Hero -->
+  <div class="card overflow-hidden">
+    <div class="bg-gradient-to-br from-teal-500 to-sky-600 px-6 py-8 text-white">
+      <div class="flex items-center gap-5">
+        <div class="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-3xl bg-white/20 backdrop-blur shadow-lg overflow-hidden">
+          <img src="/static/img/logo_app.svg" class="h-20 w-20 object-contain" alt="Ma Serre">
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold tracking-tight">Ma Serre</h1>
+          <p class="mt-1 text-teal-100 text-sm">Smart Greenhouse Management — V7.0</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="rounded-full bg-white/20 px-3 py-0.5 text-xs font-semibold">FastAPI</span>
+            <span class="rounded-full bg-white/20 px-3 py-0.5 text-xs font-semibold">Raspberry Pi</span>
+            <span class="rounded-full bg-white/20 px-3 py-0.5 text-xs font-semibold">SQLite</span>
+            <span class="rounded-full bg-white/20 px-3 py-0.5 text-xs font-semibold">PWA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="px-6 py-4 bg-teal-50/50">
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Système de gestion intelligente d'une serre maraîchère, développé sur Raspberry Pi.
+        Surveillance en temps réel des conditions climatiques, pilotage automatique des arrosages,
+        ventilation et éclairage selon des règles paramétrables et des planifications horaires.
+      </p>
+    </div>
+  </div>
+
+  <!-- Dernières améliorations -->
+  <div class="card p-6">
+    <h2 class="mb-4 flex items-center gap-2 text-base font-semibold text-slate-900">
+      <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-teal-100">
+        <svg class="h-4 w-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+      </span>
+      Dernières améliorations — V7.0
+    </h2>
+    <div class="space-y-3">
+
+      {% set changes = [
+        ('Interface visuelle', 'sky',
+          'Refonte complète de l\'UI avec Tailwind CSS : sidebar desktop, barre de navigation mobile, header responsive avec gestion des safe areas iPhone/iOS.'),
+        ('Icônes SVG custom', 'teal',
+          'Création d\'une suite d\'icônes SVG originales (ventilateur, zones d\'arrosage, lampe, capteurs, anémomètre…) avec la palette teal de l\'application.'),
+        ('Logo applicatif', 'teal',
+          'Nouveau logo SVG "SERRE Smart Management" illustrant deux serres, un laptop et un téléphone avec des graphiques — intégré en PWA, login et sidebar.'),
+        ('Événements paginés', 'violet',
+          'Nouvelle page événements avec navigation par période (Jour / Semaine / Mois / Trimestre / Année), chargement AJAX et filtres par catégorie sans rechargement de page.'),
+        ('Modals de confirmation', 'amber',
+          'Remplacement de tous les confirm() natifs par des modals stylisés harmonisés avec l\'UI : suppression d\'utilisateurs, planifications, redémarrage et arrêt système.'),
+        ('Planification d\'arrosage', 'green',
+          'Interface CRUD complète pour créer, modifier et supprimer des planifications d\'arrosage horodatées par zone, avec activation/désactivation individuelle.'),
+        ('PWA & manifest', 'sky',
+          'Application installable sur iOS et Android via le manifest PWA. Icône SVG universelle, thème teal, raccourcis vers les sections principales.'),
+        ('Sécurité PIN', 'rose',
+          'Authentification par code PIN 4 chiffres avec support clavier physique, autosoumission, gestion des rôles admin/utilisateur et sessions sécurisées.'),
+        ('Simulation mode', 'orange',
+          'Mode simulation pour tester l\'application sans matériel : génération de données capteurs aléatoires, actionneurs virtuels, idéal pour le développement.'),
+        ('API REST complète', 'slate',
+          'API RESTful exposant capteurs, actionneurs, planifications, événements, configuration et gestion système (reboot, shutdown) — utilisée par l\'UI et accessible en externe.'),
+      ] %}
+
+      {% for title, color, desc in changes %}
+      <div class="flex gap-3 rounded-xl border border-slate-100 bg-slate-50/60 px-4 py-3">
+        <span class="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full
+                     bg-{{ color }}-100">
+          <span class="h-1.5 w-1.5 rounded-full bg-{{ color }}-500"></span>
+        </span>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-slate-800">{{ title }}</p>
+          <p class="mt-0.5 text-xs text-slate-500 leading-relaxed">{{ desc }}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <!-- Architecture technique -->
+  <div class="card p-6">
+    <h2 class="mb-4 flex items-center gap-2 text-base font-semibold text-slate-900">
+      <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-100">
+        <svg class="h-4 w-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+        </svg>
+      </span>
+      Architecture technique
+    </h2>
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {% for layer, items in [
+        ('Backend', ['Python 3.11+', 'FastAPI + Uvicorn', 'SQLAlchemy ORM', 'SQLite (données locales)', 'Jinja2 (templates HTML)']),
+        ('Frontend', ['Tailwind CSS (Play CDN)', 'ApexCharts (graphiques)', 'JavaScript vanilla', 'PWA / Service Worker', 'WebSocket temps réel']),
+        ('Matériel', ['Raspberry Pi 4 / 5', 'Capteurs DHT22 (T°/Hum.)', 'Capteur anémométrique', 'Relais GPIO (pompes, ventil.)', 'Éclairage LED grow lamp']),
+        ('Déploiement', ['Systemd service autostart', 'Réseau local / WiFi', 'Accès distant via tunnel', 'Logs rotatifs SQLite', 'Mode simulation intégré']),
+      ] %}
+      <div class="rounded-xl border border-slate-100 bg-slate-50/60 p-4">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">{{ layer }}</p>
+        <ul class="space-y-1">
+          {% for item in items %}
+          <li class="flex items-center gap-2 text-sm text-slate-700">
+            <span class="h-1 w-1 rounded-full bg-teal-400 flex-shrink-0"></span>
+            {{ item }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Capteurs & Actionneurs -->
+  <div class="card p-6">
+    <h2 class="mb-4 flex items-center gap-2 text-base font-semibold text-slate-900">
+      <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-green-100">
+        <svg class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+        </svg>
+      </span>
+      Capteurs &amp; Actionneurs
+    </h2>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">Capteurs surveillés</p>
+        <div class="space-y-2">
+          {% for icon, label, detail in [
+            ('temperature.svg', 'Température intérieure', 'DHT22 — sonde principale'),
+            ('temperature.svg', 'Température extérieure', 'DHT22 — sonde secondaire'),
+            ('humidity.svg',    'Humidité du sol',        'Capacitif résistif — 2 zones'),
+            ('anemometer.svg',  'Vitesse du vent',        'Anémomètre + girouette'),
+          ] %}
+          <div class="flex items-center gap-3 rounded-lg bg-slate-50 px-3 py-2">
+            <img src="/static/img/icons/{{ icon }}" class="h-6 w-6 flex-shrink-0" alt="" draggable="false">
+            <div class="min-w-0">
+              <p class="text-xs font-medium text-slate-800 truncate">{{ label }}</p>
+              <p class="text-xs text-slate-400">{{ detail }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">Actionneurs pilotés</p>
+        <div class="space-y-2">
+          {% for icon, label, detail in [
+            ('zone1.svg', 'Arrosage Zone 1',  'Pompe 12V — relais GPIO'),
+            ('zone2.svg', 'Arrosage Zone 2',  'Électrovanne — relais GPIO'),
+            ('fan.svg',   'Ventilateur',      'Ventilateur 24V — PWM'),
+            ('lamp.svg',  'Lampe de croissance', 'LED 60W — timer + gradateur'),
+          ] %}
+          <div class="flex items-center gap-3 rounded-lg bg-slate-50 px-3 py-2">
+            <img src="/static/img/icons/{{ icon }}" class="h-6 w-6 flex-shrink-0" alt="" draggable="false">
+            <div class="min-w-0">
+              <p class="text-xs font-medium text-slate-800 truncate">{{ label }}</p>
+              <p class="text-xs text-slate-400">{{ detail }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="rounded-2xl border border-slate-200 bg-white/60 px-6 py-4 text-center">
+    <p class="text-sm font-semibold text-slate-700">Patrick Pinard &copy; 2026</p>
+    <p class="mt-0.5 text-xs text-slate-400">Projet personnel — Serre automatisée</p>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Drop top-left (small) -->
+  <path d="M18,5 C18,5 8,15 8,22 a10,10,0,0,0,20,0 C28,15 18,5 18,5 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- Shine left drop -->
+  <ellipse cx="14" cy="19" rx="2.5" ry="3.5" fill="#5ecdc8" opacity="0.6" transform="rotate(-20 14 19)"/>
+
+  <!-- Drop top-right (small) -->
+  <path d="M46,5 C46,5 36,15 36,22 a10,10,0,0,0,20,0 C56,15 46,5 46,5 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- Shine right drop -->
+  <ellipse cx="42" cy="19" rx="2.5" ry="3.5" fill="#5ecdc8" opacity="0.6" transform="rotate(-20 42 19)"/>
+
+  <!-- Drop bottom-center (larger) -->
+  <path d="M32,18 C32,18 18,34 18,44 a14,14,0,0,0,28,0 C46,34 32,18 32,18 Z"
+        fill="#14b8a6" stroke="#1e6b6b" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Shine center drop -->
+  <ellipse cx="27" cy="40" rx="3" ry="4.5" fill="#5ecdc8" opacity="0.6" transform="rotate(-20 27 40)"/>
+</svg>

@@ -1,0 +1,42 @@
+{
+  "name": "Ma Serre",
+  "short_name": "Ma Serre",
+  "description": "Gestion automatisée de serre — Patrick Pinard",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f0fdf4",
+  "theme_color": "#16a34a",
+  "lang": "fr",
+  "scope": "/",
+  "categories": ["productivity", "lifestyle"],
+  "icons": [
+    { "src": "/static/img/logo_app.svg",  "sizes": "any",     "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/static/img/icon-72.png",   "sizes": "72x72",   "type": "image/png", "purpose": "any maskable" },
+    { "src": "/static/img/icon-96.png",   "sizes": "96x96",   "type": "image/png", "purpose": "any maskable" },
+    { "src": "/static/img/icon-128.png",  "sizes": "128x128", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/static/img/icon-144.png",  "sizes": "144x144", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/static/img/icon-152.png",  "sizes": "152x152", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/static/img/icon-192.png",  "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/static/img/icon-384.png",  "sizes": "384x384", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/static/img/icon-512.png",  "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Tableau de bord",
+      "url": "/dashboard",
+      "icons": [{ "src": "/static/img/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Capteurs",
+      "url": "/capteurs",
+      "icons": [{ "src": "/static/img/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Actionneurs",
+      "url": "/actionneurs",
+      "icons": [{ "src": "/static/img/icon-96.png", "sizes": "96x96" }]
+    }
+  ]
+}

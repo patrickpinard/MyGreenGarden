@@ -1,0 +1,52 @@
+[Unit]
+Description=MyGreenGarden V7 — Contrôleur de serre automatisé
+Documentation=https://serre.ppdlab.ch
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=mgg
+Group=mgg
+WorkingDirectory=/opt/mygreengarden
+EnvironmentFile=/opt/mygreengarden/.env
+
+# Démarrage via uvicorn (1 seul worker — SQLite async)
+ExecStart=/opt/mygreengarden/.venv/bin/uvicorn mygreengarden.main:app \
+    --host 127.0.0.1 \
+    --port 8000 \
+    --workers 1 \
+    --log-level info \
+    --no-access-log
+
+# Arrêt propre : laisser 10s pour finir les arrosages en cours
+TimeoutStopSec=10
+KillMode=mixed
+KillSignal=SIGTERM
+
+# Redémarrage automatique en cas d'erreur
+Restart=on-failure
+RestartSec=10s
+
+# Logs centralisés dans journald
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=mygreengarden
+
+# ── Sécurité minimale compatible GPIO/I2C ──────────────────────────────────
+# (Sandboxing strict incompatible avec l'accès aux périphériques Pi)
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+# Lecture seule sauf répertoires applicatifs
+ReadWritePaths=/opt/mygreengarden/data /opt/mygreengarden/logs
+# Accès aux devices GPIO, I2C, SPI
+DeviceAllow=/dev/gpiomem rw
+DeviceAllow=/dev/i2c-* rw
+DeviceAllow=/dev/spidev* rw
+DeviceAllow=char-* rw
+
+[Install]
+WantedBy=multi-user.target

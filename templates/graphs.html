@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% block title %}Graphiques — Ma Serre{% endblock %}
+{% block page_title %}Graphiques{% endblock %}
+{% block page_subtitle %}Historique des mesures{% endblock %}
+
+{% block content %}
+<div class="h-4"></div>
+
+<!-- Sélecteur de période + export -->
+<div class="mb-4 flex items-center gap-2 overflow-x-auto pb-1">
+  {% for p, label in [('1h','1h'),('6h','6h'),('24h','24h'),('7j','7j'),('30j','30j')] %}
+  <button onclick="loadCharts('{{ p }}')"
+          id="btn-{{ p }}"
+          class="period-btn flex-shrink-0 rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wide transition
+                 {% if p == '24h' %}border-teal-600 bg-teal-600 text-white
+                 {% else %}border-slate-200 bg-white text-slate-700 hover:border-teal-400 hover:text-teal-600{% endif %}">
+    {{ label }}
+  </button>
+  {% endfor %}
+  <a id="export-btn" href="/api/history/export?period=24h"
+     class="ml-auto flex flex-shrink-0 items-center gap-1 rounded-full border border-slate-200 px-4 py-1.5
+            text-xs font-semibold uppercase tracking-wide text-slate-700 transition
+            hover:border-teal-400 hover:text-teal-600">
+    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+    </svg>
+    CSV
+  </a>
+</div>
+
+<!-- Onglets -->
+<div class="mb-4 flex gap-1 rounded-2xl bg-slate-100 p-1">
+  {% for key, icon, label in [
+    ('temp',  'M10 13.5V4a2 2 0 114 0v9.5a5 5 0 11-4 0z', 'Températures'),
+    ('moist', 'M12 2c-5.33 4.55-8 8.48-8 11.8a8 8 0 0016 0c0-3.32-2.67-7.25-8-11.8z', 'Humidité sol'),
+    ('wind',  'M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2', 'Vent'),
+    ('stats', 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', 'Stats'),
+  ] %}
+  <button onclick="showTab('{{ key }}')" id="tab-{{ key }}"
+          class="tab-btn flex flex-1 items-center justify-center gap-1.5 rounded-xl px-1 py-2 text-xs font-medium transition
+                 {% if key == 'temp' %}bg-white text-sky-700 shadow-sm{% else %}text-slate-500{% endif %}">
+    <svg class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="{{ icon }}"/>
+    </svg>
+    <span class="hidden sm:inline">{{ label }}</span>
+  </button>
+  {% endfor %}
+</div>
+
+<!-- Panel Températures -->
+<div id="panel-temp" class="tab-panel card p-5">
+  <h2 class="mb-4 text-lg font-semibold text-slate-900">Températures (°C)</h2>
+  <div id="chart-temperatures" style="min-height: 240px;"></div>
+</div>
+
+<!-- Panel Humidité sol -->
+<div id="panel-moist" class="tab-panel card p-5 hidden">
+  <h2 class="mb-4 text-lg font-semibold text-slate-900">Humidité sol (%)</h2>
+  <div id="chart-moisture" style="min-height: 240px;"></div>
+</div>
+
+<!-- Panel Vent -->
+<div id="panel-wind" class="tab-panel card p-5 hidden">
+  <h2 class="mb-4 text-lg font-semibold text-slate-900">Vitesse du vent (km/h)</h2>
+  <div id="chart-wind" style="min-height: 220px;"></div>
+</div>
+
+<!-- Panel Stats -->
+<div id="panel-stats" class="tab-panel card p-5 hidden">
+  <h2 class="mb-4 text-lg font-semibold text-slate-900">Statistiques de la période</h2>
+  <div class="grid grid-cols-2 gap-3">
+    <div class="rounded-xl border border-orange-100 bg-orange-50 p-4 text-center">
+      <p class="text-xs uppercase tracking-wide text-slate-500">T° max intérieur</p>
+      <p class="mt-1 text-3xl font-semibold text-orange-600" id="stat-temp-max">—</p>
+    </div>
+    <div class="rounded-xl border border-sky-100 bg-sky-50 p-4 text-center">
+      <p class="text-xs uppercase tracking-wide text-slate-500">T° min intérieur</p>
+      <p class="mt-1 text-3xl font-semibold text-sky-600" id="stat-temp-min">—</p>
+    </div>
+    <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-4 text-center">
+      <p class="text-xs uppercase tracking-wide text-slate-500">Humidité sol moy.</p>
+      <p class="mt-1 text-3xl font-semibold text-emerald-700" id="stat-moist-avg">—</p>
+    </div>
+    <div class="rounded-xl border border-sky-100 bg-sky-50 p-4 text-center">
+      <p class="text-xs uppercase tracking-wide text-slate-500">Vent max</p>
+      <p class="mt-1 text-3xl font-semibold text-sky-600" id="stat-wind-max">—</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/charts.js"></script>
+<script>
+  let charts = {};
+  let currentPeriod = '24h';
+  let currentTab = 'temp';
+
+  function showTab(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('bg-white', 'text-sky-700', 'shadow-sm');
+      b.classList.add('text-slate-500');
+    });
+    document.getElementById(`panel-${name}`).classList.remove('hidden');
+    const btn = document.getElementById(`tab-${name}`);
+    btn.classList.remove('text-slate-500');
+    btn.classList.add('bg-white', 'text-sky-700', 'shadow-sm');
+    currentTab = name;
+    const keyMap = { temp: 'temp', moist: 'moist', wind: 'wind' };
+    if (keyMap[name] && charts[keyMap[name]]) {
+      setTimeout(() => charts[keyMap[name]].updateOptions({}), 50);
+    }
+  }
+
+  function loadCharts(period) {
+    currentPeriod = period;
+    document.querySelectorAll('.period-btn').forEach(btn => {
+      const active = btn.id === `btn-${period}`;
+      btn.classList.toggle('bg-teal-600',   active);
+      btn.classList.toggle('text-white',    active);
+      btn.classList.toggle('border-teal-600', active);
+      btn.classList.toggle('bg-white',      !active);
+      btn.classList.toggle('text-slate-700',!active);
+      btn.classList.toggle('border-slate-200',!active);
+    });
+    document.getElementById('export-btn').href = `/api/history/export?period=${period}`;
+
+    fetch(`/api/history?period=${period}`)
+      .then(r => r.json())
+      .then(data => {
+        if (!data.data || data.data.length === 0) return;
+        renderAllCharts(data.data);
+      })
+      .catch(err => console.error('Erreur graphiques:', err));
+  }
+
+  function _fmtLabel(ts) {
+    const d = new Date(ts);
+    if (currentPeriod === '30j') {
+      return d.toLocaleDateString('fr-CH', { day: '2-digit', month: '2-digit' });
+    } else if (currentPeriod === '7j') {
+      return d.toLocaleString('fr-CH', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+    } else {
+      return d.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit' });
+    }
+  }
+
+  function renderAllCharts(rows) {
+    const labels = rows.map(r => _fmtLabel(r.timestamp));
+
+    const baseOpts = (series, colors, yTitle, yMin, yMax) => ({
+      series,
+      chart: {
+        type: 'line', height: 240,
+        toolbar: { show: true, tools: { download: false, pan: true, zoom: true, reset: true } },
+        animations: { enabled: false },
+        fontFamily: 'Inter, system-ui, sans-serif',
+      },
+      stroke: { curve: 'smooth', width: 2 },
+      colors,
+      xaxis: {
+        categories: labels,
+        labels: { show: labels.length < 100, rotate: -30, style: { fontSize:'10px', colors:'#94a3b8' } },
+        axisBorder: { show: false }, axisTicks: { show: false },
+        tickAmount: Math.min(8, labels.length),
+      },
+      yaxis: {
+        title: { text: yTitle, style: { fontSize:'11px', color:'#94a3b8' } },
+        labels: { style: { fontSize:'11px', colors:'#94a3b8' } },
+        min: yMin, max: yMax,
+      },
+      grid: { borderColor: '#f1f5f9', strokeDashArray: 4 },
+      legend: { position: 'top', fontSize: '12px' },
+      tooltip: { x: { format:'dd.MM HH:mm' }, shared: true, intersect: false },
+      markers: { size: 0 },
+    });
+
+    destroyChart('chart-temperatures');
+    charts['temp'] = new ApexCharts(
+      document.getElementById('chart-temperatures'),
+      baseOpts(
+        [
+          { name:'T° intérieur', data: rows.map(r => parseFloat(r.temp_inside.toFixed(1))) },
+          { name:'T° extérieur', data: rows.map(r => parseFloat(r.temp_outside.toFixed(1))) },
+        ],
+        ['#f97316','#0ea5e9'], '°C', null, null
+      )
+    );
+    charts['temp'].render();
+
+    destroyChart('chart-moisture');
+    charts['moist'] = new ApexCharts(
+      document.getElementById('chart-moisture'),
+      baseOpts(
+        [
+          { name:'Zone 1', data: rows.map(r => parseFloat(r.moisture_zone1.toFixed(1))) },
+          { name:'Zone 2', data: rows.map(r => parseFloat(r.moisture_zone2.toFixed(1))) },
+        ],
+        ['#10b981','#3b82f6'], '%', 0, 100
+      )
+    );
+    charts['moist'].render();
+
+    const windData = rows.map(r => parseFloat(r.wind_speed.toFixed(1)));
+    const windMax  = Math.max(40, Math.ceil(Math.max(...windData) / 10) * 10);
+    const windOpts = baseOpts(
+      [{ name:'Vent', data: windData }],
+      ['#0ea5e9'], 'km/h', 0, windMax
+    );
+    windOpts.chart.height = 220;
+    windOpts.chart.type = 'area';
+    windOpts.fill = { type:'gradient', gradient:{ shadeIntensity:1, opacityFrom:0.3, opacityTo:0.05 } };
+    windOpts.dataLabels = { enabled: false };
+    destroyChart('chart-wind');
+    charts['wind'] = new ApexCharts(document.getElementById('chart-wind'), windOpts);
+    charts['wind'].render();
+
+    const temps  = rows.map(r => r.temp_inside);
+    const moists = rows.map(r => (r.moisture_zone1 + r.moisture_zone2) / 2);
+    const winds  = rows.map(r => r.wind_speed);
+    setVal('stat-temp-max',  Math.max(...temps).toFixed(1)  + ' °C');
+    setVal('stat-temp-min',  Math.min(...temps).toFixed(1)  + ' °C');
+    setVal('stat-moist-avg', (moists.reduce((a,b)=>a+b,0)/moists.length).toFixed(0) + ' %');
+    setVal('stat-wind-max',  Math.max(...winds).toFixed(1)  + ' km/h');
+
+    showTab(currentTab);
+  }
+
+  function destroyChart(id) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+  }
+
+  loadCharts('24h');
+</script>
+{% endblock %}

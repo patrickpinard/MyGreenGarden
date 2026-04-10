@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}Paramètres — Ma Serre{% endblock %}
+{% block page_title %}Paramètres{% endblock %}
+{% block page_subtitle %}Configuration des seuils{% endblock %}
+
+{% block content %}
+<div class="h-4"></div>
+
+<form id="params-form" class="space-y-4">
+
+  <!-- Température -->
+  <div class="card p-5">
+    <h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-900">
+      <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-orange-100">
+        <img src="/static/img/icons/temperature.svg" class="h-5 w-5" alt="" draggable="false">
+      </span>
+      Température
+    </h2>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">
+          Seuil max (jour) °C
+        </label>
+        <input type="number" name="TEMP_MAX_THRESHOLD" step="0.5"
+               value="{{ config.TEMP_MAX_THRESHOLD.value if config.TEMP_MAX_THRESHOLD else 35 }}"
+               class="param-input mt-1 w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5
+                      text-base text-slate-900 placeholder:text-slate-400
+                      focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200">
+        <p class="mt-1 text-xs text-slate-500">→ ventilation ON</p>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">
+          Seuil min (jour) °C
+        </label>
+        <input type="number" name="TEMP_MIN_THRESHOLD" step="0.5"
+               value="{{ config.TEMP_MIN_THRESHOLD.value if config.TEMP_MIN_THRESHOLD else 30 }}"
+               class="param-input mt-1 w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5
+                      text-base text-slate-900 placeholder:text-slate-400
+                      focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200">
+        <p class="mt-1 text-xs text-slate-500">→ ventilation OFF</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Humidité sol -->
+  <div class="card p-5">
+    <h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-900">
+      <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100">
+        <img src="/static/img/icons/humidity.svg" class="h-5 w-5" alt="" draggable="false">
+      </span>
+      Humidité sol — Seuils d'arrosage
+    </h2>
+    <div class="space-y-4">
+      {% for zone, key_thr, key_time in [
+          ('1','MOISTURE_THRESHOLD_ZONE_1','WATERING_TIME_ZONE_1'),
+          ('2','MOISTURE_THRESHOLD_ZONE_2','WATERING_TIME_ZONE_2'),
+      ] %}
+      <div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+        <p class="mb-3 text-sm font-medium text-slate-700">Zone {{ zone }}</p>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Seuil d'arrosage (%)
+            </label>
+            <input type="number" name="{{ key_thr }}" min="0" max="100"
+                   value="{{ config[key_thr].value if key_thr in config else 65 }}"
+                   class="param-input mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5
+                          text-base text-slate-900
+                          focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Durée arrosage (sec)
+            </label>
+            <input type="number" name="{{ key_time }}" min="10" max="3600"
+                   value="{{ config[key_time].value if key_time in config else 300 }}"
+                   class="param-input mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5
+                          text-base text-slate-900
+                          focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200">
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Vent & Automation -->
+  <div class="card p-5">
+    <h2 class="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-900">
+      <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-100">
+        <img src="/static/img/icons/anemometer.svg" class="h-5 w-5" alt="" draggable="false">
+      </span>
+      Vent & Automation
+    </h2>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Limite vent (km/h)
+        </label>
+        <input type="number" name="WINDSPEED_LIMIT" step="1"
+               value="{{ config.WINDSPEED_LIMIT.value if config.WINDSPEED_LIMIT else 40 }}"
+               class="param-input mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5
+                      text-base text-slate-900
+                      focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200">
+        <p class="mt-1 text-xs text-slate-500">→ alerte email</p>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Intervalle cycle (sec)
+        </label>
+        <input type="number" name="AUTOMATION_INTERVAL" min="60" max="3600" step="60"
+               value="{{ config.AUTOMATION_INTERVAL.value if config.AUTOMATION_INTERVAL else 900 }}"
+               class="param-input mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5
+                      text-base text-slate-900
+                      focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200">
+        <p class="mt-1 text-xs text-slate-500">Default : 900s (15 min)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton sauvegarde -->
+  <button type="button" onclick="saveParams()"
+          class="w-full rounded-2xl bg-teal-500 py-2.5 text-base font-semibold text-white
+                 shadow-lg shadow-sky-100 transition hover:bg-teal-400
+                 focus:outline-none focus:ring-2 focus:ring-teal-200 active:scale-95">
+    Sauvegarder les paramètres
+  </button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function saveParams() {
+    const inputs = document.querySelectorAll('.param-input');
+    const data = {};
+    inputs.forEach(inp => {
+      if (inp.name) {
+        if (inp.type === 'checkbox') {
+          data[inp.name] = inp.checked ? 'true' : 'false';
+        } else {
+          data[inp.name] = inp.value;
+        }
+      }
+    });
+
+    fetch('/api/config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    .then(r => r.json())
+    .then(() => showToast('✓ Paramètres sauvegardés'))
+    .catch(() => showToast('❌ Erreur lors de la sauvegarde'));
+  }
+</script>
+{% endblock %}
