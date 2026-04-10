@@ -37,8 +37,9 @@ class ADC:
         if SIMULATION:
             return random.randint(800, 3000)
         try:
-            data = self._bus.read_i2c_block_data(self.address, channel, 2)
-            return ((data[0] & 0x0F) << 8) | data[1]
+            reg = 0x10 + channel   # Grove 8-Ch ADC (STM32F030) : registre 0x10..0x17
+            data = self._bus.read_i2c_block_data(self.address, reg, 2)
+            return (data[0] << 8) | data[1]
         except Exception as e:
             logger.error(f"Erreur lecture ADC ch{channel}: {e}")
             return 0
