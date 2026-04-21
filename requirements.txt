@@ -15,7 +15,7 @@ aiosqlite==0.20.0              # support async SQLite (optionnel)
 
 # --- Configuration / Sécurité ---
 pydantic-settings==2.5.2       # chargement .env
-python-dotenv==1.0.1
+python-dotenv==1.2.2
 bcrypt==4.2.0                  # hash du code PIN
 passlib[bcrypt]==1.7.4
 
