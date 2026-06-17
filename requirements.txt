@@ -4,7 +4,7 @@
 # --- Serveur web ---
 fastapi==0.115.0
 uvicorn[standard]==0.30.6
-python-multipart==0.0.9        # pour les formulaires HTML
+python-multipart==0.0.31        # pour les formulaires HTML
 jinja2==3.1.4                  # templates HTML
 itsdangerous==2.2.0            # signature sécurisée des cookies de session
 starlette==0.38.6
