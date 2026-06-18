@@ -24,7 +24,7 @@ apscheduler==3.10.4            # scheduler pour automatisation + arrosage planif
 
 # --- Notifications push (PWA iOS) ---
 pywebpush==2.0.0               # Web Push API (VAPID)
-cryptography==43.0.1           # dépendance pywebpush
+cryptography==48.0.1           # dépendance pywebpush
 
 # --- Email ---
 # (stdlib smtplib utilisé, pas de dépendance externe)
